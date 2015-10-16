@@ -31,7 +31,9 @@ if ($type=='checkIfExist') {
 }
 
 if ($type == 'addKid') {
-
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
