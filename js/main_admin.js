@@ -806,7 +806,6 @@ else {
             //prepare action when event has been clicked
     eventClick: function (event, jsEvent, view, resources) {
 
-
                 //human readable values inside modal form, so we changing format
                 var starttime = $.fullCalendar.moment(event.start).format('HH:mm');
                 var endtime = $.fullCalendar.moment(event.end).format('HH:mm');
@@ -855,9 +854,6 @@ else {
                         }
                         $("label[for='checkRepeatsLabel']").html("<strong>" + checkrepeats + "</strong>");
                         $('#deleteBreakeModal').modal('show');
-
-
-
 
                         //fix for looping when add second third etc.. event
                         $('#deleteBreakConfirmSubmitButton').off('click');
@@ -983,7 +979,6 @@ else {
 
 
                     }
-
 
                     document.getElementById('previewDescriptionButtons').style.display = 'none';
                     $('#preview-description').prop("readonly", true);
@@ -1194,7 +1189,6 @@ else {
 
                     });
 
-
                     var editStartTime = $.fullCalendar.moment(event.start).format('HH:mm');
                     var editEndTime = $.fullCalendar.moment(event.end).format('HH:mm');
                     //modify button clicked
@@ -1203,7 +1197,6 @@ else {
                     $('#edit-submitButton').on('click', function () {
 
                         $('#previewEventModal').modal('hide');
-
 
                         //put values to modal
                         $('#editEventModal #edit-title').val(event.title);
@@ -1243,8 +1236,6 @@ else {
                                 $('#edit-confirm-submitButton').prop('disabled', false);
                                 $('#editOverhours').prop('disabled', false);
                             });
-
-
                         }
                         else
                         {
@@ -1252,10 +1243,7 @@ else {
                             $('#edit-confirm-submitButton').prop('disabled',false);
                         }
 
-
                         $('#editEventModal').modal('show');
-
-
 
                     });
                     // todo:not working need to provide switching enable disable button when start/end time is changed
@@ -1267,12 +1255,7 @@ else {
                      //   $('#edit-confirm-submitButton').prop('disabled', false);
 
                     //});
-                
-
                     //todo: check if start time is not smaller that end time
-
-
-
 
                     $('#edit-confirm-submitButton').off('click');
                     $('#edit-confirm-submitButton').on('click', function (e) {
@@ -1502,9 +1485,6 @@ else {
                             $('#cancelEventModal').modal('hide');
                         });
 
-
-
-
                     })
                     //we can revert cancel event by clicking cancel cancel button
                     //click cancel event action
@@ -1565,11 +1545,7 @@ else {
 
             $('input[name="editOverhours"]').prop('checked', false);
         }
-
-
-
             $('#editEventModal').modal('show');
-
 
             $('#edit-confirm-submitButton').off('click');
             $('#edit-confirm-submitButton').on('click', function() {
@@ -1867,10 +1843,9 @@ else {
     eventRender: function (event, element) {
 
         /***************************************************************************************************************
-         * enable draggoption for touch devices
-         * TODO: add delay to drag
+         * enable dragg option for touch devices
+         *
          ***************************************************************************************************************/
-
         $(element).addTouch();
 
             //disable moving break for now :)
@@ -1913,24 +1888,21 @@ else {
 
             }
             //red border should appear only when event is created and it has description
-            //"!= null" -- this does not work probably afteradding new event there is emptytext but not null
+            //"!= null" -- this does not work probably after adding new event there is empty text but not null
             else if (event.description != '')
             {
                 element.css('border-color', '#ff000f');
 
             }
 
-
-
         //to have more readable events and see spaces between events in column wee add small margin to events
         $(element).css("margin-bottom", "2px");
 
-        //experimaental right click menu
+        /**************************************************************************************************************
+         * highlight all events titile to blue with the same title when event is pressed longer.
+         **************************************************************************************************************/
         element.bind('taphold', function (e) {
-           // $('#calendar').fullCalendar("rerenderEvents");
-           // if (e.which == 3) {
 
-                //alert('Right mouse button pressed');
                 //get day viewed
                 var currentViewDate = $('#calendar').fullCalendar('getDate')
 
@@ -1938,10 +1910,7 @@ else {
                     //get list of events for displayed day
                     if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
                         return true;
-
                     }
-
-
                 });
 
                 //search events with the same title as event where is mouse over
@@ -1949,19 +1918,14 @@ else {
 
                     if (events[i].title == event.title) {
                         events[i].textColor = 'blue'
-                        console.log(event.title)
-
-
                     }
                     else{
                         events[i].textColor = ''
                     }
-
-
                 }
                 $('#calendar').fullCalendar("rerenderEvents");
 
-           // }
+
         });
 
         }
@@ -1980,13 +1944,6 @@ else {
 
         });
     }, 1000);
-
-
-    /**********************for changing view begin**************************/
-
-
-
-
 
     /*********************************************autocomplete for title start ***********************/
 
