@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset='utf8'/>
+
+    <title>Kalendarz indywidualny</title>
+    <link href="css/fullcalendar.css" rel="stylesheet"/>
+    <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
+    <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="css/bootstrap-multiselect.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/select2.min.css" rel="stylesheet">
+    <link href="css/select2-bootstrap.css" rel="stylesheet">
+    <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
+    <script src="js/jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/fullcalendar.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-clockpicker.min.js"></script>
+    <script src='js/lang-all.js'></script>
+    <script src='js/bootstrap-dialog.js'></script>
+    <!--<script src='js/jquery.ui.touch.js'></script>-->
+    <script src="js/plansForKids-user.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <!--<script src="js/validator.min.js"></script>-->
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker-pl.min.js"></script>
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="js/bootstrap-multiselect.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/select2.full.min.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            padding-top: 15px;
+            font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+            /*font-size: 14px;*/
+        }
+        #calendar-user {
+            width: 100%;
+            margin: 40px auto;
+            /*height: 400px;*/
+        }
+        #calendar-user .current_entry
+        {
+            border-color: #ff0000;
+            border-width: 4px;
+            z-index: 100 !important;
+        }
+
+        input[readonly] {
+            cursor: default;
+        }
+        .modal-header{
+            height:30px;
+            padding:4px;
+        }
+        .navbar-brand{
+
+            padding: 4px;
+        }
+        .fc-slats td{
+            height: 2.5em;
+        }
+        h2{
+            font-size: 20px;
+        }
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" src="images/OREW_logo.png" class="img-rounded">
+            </a>
+
+        </div>
+        <div class="navbar-form navbar-left">
+
+            <button type="button" class="btn btn-default" id="customDateButton">
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span> Data
+            </button>
+
+            <div class="input-group">
+                <select id="selectKids" name="selectKids" style="width: 200px" >
+                </select>
+            <span class="input-group-btn">
+                <button id="selectKids-button" class="btn btn-primary">Wyświetl plan</button>
+            </span>
+            </div>
+
+            <button type="button" class="btn btn-default" id="printButton">
+                <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Drukuj
+            </button>
+
+        </div>
+        <div class="navbar-form navbar-right">
+            <div class="btn-group" role="group">
+                <a href="/user.html" role="button" class="btn btn-default">K. ogólny</a>
+                <a href="#" role="button" class="btn btn-default active">K. dziecka</a>
+            </div>
+            <button type="button" class="btn btn-default" id="optionButton">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>
+            </button>
+            <button type="button" class="btn btn-default" id="aboutButton">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span>
+            </button>
+
+        </div>
+
+    </div>
+</nav>
+<!-- page view-->
+<div id="calendar-user"></div>
+
+
+</body>
+</html>

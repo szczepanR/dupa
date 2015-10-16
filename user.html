@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Kalendarz - strona użytkownika</title>
+
+    <meta charset='utf8'/>
+
+    <link href="css/fullcalendar.css" rel="stylesheet"/>
+    <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
+    <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <!--<link href="css/bootstrap-clockpicker.min.css" rel="stylesheet"/>-->
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="css/bootstrap-multiselect.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/toastr.min.css" rel="stylesheet">
+    <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
+    <script src="js/jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/fullcalendar-user.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <!--<script src="js/bootstrap-clockpicker.min.js"></script>-->
+    <script src='js/lang-all.js'></script>
+    <script src='js/bootstrap-dialog.js'></script>
+    <script src="js/main_user.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <!--<script src="js/validator.min.js"></script>-->
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker-pl.min.js"></script>
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="js/bootstrap-multiselect.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="js/ion.sound.min.js"></script>
+    <script src="js/jquery.ui.touch.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            padding-top: 15px;
+            font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+            /*font-size: 14px;*/
+        }
+        #calendar {
+            width: 100%;
+            margin: 40px auto;
+            /*height: 400px;*/
+        }
+        #calendar .current_entry
+        {
+            border-color: #ff0000;
+            border-width: 4px;
+            z-index: 100 !important;
+        }
+
+        input[readonly] {
+            cursor: default;
+        }
+        .modal-header{
+            height:30px;
+            padding:4px;
+        }
+        .navbar-brand{
+
+            padding: 4px;
+        }
+        .fc-slats td{
+            height: 2.5em;
+        }
+        h2{
+            font-size: 20px;
+        }
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" src="images/OREW_logo.png" class="img-rounded">
+            </a>
+
+        </div>
+        <div class="navbar-form navbar-left">
+
+            <button type="button" class="btn btn-default" id="customDateButton">
+                <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span> Data
+            </button>
+
+
+            <button id="selectView-refresh" class="btn btn-default">
+                <span class="glyphicon glyphicon-repeat" aria-hidden="true" ></span> Odśwież widok</button>
+
+            <div class="btn-group">
+                <select id="selectResource" name="multiselect[]" multiple="multiple">
+                </select>
+
+            </div>
+
+            <button type="button" class="btn btn-default" id="printButton">
+                <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Drukuj
+            </button>
+
+        </div>
+        <div class="navbar-form navbar-right">
+            <div class="btn-group" role="group">
+                <a href="#" role="button" class="btn btn-default active ">K. ogólny</a>
+                <a href="/plansForKids-user.html" role="button" class="btn btn-default">K. dziecka</a>
+            </div>
+            <button class="btn btn-default" type="button">
+                Wiadomości <span class="badge" id="messagesCount"></span>
+            </button>
+            <button type="button" class="btn btn-default" id="optionButton">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>
+            </button>
+            <button type="button" class="btn btn-default" id="aboutButton">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span>
+            </button>
+
+        </div>
+
+</div>
+</nav>
+<!-- page view-->
+<div id="calendar"></div>
+
+<!--****************************************** modal window for preview event start**********************************-->
+<div id="previewEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="previewmyModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="previewmyModalLabel1" class="modal-title">Podgląd zajęć</h4>
+            </div>
+            <div class="modal-body">
+                <form id="previewAppointmentForm">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="preview-title">Imię i nazwisko dziecka</label>
+                                    <input type="text" name="preview-title" class="form-control" id="preview-title"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="preview-resourceID">Terapeuta</label>
+                                    <input type="text" name="preview-resourceID" class="form-control" id="preview-resourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="preview-event-date">Data</label>
+                                    <input type="text" name="preview-event-date" class="form-control" id="preview-event-date"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="preview-start-time">Początek zajęć</label>
+                                    <input type="text" name="preview-start-time" class="form-control" id="preview-start-time"
+                                           readonly="readonly">
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="preview-end-time">Koniec zajęć</label>
+                                    <input type="text" name="preview-end-time" class="form-control" id="preview-end-time"
+                                           readonly="readonly">
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="radio" name="previewOverhours" id="previewOverhours" disabled="disabled"/>
+                                        <label for="previewOverhours">Nadgodziny</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="preview-description">Notatki</label>
+                                    <div id="previewDescriptionButtons">
+                                        <button type="button" class="btn btn-default" aria-label="ok" id="previewDescriptionButtonOK">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" aria-label="cancel" id="previewDescriptionButtonCancel">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+
+                                    </div>
+                                    <textarea class="form-control" name="preview-description" id="preview-description"
+                                              readonly="readonly" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <button type="submit" class="btn btn-warning" id="cancelSubmitButton">Odwołaj</button>
+                    <button type="submit" class="btn btn-warning" id="cancelCancelSubmitButton">Anuluj odwołanie</button>
+                </div>
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+                <button type="submit" class="btn btn-primary" id="edit-submitButton">Modyfikuj</button>
+                <button type="submit" class="btn btn-danger" id="delete-submitButton">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**************************************** modal window for preview event end**************************************-->
+<!--****************************************** modal window for cancel event start**********************************-->
+<div id="cancelEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cancelmyModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="cancelmyModalLabel1" class="modal-title">Odwołanie zajęć</h4>
+            </div>
+            <div class="modal-body">
+                <form id="cancelAppointmentForm">
+                    <div class="container-fluid">
+                        <div class="span11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="cancelOptions" id="cancelChildEvent" value="cancelSingle"
+                                           checked="checked">
+                                    <label for="cancelChildEvent"> Odwołaj tylko te zajęcia</label>
+                                </div>
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="cancelOptions" id="cancelEventsFromDay"
+                                           value="cancelAllFromDay">
+                                    <label for="cancelEventsFromDay"> Odwołaj wszystkie zajęcia z tego dnia (dziecko
+                                        nieobecne cały dzień)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="cancelDescription">Przyczyna odwołania:(nie trzeba podawać, do opisu zostanie dodany "NB")</label>
+                                    <textarea class="form-control" name="cancelDescription" id="cancelDescription"
+                                              rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+                <button type="submit" class="btn btn-danger" id="cancelConfirmSubmitButton">Odwołaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**************************************** modal window for cancel event end**************************************-->
+<!--****************************** modal window for editing event start**********************************************-->
+<div id="editEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="editmyModalLabel1" class="modal-title">Edycja zajęć</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="edit-title">Imię i nazwisko dziecka</label>
+                                    <input type="text" name="edit-title" class="form-control" id="edit-title">
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="edit-resourceID">Terapeuta</label>
+                                    <input type="text" name="edit-resourceID" class="form-control" id="edit-resourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="edit-event-date">Data</label>
+                                    <input type="text" name="edit-event-date" class="form-control" id="edit-event-date"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="edit-start-time">Początek zajęć</label>
+
+                                    <div class="input-group date" id="edit-start-time-div">
+                                        <input type="text" class="form-control" id="edit-start-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="edit-end-time">Koniec zajęć</label>
+
+                                    <div class="input-group date" id="edit-end-time-div">
+                                        <input type="text" class="form-control" id="edit-end-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="editOverhours" id="editOverhours"/>
+                                        <label for="editOverhours">Nadgodziny</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="edit-description">Notatki</label>
+                                    <textarea class="form-control" name="edit-description" id="edit-description"
+                                              rows="3" readonly="true"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="edit-close-submitButton">Zamknij</button>
+                <button type="submit" class="btn btn-success" id="edit-confirm-submitButton">Zachowaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- *********************************************modal window for editing event end*********************************-->
+
+
+</body>
+</html>

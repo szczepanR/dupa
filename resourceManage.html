@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf8'/>
+
+    <title>Strona zarządzania terapeutami</title>
+    <link href="css/fullcalendar.css" rel="stylesheet"/>
+    <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
+    <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="css/bootstrap-multiselect.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker-pl.min.js"></script>
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="js/bootstrap-multiselect.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-pl-PL.min.js"></script>
+    <script src="js/main_resourceManage.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            padding-top: 60px;
+            font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+            /*font-size: 14px;*/
+        }
+        #calendar {
+            width: 100%;
+            margin: 40px auto;
+            /*height: 400px;*/
+        }
+        #calendar .current_entry
+        {
+            border-color: #ff0000;
+            border-width: 4px;
+            z-index: 100 !important;
+        }
+
+        input[readonly] {
+            cursor: default;
+        }
+        .modal-header{
+            height:30px;
+            padding:4px;
+        }
+        .navbar-brand{
+
+            padding: 4px;
+        }
+        .fc-slats td{
+            height: 2.5em;
+        }
+        h2{
+            font-size: 20px;
+        }
+        .w70 {width: 70px !important;}
+        </style>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" src="images/OREW_logo.png" class="img-rounded">
+            </a>
+
+        </div>
+        <div class="navbar-form navbar-left">
+            <button type="button" class="btn btn-success" id="addResourceButton">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Dodaj terapeutę
+            </button>
+
+        </div>
+        <div class="navbar-form navbar-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Panel zarządzania <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu active">
+
+                    <li><a href="/kidManage.html">Zarządzanie dziećmi</a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li class="active"><a href="#">Zarządzanie nauczycielami</a></li>
+                </ul>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/admin.html" role="button" class="btn btn-default">K. ogólny</a>
+                <a href="/plansForKids-user.html" role="button" class="btn btn-default">K. dziecka</a>
+            </div>
+            <button type="button" class="btn btn-default" id="optionButton">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>
+            </button>
+            <button type="button" class="btn btn-default" id="aboutButton">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span>
+            </button>
+
+        </div>
+
+    </div>
+</nav>
+<!-- page view-->
+
+    <div class="container">
+        <div id="toolbar">
+            <div class="form-inline" role="form">
+
+            </div>
+        </div>
+        <table id="resourceTable"
+              data-height="560"
+              data-toolbar="#toolbar"
+              data-show-refresh="true"
+              data-show-toggle="true"
+              data-search="true"
+              data-radio="true"
+              data-show-columns="false">
+            <thead>
+            <tr>
+                <th data-field="resourceid" data-halign="center" data-align="center">ID</th>
+                <th data-field="name" data-halign="center" data-align="center">Imię i Nazwisko</th>
+                <th data-field="workingDays" data-halign="center" data-align="center" >Dni</th>
+                <th data-field="action" data-halign="center" data-align="center">Akcja</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+<!-- page view-->
+
+<!--*********************************modal window for adding new child*********************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+<div id="createResourceModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEvent"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelEvent" class="modal-title">Dodawanie nowego terapeuty</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Imię i Nazwisko</label>
+                                    <input type="text" name="name" class="form-control" id="name" autocomplete="off">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="resourceSort">Kolejność</label>
+                                    <input type="number" name="resourceSort" class="form-control" id="resourceSort" autocomplete="off" min="0" max="20" value="0">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="resourceExistsWarning">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                OOps, nic nie zostało zmienione. Nie ma sensu zajmować czas bazy.
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button type="submit" class="btn btn-success" id="submitAddResourceButton">Dodaj</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--edit resource modal-->
+<div id="editResourceModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEventedit"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelEventedit" class="modal-title">Edycja danych terapeuty</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="editName">Imię i nazwisko</label>
+                                    <input type="text" name="editName" class="form-control" id="editName" autocomplete="off">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="editSort">Kolejność</label>
+                                    <input type="number" name="editSort" class="form-control" id="editSort" autocomplete="off">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="resourceEditExistsWarning">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                Terapeuta o takich danych istnieje w bazie
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button type="submit" class="btn btn-success" id="editResourceSubmitButton">Zmień</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--working days modal-->
+<div id="workingDaysModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelworkingDaysModal"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelworkingDaysModal" class="modal-title">Dni pracujące</h4>
+            </div>
+            <div class="modal-body">
+                <div class="well well-sm">
+                Dni pracujące dla <label for="workingDayLabel" style="display:inline-block"></label>
+                    </div>
+                <form id="workingDaysAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="monday" id="monday" value="0"/>
+                                        <label for="monday">Poniedziałek</label>
+                                    </div>
+                                </div>
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="tuesday" id="tuesday" value="1"/>
+                                        <label for="tuesday">Wtorek</label>
+                                    </div>
+                                </div>
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="wendsday" id="wendsday" value="2"/>
+                                        <label for="wendsday">Środa</label>
+                                    </div>
+                                </div>
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="thursday" id="thursday" value="3"/>
+                                        <label for="thursday">Czwartek</label>
+                                    </div>
+                                </div>
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="friday" id="friday" value="4"/>
+                                        <label for="friday">Piątek</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button type="submit" class="btn btn-success" id="workingDaysSubmitButton">Zmień</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--delete confirmation modal-->
+<div id="deleteResourceModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEventdelete"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-danger">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelEventdelete" class="modal-title">Usuwanie terapeuty z bazy</h4>
+            </div>
+            <div class="modal-body">
+                <form id="deleteAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row hidden" id="resourceDeleteExistsWarning">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Warning:</span>
+                                Terapeuta prowadzi w sumie <label for="eventCountLabel"
+                                                                  style="display:inline-block"></label> zajęć.
+                                Te zajęcia także zostaną usunięte.Napewno usunąć?
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="deleteName">Imię i nazwisko</label>
+                                    <input type="text" name="deleteName" class="form-control" id="deleteName" autocomplete="off" readonly="readonly">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button type="submit" class="btn btn-danger" id="deleteResourceSubmitButton">Usuń</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
