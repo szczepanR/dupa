@@ -291,8 +291,9 @@ function getRadioVal(form, name) {
 
 //experimental right click menu
 $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
+
     e.preventDefault()
-})
+});
     var element = $('#calendar');
 
     var date = new Date();
@@ -351,8 +352,6 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
                 },
 
 
-
- 
 
     //resources filtering taken from github churchdesk/fullcalendar, star
    resourceFilter: function (resource) {

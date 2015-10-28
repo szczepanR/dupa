@@ -2,34 +2,34 @@
  * Created by Sz on 2015-08-11.
  */
 
+function checkIfChildExist(firstname, lastname){
+    var result = null;
+    $.ajax({
+        cache: false,
+        type: "POST",
+        datatype: "json",
+        url: "admin/kidsAdd.php",
+        //async: false, danger, don't know what how it will dangerous!!!!!
+        async: false,
+        data: 'type=checkIfExist'+'&firstName=' + firstname + '&lastName=' + lastname,
+        success: function (response) {
+            result = jQuery.parseJSON(response);
+
+        },
+        error: function (e) {
+            alert('Wystąpił następujący błąd przy sprawdzaniu bazy dzieci' + e.responseText);
+        }
+
+    });
+    return result;
+
+}
 $(document).ready(function() {
 
     var $table = $('#kidsTable');
     var $addChildButton = $('#addChildButton');
     var $submitButton = $('#submitButton');
 
-    function checkIfChildExist(firstname, lastname){
-        var result = null;
-        $.ajax({
-            cache: false,
-            type: "POST",
-            datatype: "json",
-            url: "admin/kidsAdd.php",
-            //async: false, danger, don't know what how it will dangerous!!!!!
-            async: false,
-            data: 'type=checkIfExist'+'&firstName=' + firstname + '&lastName=' + lastname,
-            success: function (response) {
-                result = jQuery.parseJSON(response);
-
-            },
-            error: function (e) {
-                alert('Wystąpił następujący błąd przy sprawdzaniu bazy dzieci' + e.responseText);
-            }
-
-        });
-        return result;
-
-    }
         
       $table.bootstrapTable({
            url: 'admin/kidsManage.php',
@@ -109,6 +109,14 @@ $(document).ready(function() {
 
         });
     });
+    //need add click support for cancel add child to clean formatting to default
+    $('#cancelButton').on('click', function (e) {
+        $('#submitButton').prop('disabled', false);
+        $('#kidExistsWarning').addClass('hidden');
+
+
+    });
+
 //below will be needed to deal with actions like: delete and edit, this mainly has been taken from bootstrap-table example
 
     function operateFormatter(value, row, index) {
@@ -132,32 +140,57 @@ window.operateEvents = {
         $('#editfirstName').val(row.firstname);
         $('#editlastName').val(row.lastname);
         $('#editSubmitButton').off('click');
-        //click submit button to add new child
+        //click submit button to edit child
         $('#editSubmitButton').on('click', function (e) {
             e.preventDefault();
             var firstname = $('#editfirstName').val();
             var lastname = $('#editlastName').val();
-            $.ajax({
-                cache: false,
-                type: "POST",
-                datatype: "json",
-                url: "admin/kidsAdd.php",
-                data: 'type=editkid' + '&firstname=' + firstname +'&lastname=' + lastname + '&ID=' + row.child_id +'&oldfirstname=' + row.firstname +'&oldlastname=' + row.lastname,
-                success: function () {
-                    $('#editChildModal').modal('hide');
-                    $('#kidsTable').bootstrapTable('refresh');
 
-                },
-                error: function () {
-                    alert('Wystąpił następujący błąd przy sprawdzaniu bazy terapeutów');
-                }
+            var test = checkIfChildExist(firstname, lastname);
 
+            $('#editlastName').keyup(function () {
+
+                $('#kidExistsWarningEdit').addClass('hidden');
+                $('#editSubmitButton').prop('disabled', false);
             });
+            //check if kid is already in DB
+            if (test == 'exists') {
+                $('#kidExistsWarningEdit').removeClass('hidden');
+                $('#editSubmitButton').prop('disabled', true);
 
+            }
+            else
+            {
 
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    datatype: "json",
+                    url: "admin/kidsAdd.php",
+                    data: 'type=editkid' + '&firstname=' + firstname + '&lastname=' + lastname + '&ID=' + row.child_id + '&oldfirstname=' + row.firstname + '&oldlastname=' + row.lastname,
+                    success: function () {
+                        $('#editChildModal').modal('hide');
+                        $('#kidsTable').bootstrapTable('refresh');
+
+                    },
+                    error: function () {
+                        alert('Wystąpił następujący błąd przy sprawdzaniu bazy terapeutów');
+                    }
+
+                });
+
+        }
 
 
         })
+
+        //need add click support for cancel edit to clean formatting to default
+        $('#editCanceltButton').on('click', function (e) {
+            $('#editSubmitButton').prop('disabled', false);
+            $('#kidExistsWarningEdit').addClass('hidden');
+
+
+        });
 
 
     },

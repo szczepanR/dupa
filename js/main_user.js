@@ -65,7 +65,7 @@ $(document).ready(function(){
     //periodically check if there is change on DB
     var totalcount = 0;
     setInterval(function(){
-        $.ajax({
+        $.ajax({ 
             cache: false,
             type: "POST",
             datatype: "json",
@@ -75,8 +75,7 @@ $(document).ready(function(){
             data: 'type=getInfoFromDb',
             success: function (data) {
                 change = jQuery.parseJSON(data);
-                console.log(change.length);
-                totalcount = totalcount + change.length;
+
                 //$.cookie("totalcount",totalcount + change.length);
 
                 $('#messagesCount').text(totalcount);
@@ -108,6 +107,24 @@ $(document).ready(function(){
             //    alert('Wystąpił następujący błąd przy aktualizacji informacji z bazy danych:' + e.responseText);
             //}
         });
+
+        //get messgaes count
+        $.ajax({
+            cache: false,
+            type: "POST",
+            datatype: "json",
+            url: "admin/process.php",
+            data: 'type=messagesCount',
+            success: function (data2) {
+                messages = jQuery.parseJSON(data2);
+                var count =parseInt(messages.messagesCount);
+                console.log(count);
+                $('#messagesCount').text(count);
+                              
+            }
+
+        });
+        
 
     },30000);
 

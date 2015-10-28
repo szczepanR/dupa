@@ -178,7 +178,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="cancelButton">Anuluj</button>
                         <button type="submit" class="btn btn-success" id="submitButton">Dodaj</button>
                     </div>
                 </form>
@@ -216,10 +216,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row hidden" id="kidExistsWarningEdit">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                Dziecko o takich danych istnieje w bazie
+                            </div>
+
+                        </div>
 
                     </div>
                     <div class="modal-footer">
-                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="editCanceltButton">Anuluj</button>
                         <button type="submit" class="btn btn-success" id="editSubmitButton">Zmień</button>
                     </div>
                 </form>

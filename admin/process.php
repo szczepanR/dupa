@@ -201,23 +201,32 @@ if ($type == 'getInfoFromDb'){
             }
 
         }
-        $dbh->beginTransaction();
-        $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("SELECT COUNT(*) FROM events_history group BY resourceID");
-        $stmt->execute();
-        $dbh->commit();
-        $row2 = $stmt->fetch(PDO::FETCH_ASSOC);
-        $count = $row2['COUNT(*)'];
-        array_push($events,$count);
-        //$firephp->log($events[]);
-        //$events['messageCount'] = $count;
-
         echo json_encode($events);
     }
     catch(Exception $e){
         $firephp->log($e, 'error');
         $dbh->rollback();
     }
+
+}
+
+
+//get count of messages and this will be put to the "badge"
+if ($type == 'messagesCount'){
+    $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbh->beginTransaction();
+    $dbh->query('SET NAMES utf8');
+    $stmt = $dbh->prepare("SELECT COUNT(DISTINCT timedate) FROM events_history");
+    $stmt->execute();
+    $dbh->commit();
+    $messagesCount = array();
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $messagesCount['messagesCount'] = $row['COUNT(DISTINCT timedate)'];
+    //$events['messageCount'] = $count;
+
+    echo json_encode($messagesCount);
+
 
 }
 
