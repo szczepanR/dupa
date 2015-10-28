@@ -1165,7 +1165,7 @@ else {
                                         type: "POST",
                                         datatype: "json",
                                         url: "admin/process.php",
-                                        data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
+                                        data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id +'&event_date=' + eventdate,
                                         success: function (response) {
                                             $('#calendar').fullCalendar('refetchEvents');
 

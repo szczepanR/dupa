@@ -14,11 +14,12 @@ $type = $_POST['type'];
 if ($type == 'delete-all-events'){
     $parent_id = $_POST['parent_id'];
     $event_id = $_POST['event_id'];
+    $event_date = $_POST['event_date'];
 
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $stmt = $dbh->prepare("DELETE FROM events WHERE parent_id='$parent_id'");
+    $stmt = $dbh->prepare("DELETE FROM events WHERE parent_id='$parent_id' AND CONCAT_WS(DATE(start),' ',start)>= CONCAT_WS(DATE(start),' ','$event_date')");
     $stmt2 = $dbh->prepare("DELETE FROM events_parent WHERE parent_id='$parent_id'");
 
 
