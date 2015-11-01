@@ -42,34 +42,50 @@ function getResourceName(resourceID){
 //calendar stuff
 $(document).ready(function(){
 
-    //take resources from db and put them into dropdown
-    //old code
-    /*function loadResources() {
+    /*****************************************************************************************************************
+     *
+     * Start the socket
+     *
+     ****************************************************************************************************************/
 
-        $.ajax({
-            url: "admin/json-resources.php",
-            type: 'GET',
-            //async: false,
-            dataType: 'json',
-            success: function (data) {
-                $.each(data, function(i, resource) {
-                    $("#selectResource").append('<option value="' + resource.id + '"selected="selected" >' + resource.name + '</option>');
-                });
+    var serverIP = '192.168.1.104';
+    var serverPort = '3000';
+    var socket = io.connect('http://'+serverIP+':'+serverPort);
+    socket.connect();
 
-                $('#selectResource').multiselect('rebuild');
-            },
-            error: function(data) {
-                alert(data);
-            }
+    socket.on('message', function(msg){
+        console.log(msg);
+        toastr["info"](msg);
+        ion.sound.play("Facebook");
+        $('#calendar').fullCalendar('refetchEvents');
+    });
+    /*****************************************************************************************************************
+     *
+     * message sending
+     *
+     ****************************************************************************************************************/
+    $('#messagesButton').on('click', function () {
+        $('#messageSubmitButton').prop('disabled', true);
+        $('#messageModal').find('form')[0].reset();
+        $('#messageModal').modal('show');
 
+        $('#author').keyup(function () {
+            $('#messageSubmitButton').prop('disabled', this.value == "" ? true : false);
         });
 
-    }*/
+    });
+    $('#messageSubmitButton').on('click', function () {
+        var sender = $('#author').val();
+        var messageContent = $('#messageContent').val();
+        $('#messageModal').modal('hide');
+        socket.send("Wiadomość od "+ sender +":  "+messageContent);
+
+    });
 
     /**********************************************************************************************************************
      * load resources with specific dates
-     * now is hardcoded
-     * TODO: prepare function to check day of the week and mark as selected or not
+     *
+     *
      *********************************************************************************************************************/
     function loadResources() {
         var actualDate =  moment().format('e');
@@ -213,7 +229,25 @@ $(document).ready(function(){
 
     });
 
-
+//set options for notification window
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 0,
+        "extendedTimeOut": 0,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": true
+    }
     //configure multiselect plugin for view dropdown
     $('#selectView').multiselect({
 
@@ -289,7 +323,7 @@ function getRadioVal(form, name) {
 
 /**********************for checking value checkboxes end**************************/
 
-//experimental right click menu
+//remove action for mouse right click
 $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
 
     e.preventDefault()
@@ -552,8 +586,8 @@ else {
                         $('#submitButton').off('click')
                         //now when click submit on form
                         $('#submitButton').on('click', function (e) {
-
-
+                            //we need title to print it on notification
+                            var title = $('#createEventModal #title').val();
                             //there is problem with pass to php starttime and endtime from form,
                             //need to walkaround , so manually pass these two values to the PHP
                             var starttime2 = $('#createEventModal #start-time').val();
@@ -586,7 +620,7 @@ else {
 
                                         $('#calendar').fullCalendar('unselect');
                                         $('#calendar').fullCalendar('refetchEvents');
-
+                                        socket.send(resourcename+" dodano nowe zajęcia dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
                                     }
 
                                 });
@@ -628,7 +662,8 @@ else {
 
                         //now when click submit on form
                         $('#study-submitButton').on('click', function (e) {
-
+                            //we need title to print it on notification
+                            var title = $('#createStudyModal #studyTitle').val();
                             // We don't want this to act as a link so cancel the link action
                             $("#createStudyModal").modal('hide');
                             //just before sending the form we switching resource name to resource ID
@@ -643,6 +678,7 @@ else {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
                                     $('#calendar').fullCalendar('refetchEvents');
+                                    socket.send(resourcename+" dodano nowe badanie dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
 
                                 }
 
@@ -714,7 +750,7 @@ else {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
                                     $('#calendar').fullCalendar('refetchEvents');
-
+                                    socket.send(resourcename +" masz nową przerwę dniu "+ eventdate +" w godz od"+ starttime +" do " + endtime);
                                 }
 
                             });
@@ -772,6 +808,7 @@ else {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
                                     $('#calendar').fullCalendar('refetchEvents');
+                                    socket.send(leaveresourcename +" nieobecność w dniu "+ leaveeventdate);
 
                                 }
                             });
@@ -877,7 +914,7 @@ else {
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
-                                       // console.log(response);
+                                        socket.send(resourcename+ " Usunięto Twoją przerwę w dniu " +eventdate+" o godzinie " +starttime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -896,6 +933,7 @@ else {
                                     data: 'type=delete-child-event&event_id=' + event_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
+                                        socket.send(resourcename+ " Usunięto Twoją przerwę w dniu " +eventdate+" o godzinie " +starttime);
                                         if (response.status == "success")
                                         //TODO: refetch does not work inside, why??
                                         //$('#calendar').fullCalendar('refetchEvents');
@@ -918,7 +956,7 @@ else {
                                     data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-
+                                        socket.send(resourcename+ " Usunięto Twoją przerwę w dniu " +eventdate+" o godzinie " +starttime);
                                         if (response.status == "success")
                                         //TODO: refetch does not work inside, why??
                                         //$('#calendar').fullCalendar('refetchEvents');
@@ -1005,7 +1043,7 @@ else {
                             success: function (response) {
                                 //TODO: refetch does not work inside, why??
                                 $('#calendar').fullCalendar('refetchEvents');
-                                console.log(response);
+                                socket.send(resourcename+" dodano opis do zajęć dla " + event.title +" w dniu "+ eventdate +" o godz "+ starttime);
                             },
                             error: function (e) {
                                 alert('Wystąpił następujący błąd przy dodawaniu opisu' + e.responseText);
@@ -1287,7 +1325,7 @@ else {
                                 data: $('#editAppointmentForm').serialize() + '&type=cancel-event' + '&event_id=' + event_id + '&repeat_freq=' + repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&description=' + editDescription,
                                 success: function (response) {
                                     $('#calendar').fullCalendar('refetchEvents');
-                                    console.log(response);
+                                    socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
                                     if (response.status == "success")
                                     //TODO: refetch does not work inside, why??
                                     //$('#calendar').fullCalendar('refetchEvents');
@@ -1335,7 +1373,7 @@ else {
                                                 //$('#calendar').fullCalendar('refetchEvents');
                                                 //TODO: refetch does not work inside, why??
                                                 $('#calendar').fullCalendar('refetchEvents');
-                                                console.log(response);
+                                                socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
                                             },
                                             error: function (e) {
                                                 alert('Wystąpił następujący błąd przy modyfikowaniu zajęć' + e.responseText);
@@ -1372,7 +1410,7 @@ else {
                                             data: $('#editAppointmentForm').serialize() + '&type=update-child-event' + '&event_id=' + event_id + '&repeat_freq=' + repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                             success: function (response) {
                                                 $('#calendar').fullCalendar('refetchEvents');
-                                                console.log(response);
+                                                socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
                                                 if (response.status == "success")
                                                 //TODO: refetch does not work inside, why??
                                                 //$('#calendar').fullCalendar('refetchEvents');
@@ -1398,6 +1436,7 @@ else {
                                             data: $('#editAppointmentForm').serialize() + '&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq=' + repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                             success: function (response) {
                                                 $('#calendar').fullCalendar('refetchEvents');
+                                                socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
                                                 if (response.status == "success")
                                                 //TODO: refetch does not work inside, why??
                                                 //$('#calendar').fullCalendar('refetchEvents');
@@ -1454,7 +1493,7 @@ else {
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
+                                        socket.send(resourcename+ " odwołano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy odwoływaniu zajęć' + e.responseText);
@@ -1474,7 +1513,7 @@ else {
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
+                                        socket.send("Odwołano wszystkie zajęcia dla " +event.title+" w dniu " +eventdate);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy odwoływaniu zajęć' + e.responseText);
@@ -1624,7 +1663,7 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-child-event'+'&event_id=' + event_id+ '&repeat_freq='+ repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
+                                        socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                         if (response.status == "success")
                                         //TODO: refetch does not work inside, why??
                                         //$('#calendar').fullCalendar('refetchEvents');
@@ -1649,6 +1688,7 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
+                                        socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                         if (response.status == "success")
                                         //TODO: refetch does not work inside, why??
                                         //$('#calendar').fullCalendar('refetchEvents');
@@ -1748,7 +1788,7 @@ else {
                                         //$('#calendar').fullCalendar('refetchEvents');
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
+                                        socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikowaniu zajęć' + e.responseText);
@@ -1788,7 +1828,7 @@ else {
                                         if (response.status == "success")
                                         //TODO: refetch does not work inside, why??
                                         //$('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
+                                            socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd modyfikacji zajęć' + e.responseText);
@@ -1812,7 +1852,7 @@ else {
                                         if (response.status == "success")
                                         //TODO: refetch does not work inside, why??
                                         //$('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
+                                            socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikacji zajęć' + e.responseText);

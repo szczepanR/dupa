@@ -16,6 +16,7 @@
     <link href="css/bootstrap-editable.css" rel="stylesheet">
     <link href="css/bootstrap-multiselect.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/toastr.min.css" rel="stylesheet">
     <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
     <script src="js/jquery.js"></script>
     <script src="js/jquery.mobile.custom.min.js"></script>
@@ -34,9 +35,11 @@
     <script src="js/bootstrap-editable.min.js"></script>
     <script src="js/bootstrap-multiselect.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="js/ion.sound.min.js"></script>
     <script src="js/bootstrap3-typeahead.min.js"></script>
     <script src="js/jquery.ui.touch.js"></script>
-
+    <script src="http://192.168.1.104:3000/socket.io/socket.io.js" type="text/javascript"></script>
 
 
 
@@ -142,8 +145,8 @@
                 <a href="#" role="button" class="btn btn-default active ">K. ogólny</a>
                 <a href="/plansForKids-user.html" role="button" class="btn btn-default">K. dziecka</a>
             </div>
-            <button type="button" class="btn btn-default" id="optionButton">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>
+            <button class="btn btn-default" type="button" id="messagesButton">
+                <span class="glyphicon glyphicon-envelope" aria-hidden="true" ></span>
             </button>
             <button type="button" class="btn btn-default" id="aboutButton">
                 <span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span>
@@ -1070,7 +1073,49 @@ end
     </div>
 </div>
 <!--**************************************** modal window for preview break end**************************************-->
+<!-- *********************************************modal window for editing event end*********************************-->
+<div id="messageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messagemyModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="messagemyModalLabel1" class="modal-title">Wysyłanie wiadomości</h4>
+            </div>
+            <div class="modal-body">
+                <form id="messageAppointmentForm">
 
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="author">Autor</label>
+                                    <input type="text" name="author" class="form-control" id="author">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="messageContent">Treść wiadomości</label>
+
+                                    <textarea class="form-control" name="messageContent" id="messageContent"
+                                              rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+                <button type="submit" class="btn btn-primary" id="messageSubmitButton" disabled="disabled">Wyślij</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--**************************************** modal window for preview event end**************************************-->
 
 <!--<div id="previewEventModal" class="modal hide" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel1" aria-hidden="true" >
     <div class="modal-header">
