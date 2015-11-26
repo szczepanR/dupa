@@ -17,6 +17,7 @@
     <link href="css/bootstrap-multiselect.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="css/toastr.min.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet">
     <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
     <script src="js/jquery.js"></script>
     <script src="js/jquery.mobile.custom.min.js"></script>
@@ -27,6 +28,8 @@
     <!--<script src="js/bootstrap-clockpicker.min.js"></script>-->
     <script src='js/lang-all.js'></script>
     <script src='js/bootstrap-dialog.js'></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-pl-PL.min.js"></script>
     <script src="js/main_admin.js"></script>
     <!--<script src="js/bootstrap3-typeahead.min.js"></script>-->
     <!--<script src="js/validator.min.js"></script>-->
@@ -39,7 +42,7 @@
     <script src="js/ion.sound.min.js"></script>
     <script src="js/bootstrap3-typeahead.min.js"></script>
     <script src="js/jquery.ui.touch.js"></script>
-    <script src="http://192.168.1.104:3000/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="http://192.168.1.111:3000/socket.io/socket.io.js" type="text/javascript"></script>
 
 
 
@@ -148,8 +151,8 @@
             <button class="btn btn-default" type="button" id="messagesButton">
                 <span class="glyphicon glyphicon-envelope" aria-hidden="true" ></span>
             </button>
-            <button type="button" class="btn btn-default" id="aboutButton">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span>
+            <button type="button" class="btn btn-default" id="messagesListButton">
+                <span class="glyphicon glyphicon-bell" aria-hidden="true" ></span>
             </button>
 
         </div>
@@ -162,108 +165,7 @@
 
 <!-- page view-->
 
-<!--*********************************modal window for adding new event startold CODE*********************************-->
-<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
-<!--<div id="createEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEvent"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h4 id="myModalLabelEvent" class="modal-title">Dodawanie nowych zajęć</h4>
-            </div>
-            <div class="modal-body">
-                <form id="createAppointmentForm" role="form">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-xs-5">
-                                <div class="form-group">
-                                    <label class="control-label" for="title">Imię i nazwisko dziecka</label>
-                                    <input type="text" name="title" class="form-control" id="title" autocomplete="off">
 
-                                </div>
-                            </div>
-                            <div class="col-xs-5 col-xs-offset-2">
-                                <div class="form-group">
-                                    <label for="resourceID">Terapeuta</label>
-                                    <input type="text" name="resourceID" class="form-control" id="resourceID"
-                                           readonly="readonly">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <div class="form-group">
-                                    <label for="event-date">Data</label>
-                                    <input type="text" name="event-date" class="form-control" id="event-date"
-                                           readonly="readonly">
-                                </div>
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="form-group">
-                                    <label for="start-time">Początek zajęć</label>
-                                    <input type="text" name="start-time" class="form-control" id="start-time">
-                                </div>
-
-                            </div>
-                            <div class="col-xs-3">
-                                <div class="form-group">
-                                    <label for="end-time">Koniec zajęć</label>
-                                    <input type="text" name="end-time" class="form-control" id="end-time">
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="eventDescription">Notatki</label>
-                                    <textarea class="form-control" name="eventDescription" id="eventDescription"
-                                              rows="3"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-4">
-                                <div class="funkyradio">
-                                    <div class="funkyradio-default">
-                                        <input type="checkbox" name="repeats" id="repeats" value="1"/>
-                                        <label for="repeats">Powtarzanie</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="repeatFreqDiv">
-                            <div class="col-xs-4">
-                                <div class="funkyradio">
-                                    <div class="funkyradio-default">
-                                        <input type="radio" value="1" name="repeat-freq" align="bottom" id="everyDay">
-                                        <label for="everyDay">Codziennie</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="funkyradio">
-                                    <div class="funkyradio-default">
-                                        <input type="radio" value="7" name="repeat-freq" align="bottom" id="everyWeek">
-                                        <label for="everyWeek">Co tydzień</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
-                        <button type="submit" class="btn btn-success" id="submitButton">Dodaj</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>-->
-<!-- ************************************modal window for adding new event end***************************************-->
 <!--*********************************modal window for adding new event start*********************************-->
 <!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
 <div id="createEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEvent"
@@ -1117,43 +1019,50 @@ end
 </div>
 <!--**************************************** modal window for preview event end**************************************-->
 
-<!--<div id="previewEventModal" class="modal hide" tabindex="-1" role="dialog"  aria-labelledby="myModalLabel1" aria-hidden="true" >
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-        <h4 id="previewmyModalLabel1">Podgląd zajęć</h4>
-    </div>
-    <div class="modal-body">
-
-        <form id="previewAppointmentForm" class="form-vertical">
-            <div class="form-group">
-                <label for="preview-title">Imię i nazwisko dziecka</label>
-                <input type="text" name="preview-title" id="preview-title"/>
+<!--****************************************** modal window for messages start**********************************-->
+<div id="messagesEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messagesmyModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="messagesmyModalLabel1" class="modal-title">Lista wiadomości</h4>
             </div>
-            <div class="container-fluid">
-
-                <div class="col-lg-6">
-                    <div class="form-group">
-                        <label for="preview-event-date">Data:</label>
-                        <input type="text" class="input-small" id="preview-event-date">
+            <div class="modal-body">
 
 
-                        <input type="text" class="input-mini" id="preview-start-time">
+                <div id="toolbar">
+                    <div class="form-inline" role="form">
 
-
-                        <input type="text" class="input-mini" id="preview-end-time">
                     </div>
-
                 </div>
+                <table id="messagesTable"
+                       data-height="300"
+                       data-toolbar="#toolbar"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-search="true"
+                       data-radio="true"
+                       data-show-columns="false"
+                       data-sort-name="timedate"
+                       data-sort-order="desc">
+                    <thead>
+                    <tr>
+                        <th data-field="messageid" data-halign="center" data-align="center">ID</th>
+                        <th data-field="timedate" data-halign="center" data-align="left">Data utworzenia</th>
+                        <th data-field="message" data-halign="center" data-align="left">Treść wiadomości</th>
+                    </tr>
+                    </thead>
+                </table>
+
+
             </div>
-
-        </form>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+            </div>
+        </div>
     </div>
-    <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Zamknij</button>
-        <button type="submit" class="btn btn-primary" id="edit-submitButton">Modyfikuj</button>
-        <button type="submit" class="btn btn-danger" id="delete-submitButton">Usuń</button>
-    </div>
-</div>-->
-
+</div>
+<!--**************************************** modal window for messages end**************************************-->
 </body>
 </html>

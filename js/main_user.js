@@ -68,23 +68,44 @@ $(document).ready(function(){
      *
      ****************************************************************************************************************/
 
-    var serverIP = '192.168.1.104';
+    var serverIP = '192.168.1.111';
     var serverPort = '3000';
     var socket = io.connect('http://'+serverIP+':'+serverPort);
-    socket.connect();
+
+        socket.connect();
+
+    //try to reconnect when you disconnected(i.e. list wifi signal)
+    socket.on('disconnect', function() {
+        toastr["error"]("Straciłeś połączenie z serwerem. Sprawdź połączenie z siecią bezprzewodową");
+        socket.io.reconnect();
+
+    });
+    socket.on('reconnect', function() {
+
+        toastr["success"]("Wygląda na to, że połączenie wróciło. Sprawdź listę wiadomości i odswież plan");
+        //TODO: prepare action after reconnecting i.e. info that you were disonnected and chek messages that you may missed
+
+    });
 
     socket.on('message', function(msg){
 
         toastr["info"](msg);
         $('#calendar').fullCalendar('refetchEvents');
         ion.sound.play("Facebook");
+
     });
+
+    socket.on('send', function (msg) {
+
+    });
+
     /*****************************************************************************************************************
      *
      * message sending
      *
      ****************************************************************************************************************/
     $('#messagesButton').on('click', function () {
+
         $('#messageSubmitButton').prop('disabled', true);
         $('#messageModal').find('form')[0].reset();
         $('#messageModal').modal('show');
@@ -101,7 +122,37 @@ $(document).ready(function(){
 
     });
 
+    /*****************************************************************************************************************
+     *
+     * message processing inside modal window
+     *
+     ****************************************************************************************************************/
+    $('#messagesListButton').on('click', function () {
 
+        $('#messagesEventModal').modal('show');
+
+        var $table = $('#messagesTable');
+        $table.bootstrapTable('refresh');
+        $table.bootstrapTable({
+            url: 'admin/messagesManage.php',
+            columns: [{
+                field: 'messageid',
+                title: 'ID',
+                sortable: false
+            }, {
+                field: 'timedate',
+                title: 'Data utworzenia',
+                sortable: true
+            }, {
+                field: 'message',
+                title: 'Treść wiadomości',
+                sortable: false
+            }]
+
+        });
+
+        $table.bootstrapTable('hideColumn', 'messageid');
+    });
     //periodically check if there is change on DB
     var totalcount = 0;
 /*    setInterval(function(){
@@ -171,7 +222,7 @@ $(document).ready(function(){
     /**********************************************************************************************************************
      * load resources with specific dates
      * now is hardcoded
-     * TODO: prepare function to check day of the week and mark as selected or not
+     *
      *********************************************************************************************************************/
     function loadResources() {
         var actualDate =  moment().format('e');
@@ -300,7 +351,7 @@ $(document).ready(function(){
 
 
     /*******************************************************************************************************************
-    * call check resources on each day,
+    * call checkresources functionon each day,
     * need to call click prev next button
     *
      ******************************************************************************************************************/
@@ -439,8 +490,7 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
             },
             lang: 'pl',
             defaultView: 'resourceDay',
-            //defaultView:'agendaWeek',
-            editable: true,
+
             droppable: true,
             selectable: false,
             selectHelper: true,
@@ -465,6 +515,9 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
                     type: 'POST'
 
                 },
+
+            //edit depends on option in settings window, as default we disable addTouch, so editable will be diabled as deafult
+            editable: false,
 
 
 
@@ -496,6 +549,7 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
 
    //resources filtering taken from github churchdesk/fullcalendar, end
     viewRender: function(view, element) {
+
 
         //click date to go to the specific date, we use datepicker  and here specify initial values
         $('#customDateButton').off('click')
@@ -1986,7 +2040,7 @@ else {
          * TODO: add delay to drag
          ***************************************************************************************************************/
 
-        $(element).addTouch();
+        //$(element).addTouch();
 
             //disable moving break for now :)
             if (event.title == 'PRZERWA') {
@@ -2140,22 +2194,35 @@ else {
     });
     /**********************************************autocomplete for title end******************************************/
 
-    /**********************************************about window start******************************************/
-    $('#aboutButton').off('click')
-    $('#aboutButton').on('click', function () {
-        BootstrapDialog.alert({
-            title: 'O programie',
-            message: 'Szczepan Rudnicki, szczepan.rudnicki@gmail.com, 2015',
-            type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-            closable: true, // <-- Default value is false
-            draggable: true, // <-- Default value is false
-            buttonLabel: 'Zamknij' // <-- Default value is 'OK',
-        });
+    /**********************************************option window start******************************************/
+    $('#optionsButton').off('click')
+    $('#optionsButton').on('click', function () {
 
+        $('#optionsEventModal').modal('show');
 
 
     });
 
+    //editable turn on or turn off dynamically
 
-    /**********************************************about window end******************************************/
+    $('#submitOptionButton').off('click')
+    $('#submitOptionButton').on('click', function (e) {
+        e.preventDefault();
+        if (document.getElementById('editCalendar').checked == true) {
+
+            $('#calendar').fullCalendar('getView').calendar.options.editable = true;
+            $('#calendar').addTouch();
+            $('#calendar').fullCalendar('render',true)
+            console.log('checked')
+        }
+        else {
+            $('#calendar').fullCalendar('getView').calendar.options.editable = false;
+            $('#calendar').fullCalendar('render',true)
+        }
+        $('#optionsEventModal').modal('hide');
+    });
+
+
+
+    /**********************************************option window end******************************************/
 });

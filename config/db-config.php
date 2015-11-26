@@ -8,5 +8,5 @@
 $mysql_hostname = "localhost";
 $mysql_dbname = "fullcalendar";
 $mysql_username = "root";
-$mysql_password = "password";
+$mysql_password = "LANOS1A";
 

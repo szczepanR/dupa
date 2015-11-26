@@ -338,3 +338,32 @@ if ($type == 'deleteResource') {
 
 }
 
+//insert new message to database
+if ($type == 'addMessage') {
+    $message = $_POST['message'];
+    $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    try {
+
+        $dbh->beginTransaction();
+        $dbh->query('SET NAMES utf8');
+        $stmt = $dbh->prepare("INSERT INTO messages
+                    (timedate, message)
+                    VALUES (NOW(), :message)");
+
+        $stmt->bindParam(':message', $message);
+
+        $stmt->execute();
+        $dbh->commit();
+
+    }
+    catch (Exception $e) {
+        $firephp->log($e, 'error');
+        $dbh->rollback();
+
+
+    }
+    echo json_encode($message);
+
+}

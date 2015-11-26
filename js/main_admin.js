@@ -48,16 +48,36 @@ $(document).ready(function(){
      *
      ****************************************************************************************************************/
 
-    var serverIP = '192.168.1.104';
+    var serverIP = '192.168.1.111';
     var serverPort = '3000';
     var socket = io.connect('http://'+serverIP+':'+serverPort);
+
     socket.connect();
 
+    //try to reconnect when you disconnected(i.e. list wifi signal)
+    socket.on('disconnect', function() {
+
+        toastr["error"]("Straciłeś połączenie z serwerem. Sprawdź połączenie z siecią bezprzewodową");
+        socket.io.reconnect();
+
+    });
+    //after successful reconnect inform the client
+    socket.on('reconnect', function() {
+
+        toastr["success"]("Wygląda na to, że połączenie wróciło. Sprawdź listę wiadomości i odswież plan");
+
+    });
+
     socket.on('message', function(msg){
-        console.log(msg);
+
         toastr["info"](msg);
-        ion.sound.play("Facebook");
         $('#calendar').fullCalendar('refetchEvents');
+        ion.sound.play("Facebook");
+
+    });
+
+    socket.on('send', function (msg) {
+
     });
     /*****************************************************************************************************************
      *
@@ -79,7 +99,40 @@ $(document).ready(function(){
         var messageContent = $('#messageContent').val();
         $('#messageModal').modal('hide');
         socket.send("Wiadomość od "+ sender +":  "+messageContent);
+         //connect to db and store the message in query
+        //this can be helpfull to get missed messages
 
+    });
+    /*****************************************************************************************************************
+     *
+     * message processing inside modal window
+     *
+     ****************************************************************************************************************/
+    $('#messagesListButton').on('click', function () {
+
+        $('#messagesEventModal').modal('show');
+
+        var $table = $('#messagesTable');
+        $table.bootstrapTable('refresh');
+        $table.bootstrapTable({
+            url: 'admin/messagesManage.php',
+            columns: [{
+                field: 'messageid',
+                title: 'ID',
+                sortable: false
+            }, {
+                field: 'timedate',
+                title: 'Data utworzenia',
+                sortable: true
+            }, {
+                field: 'message',
+                title: 'Treść wiadomości',
+                sortable: false
+            }]
+
+        });
+
+        $table.bootstrapTable('hideColumn', 'messageid');
     });
 
     /**********************************************************************************************************************
@@ -102,7 +155,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function (data) {
                 //we need to remove values from dropdown
-                $("#selectResource").empty()
+                $("#selectResource").empty();
 
                 $.each(data, function (i, resource) {
 
@@ -114,7 +167,7 @@ $(document).ready(function(){
 
                 $.each(data, function (i, resource) {
                     if (resource.workingDays.indexOf(actualDate) === -1) {
-                        $("#selectResource").multiselect('deselect', resource.id)
+                        $("#selectResource").multiselect('deselect', resource.id);
                     }
                     //console.log(resource.workingDays);
                 });
@@ -178,7 +231,7 @@ $(document).ready(function(){
         var actualDate =  moment(date).format('e');
         //var actualDate = $('#calendar').fullCalendar('getDate');
         
-        console.log(actualDate);
+        console.log(actualDate)
         $.ajax({
             url: "admin/json-resources.php",
             type: 'GET',
@@ -621,6 +674,8 @@ else {
                                         $('#calendar').fullCalendar('unselect');
                                         $('#calendar').fullCalendar('refetchEvents');
                                         socket.send(resourcename+" dodano nowe zajęcia dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
+                                        
+                                       
                                     }
 
                                 });
@@ -1102,7 +1157,7 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
                                         success: function (response) {
-                                            //TODO: refetch does not work inside, why??
+                                            socket.send(resourcename+ ". Usunięto zajęcia dla " +event.title+" o godzinie " +starttime);
                                             $('#calendar').fullCalendar('refetchEvents');
                                             console.log(response);
                                         },
@@ -1121,7 +1176,7 @@ else {
                                         data: 'type=delete-events-from-day&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&repeat_freq=' + repeat_freq,
                                         success: function (response) {
                                             console.log(response.status);
-                                            //$('#calendar').fullCalendar('refetchEvents');
+                                            socket.send("Usunięto wszystkie zajęcia dla " +event.title+" w dniu " +eventdate);
                                             //TODO: refetch does not work inside, why??
                                             $('#calendar').fullCalendar('refetchEvents');
                                             console.log(response);
@@ -1164,6 +1219,7 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-child-event&event_id=' + event_id,
                                         success: function (response) {
+                                            socket.send(resourcename+ ". Usunięto zajęcia dla " +event.title+" o godzinie " +starttime);
                                             $('#calendar').fullCalendar('refetchEvents');
                                             if (response.status == "success")
                                             //TODO: refetch does not work inside, why??
@@ -1184,11 +1240,9 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-events-from-day&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&repeat_freq=' + repeat_freq,
                                         success: function (response) {
-                                            console.log(response.status);
-                                            //$('#calendar').fullCalendar('refetchEvents');
+                                            socket.send("Usunięto wszystkie zajęcia dla " +event.title+" w dniu " +eventdate);
                                             //TODO: refetch does not work inside, why??
                                             $('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
                                         },
                                         error: function (e) {
                                             alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1206,7 +1260,7 @@ else {
                                         data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id +'&event_date=' + eventdate,
                                         success: function (response) {
                                             $('#calendar').fullCalendar('refetchEvents');
-
+                                            socket.send("Usunięto wszystkie zajęcia dla " +event.title+" do końca roku");
                                             if (response.status == "success")
                                             //TODO: refetch does not work inside, why??
                                             //$('#calendar').fullCalendar('refetchEvents');
