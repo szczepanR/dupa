@@ -178,26 +178,22 @@ if ($type == 'updateDescription'){
 //this is for get info about latest changes from database
 if ($type == 'getInfoFromDb'){
 
+    $disconnectTime = $_POST['disconnectTime'];
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try{
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("SELECT * FROM events_history WHERE timedate > now() - INTERVAL 35 second group BY resourceID");
+        $stmt = $dbh->prepare("SELECT message FROM messages WHERE timedate >= :disconnectTime");
+        $stmt->bindParam(':disconnectTime', $disconnectTime);
         $stmt->execute();
         $dbh->commit();
         $events = array();
         if ($stmt ->rowCount() != 0) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-                $eventsArray['title'] = $row['title'];
-                $eventsArray['start'] = $row['start'];
-                $eventsArray['resourceID'] = $row['resourceID'];
-                $eventsArray['queryType'] = $row['queryType'];
-                $eventsArray['timedate'] = $row['timedate'];
-
-
+                $eventsArray['message'] = $row['message'];
                 $events[] = $eventsArray;
             }
 
@@ -240,22 +236,43 @@ if ($type == 'cancelEvent'){
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    try{
-        $dbh->beginTransaction();
-        $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("UPDATE events SET description=:description, category_id=:category_id WHERE event_id=:event_id");
-        $stmt->bindParam(':description', $description);
-        $stmt->bindParam(':event_id', $event_id);
-        $stmt->bindParam(':category_id', $category_id);
-        $stmt->execute();
+    if ($category_id == 6){
+        try {
+            $dbh->beginTransaction();
+            $dbh->query('SET NAMES utf8');
+            $stmt = $dbh->prepare("UPDATE events SET description=CONCAT(description,:description), category_id=:category_id WHERE event_id=:event_id");
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':event_id', $event_id);
+            $stmt->bindParam(':category_id', $category_id);
+            $stmt->execute();
 
-        $dbh->commit();
+            $dbh->commit();
+            $firephp->log('weszlo');
 
-
+        } catch (Exception $e) {
+            $firephp->log($e, 'error');
+            $dbh->rollback();
+        }
     }
-    catch(Exception $e){
-        $firephp->log($e, 'error');
-        $dbh->rollback();
+     if ($category_id == 1){
+        try {
+            $dbh->beginTransaction();
+            $dbh->query('SET NAMES utf8');
+            //TODO poprawić funckcje!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            $stmt = $dbh->prepare("UPDATE events SET description=:description, category_id=:category_id WHERE event_id=:event_id");
+            $stmt->bindParam(':description', $description);
+            $stmt->bindParam(':event_id', $event_id);
+            $stmt->bindParam(':category_id', $category_id);
+            $firephp->log('weszlo');
+            $stmt->execute();
+
+            $dbh->commit();
+
+
+        } catch (Exception $e) {
+            $firephp->log($e, 'error');
+            $dbh->rollback();
+        }
     }
 
 }
@@ -273,7 +290,7 @@ if ($type == 'cancelEventFromDay') {
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("UPDATE events SET description=:description, category_id=:category_id WHERE title='$title' AND start LIKE '%$start_date%'");
+        $stmt = $dbh->prepare("UPDATE events SET description=CONCAT(description,:description), category_id=:category_id WHERE title='$title' AND start LIKE '%$start_date%'");
              $stmt->bindParam(':description', $description);
              $stmt->bindParam(':category_id', $category_id);
 

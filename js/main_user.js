@@ -42,6 +42,10 @@ function getResourceName(resourceID){
 //calendar stuff
 $(document).ready(function(){
 
+
+
+
+
     //set options for notification window
     toastr.options = {
         "closeButton": false,
@@ -71,25 +75,62 @@ $(document).ready(function(){
     var serverIP = '192.168.1.111';
     var serverPort = '3000';
     var socket = io.connect('http://'+serverIP+':'+serverPort);
+    var disconnectTime =0;
 
         socket.connect();
 
     //try to reconnect when you disconnected(i.e. list wifi signal)
     socket.on('disconnect', function() {
-        toastr["error"]("Straciłeś połączenie z serwerem. Sprawdź połączenie z siecią bezprzewodową");
+        //toastr["error"]("Straciłeś połączenie z serwerem. Sprawdź połączenie z siecią bezprzewodową");
         socket.io.reconnect();
 
+        return disconnectTime=moment().format('YYYY-MM-DD HH:mm:ss');
+
     });
+
+
     socket.on('reconnect', function() {
 
-        toastr["success"]("Wygląda na to, że połączenie wróciło. Sprawdź listę wiadomości i odswież plan");
-        //TODO: prepare action after reconnecting i.e. info that you were disonnected and chek messages that you may missed
+        
+        $.ajax({
+            cache: false,
+            type: "POST",
+            datatype: "json",
+            url: "admin/process.php",
+            data: 'type=getInfoFromDb&disconnectTime='+disconnectTime,
+            success: function (data) {
+                var change = jQuery.parseJSON(data);
+
+                if (change.length != 0)
+                {
+                    ion.sound.play("Facebook");
+
+                    for(var i in change) {
+
+                        toastr["info"](change[i].message);
+
+                    };
+                    $('#calendar').fullCalendar('refetchEvents');
+                }
+                ion.sound.destroy("Facebook");
+            }
+
+        });
+
 
     });
 
     socket.on('message', function(msg){
 
-        toastr["info"](msg);
+        if (msg.indexOf('odwołano')!=-1||msg.indexOf('Odwołano')!=-1)
+        {
+            toastr["error"](msg);
+        }
+        else
+        {
+            toastr["info"](msg);
+        }
+
         $('#calendar').fullCalendar('refetchEvents');
         ion.sound.play("Facebook");
 
@@ -154,7 +195,7 @@ $(document).ready(function(){
         $table.bootstrapTable('hideColumn', 'messageid');
     });
     //periodically check if there is change on DB
-    var totalcount = 0;
+    //var totalcount = 0;
 /*    setInterval(function(){
         $.ajax({ 
             cache: false,
@@ -231,7 +272,7 @@ $(document).ready(function(){
         {
             actualDate = actualDate - 1;
         }
-        console.log(actualDate);
+        //console.log(actualDate);
         $.ajax({
             url: "admin/json-resources.php",
             type: 'GET',
@@ -273,7 +314,7 @@ $(document).ready(function(){
         var actualDate = $('#calendar').fullCalendar('getDate');
        // console.log(actualDate);
         actualDate = actualDate.format('e');
-        console.log(actualDate);
+        //console.log(actualDate);
         $.ajax({
             url: "admin/json-resources.php",
             type: 'GET',
@@ -315,7 +356,7 @@ $(document).ready(function(){
         var actualDate =  moment(date).format('e');
         //var actualDate = $('#calendar').fullCalendar('getDate');
         
-        console.log(actualDate);
+        //console.log(actualDate);
         $.ajax({
             url: "admin/json-resources.php",
             type: 'GET',
@@ -457,7 +498,7 @@ function getRadioVal(form, name) {
 //remove action for mouse right click
 $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
 
-    e.preventDefault()
+   // e.preventDefault()
 });
 
     var element = $('#calendar');
@@ -546,8 +587,26 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
        return ((aName > bName) ? 1 : ((aName < bName) ? -1 : 0));
    },
 
+   eventAfterAllRender: function (view) {
 
-   //resources filtering taken from github churchdesk/fullcalendar, end
+   /*******************************************************************************************************************
+   *second part for dynamically turn on/off drag&drop.
+   * We had to use  in eventAfterAllRender as it is execute after rerenderevents function
+   *
+   *******************************************************************************************************************/
+       if (document.getElementById('editCalendar').checked == true) {
+           $('#calendar').fullCalendar('getView').calendar.options.editable = true;
+
+           $('.fc-event').addTouch();
+
+           //console.log('checked')
+       }
+       else {
+           $('#calendar').fullCalendar('getView').calendar.options.editable = false;
+       }
+   },
+
+            //resources filtering taken from github churchdesk/fullcalendar, end
     viewRender: function(view, element) {
 
 
@@ -661,7 +720,7 @@ else {
 
            //action when click on calendar to add new event
             // start
-            //TODO: enable change date from form, maybe date picker?, how to display resource name rather than resource id
+
     select: function (start, end, jsEvent, view, resources) {
 
                 
@@ -1072,10 +1131,7 @@ else {
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
                                         socket.send(resourcename+ " Usunięto zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
-                                        if (response.status == "success")
-                                        //TODO: refetch does not work inside, why??
-                                        //$('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
+
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1095,11 +1151,6 @@ else {
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
 
-                                        if (response.status == "success")
-                                        //TODO: refetch does not work inside, why??
-                                        //$('#calendar').fullCalendar('refetchEvents');
-
-                                            console.log(response);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1260,9 +1311,7 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-events-from-day&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&repeat_freq=' + repeat_freq,
                                         success: function (response) {
-                                            console.log(response.status);
-                                            //$('#calendar').fullCalendar('refetchEvents');
-                                            //TODO: refetch does not work inside, why??
+
                                             $('#calendar').fullCalendar('refetchEvents');
                                             socket.send("Usunięto wszystkie zajęcia dla " +event.title+" w dniu " +eventdate);
                                         },
@@ -1295,7 +1344,7 @@ else {
                                 var deleteOptionRepeat = getRadioVal(document.getElementById('deleteYesRepeats'), 'optionsRadioRepeate');
                                 //console.log(deleteOptionRepeat);
                                 if (deleteOptionRepeat == 'deleteSingleRepeate') {
-                                    console.log(deleteOptionRepeat);
+
                                     $('#deleteRepeateEventModal').modal('hide');
                                     $.ajax({
                                         cache: false,
@@ -1305,10 +1354,7 @@ else {
                                         data: 'type=delete-child-event&event_id=' + event_id,
                                         success: function (response) {
                                             $('#calendar').fullCalendar('refetchEvents');
-                                            if (response.status == "success")
-                                            //TODO: refetch does not work inside, why??
-                                            //$('#calendar').fullCalendar('refetchEvents');
-                                                console.log(response);
+
                                         },
                                         error: function (e) {
                                             alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1347,10 +1393,7 @@ else {
                                         success: function (response) {
                                             $('#calendar').fullCalendar('refetchEvents');
                                             socket.send(resourcename+ " Usunięto zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
-                                            if (response.status == "success")
-                                            //TODO: refetch does not work inside, why??
-                                            //$('#calendar').fullCalendar('refetchEvents');
-                                                console.log(response);
+
                                         },
                                         error: function (e) {
                                             alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1478,10 +1521,7 @@ else {
                                 success: function (response) {
                                     $('#calendar').fullCalendar('refetchEvents');
                                     socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
-                                    if (response.status == "success")
-                                    //TODO: refetch does not work inside, why??
-                                    //$('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
+
 
                                 },
                                 error: function (e) {
@@ -1562,7 +1602,7 @@ else {
                                             data: $('#editAppointmentForm').serialize() + '&type=update-child-event' + '&event_id=' + event_id + '&repeat_freq=' + repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                             success: function (response) {
                                                 $('#calendar').fullCalendar('refetchEvents');
-                                                console.log(response);
+
                                                 socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
 
                                             },
@@ -1635,7 +1675,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin/process.php",
-                                    data: 'type=cancelEvent&event_id=' + event_id + '&description= NB ' + description2json + '&category_id=' +category_id,
+                                    data: 'type=cancelEvent&event_id=' + event_id + '&description=NB:' + description2json + '&category_id=' +category_id,
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1680,8 +1720,10 @@ else {
 
                         //we switch to the normal event
                         var category_id = 1;
-                        //and clear description
-                        var description2json = ""
+                        //and remove cancel reason from description
+                        var trimedDescription = $("#preview-description").val();
+                        var description2json = trimedDescription.split('NB:')[0];
+
                         $.ajax({
                             cache: false,
                             type: "POST",
@@ -1691,7 +1733,7 @@ else {
                             success: function (response) {
                                 //TODO: refetch does not work inside, why??
                                 $('#calendar').fullCalendar('refetchEvents');
-                                socket.send(resourcename+ "odwołane poprzednio zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime +"odbędą się");
+                                socket.send(resourcename+ " odwołane poprzednio zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime +" odbędą się");
                             },
                             error: function (e) {
                                 alert('Wystąpił następujący błąd przy anulowaniu odwołania zajęć' + e.responseText);
@@ -1777,10 +1819,8 @@ else {
                                     url: "admin/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events'+'&event_id=' + event_id + '&parent_id=' + parent_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime+ '&category_id=' + category_id,
                                     success: function (response) {
-                                        //$('#calendar').fullCalendar('refetchEvents');
-                                        //TODO: refetch does not work inside, why??
+
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
@@ -1816,11 +1856,7 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-child-event'+'&event_id=' + event_id+ '&repeat_freq='+ repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
-                                        if (response.status == "success")
-                                        //TODO: refetch does not work inside, why??
-                                        //$('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
+
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
@@ -1842,10 +1878,7 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        if (response.status == "success")
-                                        //TODO: refetch does not work inside, why??
-                                        //$('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
+
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
@@ -1939,10 +1972,9 @@ else {
                                     url: "admin/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events'+'&event_id=' + event_id + '&parent_id=' + parent_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime+ '&category_id=' + category_id,
                                     success: function (response) {
-                                        //$('#calendar').fullCalendar('refetchEvents');
-                                        //TODO: refetch does not work inside, why??
+
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
+
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikowaniu zajęć' + e.responseText);
@@ -1978,11 +2010,7 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-child-event'+'&event_id=' + event_id+ '&repeat_freq='+ repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        console.log(response);
-                                        if (response.status == "success")
-                                        //TODO: refetch does not work inside, why??
-                                        //$('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
+
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd modyfikacji zajęć' + e.responseText);
@@ -2003,10 +2031,7 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        if (response.status == "success")
-                                        //TODO: refetch does not work inside, why??
-                                        //$('#calendar').fullCalendar('refetchEvents');
-                                            console.log(response);
+
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikacji zajęć' + e.responseText);
@@ -2034,15 +2059,7 @@ else {
             
 
     eventRender: function (event, element) {
-
-        /***************************************************************************************************************
-         * enable draggoption for touch devices
-         * TODO: add delay to drag
-         ***************************************************************************************************************/
-
-        //$(element).addTouch();
-
-            //disable moving break for now :)
+        //disable moving break for now :)
             if (event.title == 'PRZERWA') {
 
                 event.editable = false;
@@ -2076,21 +2093,23 @@ else {
         element.find('.fc-title').append("<br/>" + event.description);
 
         //this  is fix for appearing custom border during selecting new event
-            if (event.description == null ) {
+            if (event.description == null) {
 
                 element.css('border-color', '#FFFFFF');
-
 
             }
             //red border should appear only when event is created and it has description
             //"!= null" -- this does not work probably afteradding new event there is emptytext but not null
-            else if (event.description != '')
+            else if (event.description != "")
             {
                 element.css('border-color', '#ff000f');
 
             }
+
+
           //to have more readable events and see spaces between events in column wee add small margin to events
         $(element).css("margin-bottom", "2px");
+
         /**************************************************************************************************************
          * highlight all events titile to blue with the same title when event is pressed longer.
          **************************************************************************************************************/
@@ -2140,28 +2159,22 @@ else {
     }, 1000);
 
 
-    /**********************for changing view begin**************************/
-
-
-
-
-
     /*********************************************autocomplete for title start ***********************/
 
     $('#createEventModal #title').typeahead({
-     source: function (query, process) {
-     $.ajax({
-     url: "admin/temp_autocomplete.php",
-     type: 'POST',
-     dataType: 'JSON',
-     data: 'query=' + query,
-     success: function(data) {
-     process(data);
-          console.log(data);
-     }
-     });
-     }
-     });
+        source: function (query, process) {
+            $.ajax({
+                url: "admin/temp_autocomplete.php",
+                type: 'POST',
+                dataType: 'JSON',
+                data: 'query=' + query,
+                success: function (data) {
+                    process(data);
+
+                }
+            });
+        }
+    });
 
     $('#editEventModal #edit-title').typeahead({
         source: function (query, process) {
@@ -2194,35 +2207,90 @@ else {
     });
     /**********************************************autocomplete for title end******************************************/
 
-    /**********************************************option window start******************************************/
+    /*****************************************************************************************************************
+     * show option window
+     *
+     *****************************************************************************************************************/
     $('#optionsButton').off('click')
     $('#optionsButton').on('click', function () {
-
+        $('#submitOptionButton').prop('disabled', true);
         $('#optionsEventModal').modal('show');
+        $('#editCalendar').change(function(){
 
-
+            $('#submitOptionButton').prop('disabled', false);
+        });
     });
 
-    //editable turn on or turn off dynamically
-
+    /*****************************************************************************************************************
+     * drag & drop dynamically on/off
+     * this functionality is in two parts, this is first
+     * second located in callback eventAfterAllRender
+     *
+     *****************************************************************************************************************/
     $('#submitOptionButton').off('click')
     $('#submitOptionButton').on('click', function (e) {
         e.preventDefault();
+
+
         if (document.getElementById('editCalendar').checked == true) {
 
-            $('#calendar').fullCalendar('getView').calendar.options.editable = true;
-            $('#calendar').addTouch();
-            $('#calendar').fullCalendar('render',true)
-            console.log('checked')
+            $('#calendar').fullCalendar('rerenderEvents');
+
         }
         else {
-            $('#calendar').fullCalendar('getView').calendar.options.editable = false;
-            $('#calendar').fullCalendar('render',true)
+
+            $('#calendar').fullCalendar('rerenderEvents');
         }
+
+
+
         $('#optionsEventModal').modal('hide');
     });
 
-
-
     /**********************************************option window end******************************************/
+
+    /*********************************************************************************************************
+    * fullscreen functionality:
+    * single button to toggle fullscreen on off
+    * works ONLY with Chrome
+    *
+    * ********************************************************************************************************/
+    var goFS = document.getElementById("fsButton");
+
+    goFS.addEventListener("click", function() {
+
+        if(!document.webkitIsFullScreen) {
+
+            var conf = confirm("Przełączyć na tryb pełnego ekranu?");
+            var docelem = document.documentElement;
+
+            if (conf == true) {
+                $('#calendar').fullCalendar('option', 'aspectRatio', 1.95);
+                if (docelem.requestFullscreen) {
+                    docelem.requestFullscreen();
+                }
+                else if (docelem.mozRequestFullScreen) {
+                    docelem.mozRequestFullScreen();
+                }
+                else if (docelem.webkitRequestFullScreen) {
+                    docelem.webkitRequestFullScreen();
+                }
+                else if (docelem.msRequestFullscreen) {
+                    docelem.msRequestFullscreen();
+                }
+            }
+        }
+        else {
+            $('#calendar').fullCalendar('option', 'aspectRatio', 2.35);
+                if(document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if(document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if(document.webkitCancelFullScreen()) {
+                    document.webkitCancelFullScreen();
+                }
+
+        }
+
+    }, false);
 });
