@@ -84,7 +84,15 @@ $(document).ready(function(){
 
                     for(var i in change) {
 
-                        toastr["info"](change[i].message);
+                        //toastr["info"](change[i].message);
+                        if (change[i].message.indexOf('odwołano')!=-1||change[i].message.indexOf('Odwołano')!=-1)
+                        {
+                            toastr["error"](change[i].message);
+                        }
+                        else
+                        {
+                            toastr["info"](change[i].message);
+                        }
 
                     };
                     $('#calendar').fullCalendar('refetchEvents');
