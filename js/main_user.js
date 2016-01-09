@@ -607,11 +607,27 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
 
            $('.fc-event').addTouch();
 
+           $(window).resize();
            //console.log('checked')
        }
        else {
            $('#calendar').fullCalendar('getView').calendar.options.editable = false;
        }
+
+       if (document.getElementById('bigScreenCalendar').checked == true) {
+           $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+           //experimental, change row height
+           $('#calendar').find('.fc-slats td').css({"height": "3.2em"});
+           $(window).resize();
+           //console.log('checked')
+       }
+       else {
+
+           $('#calendar').find('.fc-slats td').css({"height": "2.5em"});
+           $(window).resize();
+       }
+
+
    },
 
             //resources filtering taken from github churchdesk/fullcalendar, end
@@ -712,12 +728,18 @@ else {
 
                             //need to remove option height to set aspect Ratio, clever :)
                             $('#calendar').fullCalendar('option', 'height', '');
-                            //set aspect ratio
-                            element.fullCalendar('option', 'aspectRatio', 2.3);
-                            //set row height
-                            element.find('.fc-slats td').css({"height": "2.5em"});
-
-
+                            if (document.getElementById('bigScreenCalendar').checked == true)
+                            {
+                                $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+                                $('#calendar').find('.fc-slats td').css({"height": "3.2em"});
+                            }
+                            else
+                            {
+                                //set aspect ratio
+                                element.fullCalendar('option', 'aspectRatio', 2.35);
+                                //set row height
+                                element.find('.fc-slats td').css({"height": "2.5em"});
+                            }
                         }
                     });
                 }
@@ -2223,7 +2245,7 @@ else {
     $('#optionsButton').on('click', function () {
         $('#submitOptionButton').prop('disabled', true);
         $('#optionsEventModal').modal('show');
-        $('#editCalendar').change(function(){
+        $('input[type=checkbox]').change(function(){
 
             $('#submitOptionButton').prop('disabled', false);
         });
@@ -2240,7 +2262,7 @@ else {
         e.preventDefault();
 
 
-        if (document.getElementById('editCalendar').checked == true) {
+        if (document.getElementById('editCalendar').checked == true || document.getElementById('bigScreenCalendar').checked == true) {
 
             $('#calendar').fullCalendar('rerenderEvents');
 
@@ -2253,6 +2275,29 @@ else {
 
 
         $('#optionsEventModal').modal('hide');
+    });
+    /*
+    * Need to avoid turn on big screen on tablets
+    *
+    * */
+    $("#bigScreenCalendar").click( function(){
+        if( $(this).is(':checked') && ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
+        {
+
+                BootstrapDialog.alert({
+                    title: 'Uwaga',
+                    message: 'funkcja big screen tylko na kompach LENOVO :)',
+                    type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                    closable: true, // <-- Default value is false
+                    draggable: true, // <-- Default value is false
+                    buttonLabel: 'Zamknij' // <-- Default value is 'OK',
+                });
+
+
+            $('#bigScreenCalendar').removeAttr('checked');
+
+        };
+
     });
 
     /**********************************************option window end******************************************/
@@ -2273,7 +2318,15 @@ else {
             var docelem = document.documentElement;
 
             if (conf == true) {
-                $('#calendar').fullCalendar('option', 'aspectRatio', 1.95);
+                if (document.getElementById('bigScreenCalendar').checked == true)
+                {
+                    $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+                }
+                else
+                {
+                    $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+                }
+
                 if (docelem.requestFullscreen) {
                     docelem.requestFullscreen();
                 }

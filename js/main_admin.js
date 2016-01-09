@@ -421,10 +421,10 @@ function getRadioVal(form, name) {
 /**********************for checking value checkboxes end**************************/
 
 //remove action for mouse right click
-$('#calendar:not(".fc-event")').on('contextmenu', function (e) {
-
-    e.preventDefault()
-});
+//$('#calendar:not(".fc-event")').on('contextmenu', function (e) {
+//
+//    e.preventDefault()
+//});
     var element = $('#calendar');
 
     var date = new Date();

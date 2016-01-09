@@ -231,7 +231,7 @@
                     <button type="submit" class="btn btn-warning" id="cancelSubmitButton">Odwołaj</button>
                     <button type="submit" class="btn btn-warning" id="cancelCancelSubmitButton">Anuluj odwołanie</button>
                 </div>
-                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true"id="cancelPreviewButton">Zamknij</button>
                 <button type="submit" class="btn btn-primary" id="edit-submitButton">Modyfikuj</button>
 
             </div>
@@ -488,11 +488,22 @@
                             </div>
 
                         </div>
+                        <div class="span11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-success">
+                                    <input type="checkbox" name="bigScreenCalendar" id="bigScreenCalendar">
+                                    <label for="bigScreenCalendar">Tryb dużego monitora</label>
+                                </div>
+
+                            </div>
+
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-success" id="submitOptionButton" disabled="disabled">Zachowaj</button>
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
             </div>
         </div>
     </div>
