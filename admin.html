@@ -154,6 +154,12 @@
             <button type="button" class="btn btn-default" id="messagesListButton">
                 <span class="glyphicon glyphicon-bell" aria-hidden="true" ></span>
             </button>
+            <button type="button" class="btn btn-default" id="optionsButton">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>
+            </button>
+            <button type="button" class="btn btn-default" id="fsButton">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true" ></span>
+            </button>
 
         </div>
 
@@ -1058,6 +1064,47 @@ end
 
             </div>
             <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="optionsEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="optionsmyModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="optionsmyModalLabel1" class="modal-title">Opcje</h4>
+            </div>
+            <div class="modal-body">
+                <form id="optionsForm">
+                    <div class="container-fluid">
+                        <div class="span11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-success">
+                                    <input type="checkbox" name="editCalendar" id="editCalendar" checked="checked">
+                                    <label for="editCalendar">Edycja kalendarza (pozwala na przeciąganie palcem lub myszką zajęć)</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="span11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-success">
+                                    <input type="checkbox" name="bigScreenCalendar" id="bigScreenCalendar">
+                                    <label for="bigScreenCalendar">Tryb dużego monitora</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" id="submitOptionButton" disabled="disabled">Zachowaj</button>
                 <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
             </div>
         </div>

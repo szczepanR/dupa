@@ -41,31 +41,6 @@ function getResourceName(resourceID){
 
 //calendar stuff
 $(document).ready(function(){
-
-
-
-
-
-    //set options for notification window
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": true,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": 0,
-        "extendedTimeOut": 0,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
-        "tapToDismiss": true
-    }
-
     /*****************************************************************************************************************
      *
      * Start the socket
@@ -77,7 +52,7 @@ $(document).ready(function(){
     var socket = io.connect('http://'+serverIP+':'+serverPort);
     var disconnectTime =0;
 
-        socket.connect();
+    socket.connect();
 
     //try to reconnect when you disconnected(i.e. list wifi signal)
     socket.on('disconnect', function() {
@@ -91,7 +66,9 @@ $(document).ready(function(){
 
     socket.on('reconnect', function() {
 
-
+        //toastr["success"]("Wygląda na to, że połączenie wróciło. Sprawdź listę wiadomości i odswież plan");
+        //TODO: prepare action after reconnecting i.e. info that you were disonnected and chek messages that you may missed
+        //alert(disconnectTime+" czas rozłączenia")
         $.ajax({
             cache: false,
             type: "POST",
@@ -111,6 +88,10 @@ $(document).ready(function(){
                         if (change[i].message.indexOf('odwołano')!=-1||change[i].message.indexOf('Odwołano')!=-1)
                         {
                             toastr["error"](change[i].message);
+                        }
+                        else if (change[i].message.indexOf('Wiadomość')!=-1)
+                        {
+                            toastr["warning"](change[i].message);
                         }
                         else
                         {
@@ -133,6 +114,10 @@ $(document).ready(function(){
         if (msg.indexOf('odwołano')!=-1||msg.indexOf('Odwołano')!=-1)
         {
             toastr["error"](msg);
+        }
+        else if (msg.indexOf('Wiadomość od')!=-1)
+        {
+            toastr["warning"](msg);
         }
         else
         {
@@ -202,75 +187,9 @@ $(document).ready(function(){
 
         $table.bootstrapTable('hideColumn', 'messageid');
     });
-    //periodically check if there is change on DB
-    //var totalcount = 0;
-/*    setInterval(function(){
-        $.ajax({ 
-            cache: false,
-            type: "POST",
-            datatype: "json",
-            url: "admin/process.php",
-            //async: false, danger, don't know what how it will dangerous!!!!!
-            //async: false,
-            data: 'type=getInfoFromDb',
-            success: function (data) {
-                change = jQuery.parseJSON(data);
-
-                //$.cookie("totalcount",totalcount + change.length);
-
-                $('#messagesCount').text(totalcount);
-
-                if (change.length != 0)
-                {
-                    ion.sound.play("Facebook");
-
-                    for(var i in change) {
-                        var resource = getResourceName(change[i].resourceID);
-                        if (change[i].queryType == '1') {
-                            toastr["info"]("Dodano nowe zajęcia dla " + change[i].title + " w dniu " + change[i].start, resource + " ,nastąpiła zmiana w kalendarzu o godz: " + moment(change[i].timedate).format("HH:mm"));
-                            //$('#calendar-user').fullCalendar('refetchEvents');
-                        }
-                        else if (change[i].queryType == '2') {
-                            toastr["info"]("Zmodyfikowano zajęcia dla " + change[i].title + " w dniu " + change[i].start, resource + " ,nastąpiła zmiana w kalendarzu o godz: " + moment(change[i].timedate).format("HH:mm"));
-                            //$('#calendar-user').fullCalendar('refetchEvents');
-                        }
-                        else if (change[i].queryType == '3') {
-                            toastr["info"]("Usunięto zajęcia dla " + change[i].title + " w dniu " + change[i].start, resource + " ,nastąpiła zmiana w kalendarzu o godz: " + moment(change[i].timedate).format("HH:mm"));
-                            //$('#calendar-user').fullCalendar('refetchEvents');
-                        }
-                    };
-                    $('#calendar').fullCalendar('refetchEvents');
-                }
-                ion.sound.destroy("Facebook");
-            }
-            //error: function (e) {
-            //    alert('Wystąpił następujący błąd przy aktualizacji informacji z bazy danych:' + e.responseText);
-            //}
-        });
-
-        //get messgaes count
-        $.ajax({
-            cache: false,
-            type: "POST",
-            datatype: "json",
-            url: "admin/process.php",
-            data: 'type=messagesCount',
-            success: function (data2) {
-                messages = jQuery.parseJSON(data2);
-                var count =parseInt(messages.messagesCount);
-                console.log(count);
-                $('#messagesCount').text(count);
-                              
-            }
-
-        });
-
-    },30000);*/
-
-
     /**********************************************************************************************************************
      * load resources with specific dates
-     * now is hardcoded
+     *
      *
      *********************************************************************************************************************/
     function loadResources() {
@@ -288,7 +207,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function (data) {
                 //we need to remove values from dropdown
-                $("#selectResource").empty()
+                $("#selectResource").empty();
 
                 $.each(data, function (i, resource) {
 
@@ -300,9 +219,9 @@ $(document).ready(function(){
 
                 $.each(data, function (i, resource) {
                     if (resource.workingDays.indexOf(actualDate) === -1) {
-                        $("#selectResource").multiselect('deselect', resource.id)
+                        $("#selectResource").multiselect('deselect', resource.id);
                     }
-
+                    //console.log(resource.workingDays);
                 });
 
             },
@@ -341,7 +260,7 @@ $(document).ready(function(){
 
                     }
 
-
+                    //console.log(resource.workingDays);
                 });
 
                 $('#calendar').fullCalendar('render', true);
@@ -364,7 +283,7 @@ $(document).ready(function(){
         var actualDate =  moment(date).format('e');
         //var actualDate = $('#calendar').fullCalendar('getDate');
         
-        //console.log(actualDate);
+        //console.log(actualDate)
         $.ajax({
             url: "admin/json-resources.php",
             type: 'GET',
@@ -400,7 +319,7 @@ $(document).ready(function(){
 
 
     /*******************************************************************************************************************
-    * call checkresources functionon each day,
+    * call check resources on each day,
     * need to call click prev next button
     *
      ******************************************************************************************************************/
@@ -415,7 +334,25 @@ $(document).ready(function(){
 
     });
 
-
+//set options for notification window
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 0,
+        "extendedTimeOut": 0,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "tapToDismiss": true
+    }
     //configure multiselect plugin for view dropdown
     $('#selectView').multiselect({
 
@@ -503,12 +440,12 @@ function getRadioVal(form, name) {
 }
 
 /**********************for checking value checkboxes end**************************/
+
 //remove action for mouse right click
-$('#calendar:not(".fc-event")').on('contextmenu', function (e) {
-
-   // e.preventDefault()
-});
-
+//$('#calendar:not(".fc-event")').on('contextmenu', function (e) {
+//
+//    e.preventDefault()
+//});
     var element = $('#calendar');
 
     var date = new Date();
@@ -539,9 +476,10 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
             },
             lang: 'pl',
             defaultView: 'resourceDay',
-
+            //defaultView:'agendaWeek',
+            editable: true,
             droppable: true,
-            selectable: false,
+            selectable: true,
             selectHelper: true,
             minTime: "08:00:00",
             maxTime: "18:00:00",
@@ -565,12 +503,7 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
 
                 },
 
-            //edit depends on option in settings window, as default we disable addTouch, so editable will be diabled as deafult
-            editable: false,
 
-
-
- 
 
     //resources filtering taken from github churchdesk/fullcalendar, star
    resourceFilter: function (resource) {
@@ -585,7 +518,7 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
    },
 
    /******************************************************************************************************************
-   * attempt to sort resources by sortID
+   * attemt to sort resources by sortID
    *
    *
    ******************************************************************************************************************/
@@ -630,9 +563,8 @@ $('#calendar:not(".fc-event")').on('contextmenu', function (e) {
 
    },
 
-            //resources filtering taken from github churchdesk/fullcalendar, end
+   //resources filtering taken from github churchdesk/fullcalendar, end
     viewRender: function(view, element) {
-
 
         //click date to go to the specific date, we use datepicker  and here specify initial values
         $('#customDateButton').off('click')
@@ -750,7 +682,7 @@ else {
 
            //action when click on calendar to add new event
             // start
-
+            //TODO: enable change date from form, maybe date picker?, how to display resource name rather than resource id
     select: function (start, end, jsEvent, view, resources) {
 
                 
@@ -798,6 +730,7 @@ else {
                                 document.getElementById('repeatFreqDiv').style.display = 'none';
                             }
 
+
                         };
 
                         //simple validation for title, just diable submit button if title is empty
@@ -811,8 +744,8 @@ else {
                         $('#submitButton').off('click')
                         //now when click submit on form
                         $('#submitButton').on('click', function (e) {
-
-
+                            //we need title to print it on notification
+                            var title = $('#createEventModal #title').val();
                             //there is problem with pass to php starttime and endtime from form,
                             //need to walkaround , so manually pass these two values to the PHP
                             var starttime2 = $('#createEventModal #start-time').val();
@@ -845,8 +778,9 @@ else {
 
                                         $('#calendar').fullCalendar('unselect');
                                         $('#calendar').fullCalendar('refetchEvents');
+                                        socket.send(resourcename+" dodano nowe zajęcia dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
                                         
-
+                                       
                                     }
 
                                 });
@@ -888,7 +822,8 @@ else {
 
                         //now when click submit on form
                         $('#study-submitButton').on('click', function (e) {
-
+                            //we need title to print it on notification
+                            var title = $('#createStudyModal #studyTitle').val();
                             // We don't want this to act as a link so cancel the link action
                             $("#createStudyModal").modal('hide');
                             //just before sending the form we switching resource name to resource ID
@@ -903,6 +838,7 @@ else {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
                                     $('#calendar').fullCalendar('refetchEvents');
+                                    socket.send(resourcename+" dodano nowe badanie dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
 
                                 }
 
@@ -974,7 +910,7 @@ else {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
                                     $('#calendar').fullCalendar('refetchEvents');
-
+                                    socket.send(resourcename +" masz nową przerwę dniu "+ eventdate +" w godz od"+ starttime +" do " + endtime);
                                 }
 
                             });
@@ -1032,6 +968,7 @@ else {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
                                     $('#calendar').fullCalendar('refetchEvents');
+                                    socket.send(leaveresourcename +" nieobecność w dniu "+ leaveeventdate);
 
                                 }
                             });
@@ -1064,7 +1001,6 @@ else {
 
             //prepare action when event has been clicked
     eventClick: function (event, jsEvent, view, resources) {
-
 
                 //human readable values inside modal form, so we changing format
                 var starttime = $.fullCalendar.moment(event.start).format('HH:mm');
@@ -1115,9 +1051,6 @@ else {
                         $("label[for='checkRepeatsLabel']").html("<strong>" + checkrepeats + "</strong>");
                         $('#deleteBreakeModal').modal('show');
 
-
-
-
                         //fix for looping when add second third etc.. event
                         $('#deleteBreakConfirmSubmitButton').off('click');
 
@@ -1141,7 +1074,7 @@ else {
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
-
+                                        socket.send(resourcename+ " Usunięto Twoją przerwę w dniu " +eventdate+" o godzinie " +starttime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1160,7 +1093,7 @@ else {
                                     data: 'type=delete-child-event&event_id=' + event_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        socket.send(resourcename+ " Usunięto zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
+                                        socket.send(resourcename+ " Usunięto Twoją przerwę w dniu " +eventdate+" o godzinie " +starttime);
 
                                     },
                                     error: function (e) {
@@ -1180,6 +1113,7 @@ else {
                                     data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
+                                        socket.send(resourcename+ " Usunięto Twoją przerwę w dniu " +eventdate+" o godzinie " +starttime);
 
                                     },
                                     error: function (e) {
@@ -1236,7 +1170,6 @@ else {
 
                     }
 
-
                     document.getElementById('previewDescriptionButtons').style.display = 'none';
                     $('#preview-description').prop("readonly", true);
                     $('#previewEventModal').modal('show');
@@ -1263,7 +1196,6 @@ else {
                             success: function (response) {
                                 //TODO: refetch does not work inside, why??
                                 $('#calendar').fullCalendar('refetchEvents');
-
                                 socket.send(resourcename+" dodano opis do zajęć dla " + event.title +" w dniu "+ eventdate +" o godz "+ starttime);
                             },
                             error: function (e) {
@@ -1323,9 +1255,9 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
                                         success: function (response) {
-                                            //TODO: refetch does not work inside, why??
+                                            socket.send(resourcename+ ". Usunięto zajęcia dla " +event.title+" o godzinie " +starttime);
                                             $('#calendar').fullCalendar('refetchEvents');
-                                            socket.send(resourcename+ " Usunięto zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
+                                            //console.log(response);
                                         },
                                         error: function (e) {
                                             alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1341,9 +1273,11 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-events-from-day&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&repeat_freq=' + repeat_freq,
                                         success: function (response) {
-
-                                            $('#calendar').fullCalendar('refetchEvents');
+                                            //console.log(response.status);
                                             socket.send("Usunięto wszystkie zajęcia dla " +event.title+" w dniu " +eventdate);
+                                            //TODO: refetch does not work inside, why??
+                                            $('#calendar').fullCalendar('refetchEvents');
+                                            //console.log(response);
                                         },
                                         error: function (e) {
                                             alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1374,7 +1308,7 @@ else {
                                 var deleteOptionRepeat = getRadioVal(document.getElementById('deleteYesRepeats'), 'optionsRadioRepeate');
                                 //console.log(deleteOptionRepeat);
                                 if (deleteOptionRepeat == 'deleteSingleRepeate') {
-
+                                    //console.log(deleteOptionRepeat);
                                     $('#deleteRepeateEventModal').modal('hide');
                                     $.ajax({
                                         cache: false,
@@ -1383,6 +1317,7 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-child-event&event_id=' + event_id,
                                         success: function (response) {
+                                            socket.send(resourcename+ ". Usunięto zajęcia dla " +event.title+" o godzinie " +starttime);
                                             $('#calendar').fullCalendar('refetchEvents');
 
                                         },
@@ -1400,11 +1335,9 @@ else {
                                         url: "admin/process.php",
                                         data: 'type=delete-events-from-day&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&repeat_freq=' + repeat_freq,
                                         success: function (response) {
-                                            //$('#calendar').fullCalendar('refetchEvents');
+                                            socket.send("Usunięto wszystkie zajęcia dla " +event.title+" w dniu " +eventdate);
                                             //TODO: refetch does not work inside, why??
                                             $('#calendar').fullCalendar('refetchEvents');
-                                            socket.send(resourcename+ " Usunięto zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
-
                                         },
                                         error: function (e) {
                                             alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
@@ -1419,10 +1352,10 @@ else {
                                         type: "POST",
                                         datatype: "json",
                                         url: "admin/process.php",
-                                        data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
+                                        data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id +'&event_date=' + eventdate,
                                         success: function (response) {
                                             $('#calendar').fullCalendar('refetchEvents');
-                                            socket.send(resourcename+ " Usunięto zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
+                                            socket.send("Usunięto wszystkie zajęcia dla " +event.title+" do końca roku");
 
                                         },
                                         error: function (e) {
@@ -1439,7 +1372,6 @@ else {
 
                     });
 
-
                     var editStartTime = $.fullCalendar.moment(event.start).format('HH:mm');
                     var editEndTime = $.fullCalendar.moment(event.end).format('HH:mm');
                     //modify button clicked
@@ -1448,7 +1380,6 @@ else {
                     $('#edit-submitButton').on('click', function () {
 
                         $('#previewEventModal').modal('hide');
-
 
                         //put values to modal
                         $('#editEventModal #edit-title').val(event.title);
@@ -1488,8 +1419,6 @@ else {
                                 $('#edit-confirm-submitButton').prop('disabled', false);
                                 $('#editOverhours').prop('disabled', false);
                             });
-
-
                         }
                         else
                         {
@@ -1497,10 +1426,7 @@ else {
                             $('#edit-confirm-submitButton').prop('disabled',false);
                         }
 
-
                         $('#editEventModal').modal('show');
-
-
 
                     });
                     // todo:not working need to provide switching enable disable button when start/end time is changed
@@ -1512,12 +1438,7 @@ else {
                      //   $('#edit-confirm-submitButton').prop('disabled', false);
 
                     //});
-                
-
                     //todo: check if start time is not smaller that end time
-
-
-
 
                     $('#edit-confirm-submitButton').off('click');
                     $('#edit-confirm-submitButton').on('click', function (e) {
@@ -1551,7 +1472,6 @@ else {
                                 success: function (response) {
                                     $('#calendar').fullCalendar('refetchEvents');
                                     socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
-
 
                                 },
                                 error: function (e) {
@@ -1632,7 +1552,6 @@ else {
                                             data: $('#editAppointmentForm').serialize() + '&type=update-child-event' + '&event_id=' + event_id + '&repeat_freq=' + repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                             success: function (response) {
                                                 $('#calendar').fullCalendar('refetchEvents');
-
                                                 socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
 
                                             },
@@ -1739,9 +1658,6 @@ else {
                             $('#cancelEventModal').modal('hide');
                         });
 
-
-
-
                     })
                     //we can revert cancel event by clicking cancel cancel button
                     //click cancel event action
@@ -1753,7 +1669,6 @@ else {
                         //and remove cancel reason from description
                         var trimedDescription = $("#preview-description").val();
                         var description2json = trimedDescription.split('NB:')[0];
-
                         $.ajax({
                             cache: false,
                             type: "POST",
@@ -1804,11 +1719,7 @@ else {
 
             $('input[name="editOverhours"]').prop('checked', false);
         }
-
-
-
             $('#editEventModal').modal('show');
-
 
             $('#edit-confirm-submitButton').off('click');
             $('#edit-confirm-submitButton').on('click', function() {
@@ -1849,7 +1760,8 @@ else {
                                     url: "admin/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events'+'&event_id=' + event_id + '&parent_id=' + parent_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime+ '&category_id=' + category_id,
                                     success: function (response) {
-
+                                        //$('#calendar').fullCalendar('refetchEvents');
+                                        //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
@@ -1860,7 +1772,8 @@ else {
                             }
                             else{
                                 $('#calendar').fullCalendar('refetchEvents');
-
+                                //no need so far
+                                //dialogRef.close();
                             }
                         }
                     })
@@ -1886,8 +1799,8 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-child-event'+'&event_id=' + event_id+ '&repeat_freq='+ repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
+
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd modyfikacji zajęć' + e.responseText);
@@ -1908,8 +1821,8 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
+
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikacji zajęć' + e.responseText);
@@ -2002,9 +1915,10 @@ else {
                                     url: "admin/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events'+'&event_id=' + event_id + '&parent_id=' + parent_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime+ '&category_id=' + category_id,
                                     success: function (response) {
-
+                                        //$('#calendar').fullCalendar('refetchEvents');
+                                        //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
-
+                                        socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikowaniu zajęć' + e.responseText);
@@ -2040,6 +1954,8 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-child-event'+'&event_id=' + event_id+ '&repeat_freq='+ repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
+                                        //console.log(response);
+                                        socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
 
                                     },
                                     error: function (e) {
@@ -2061,7 +1977,10 @@ else {
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
-
+                                        if (response.status == "success")
+                                        //TODO: refetch does not work inside, why??
+                                        //$('#calendar').fullCalendar('refetchEvents');
+                                            socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikacji zajęć' + e.responseText);
@@ -2089,7 +2008,14 @@ else {
             
 
     eventRender: function (event, element) {
-        //disable moving break for now :)
+
+        /***************************************************************************************************************
+         * enable dragg option for touch devices
+         *
+         ***************************************************************************************************************/
+        $(element).addTouch();
+
+            //disable moving break for now :)
             if (event.title == 'PRZERWA') {
 
                 event.editable = false;
@@ -2105,7 +2031,6 @@ else {
             ********************************************************************************************************/
             element.css('background', "none");
             element.find('.fc-bg').append('<img src ="/images/cancel2.png" width=100% height=100%/>');
-
         }
 
             //this  is fix for appearing icons during selecting new event
@@ -2123,21 +2048,21 @@ else {
         element.find('.fc-title').append("<br/>" + event.description);
 
         //this  is fix for appearing custom border during selecting new event
-            if (event.description == null) {
+            if (event.description == null ) {
 
                 element.css('border-color', '#FFFFFF');
 
+
             }
             //red border should appear only when event is created and it has description
-            //"!= null" -- this does not work probably afteradding new event there is emptytext but not null
-            else if (event.description != "")
+            //"!= null" -- this does not work probably after adding new event there is empty text but not null
+            else if (event.description != '')
             {
                 element.css('border-color', '#ff000f');
 
             }
 
-
-          //to have more readable events and see spaces between events in column wee add small margin to events
+        //to have more readable events and see spaces between events in column wee add small margin to events
         $(element).css("margin-bottom", "2px");
 
         /**************************************************************************************************************
@@ -2145,33 +2070,32 @@ else {
          **************************************************************************************************************/
         element.bind('taphold', function (e) {
 
-            //get day viewed
-            var currentViewDate = $('#calendar').fullCalendar('getDate')
+                //get day viewed
+                var currentViewDate = $('#calendar').fullCalendar('getDate')
 
-            var events = $('#calendar').fullCalendar('clientEvents', function (event) {
-                //get list of events for displayed day
-                if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
-                    return true;
-                }
-            });
+                var events = $('#calendar').fullCalendar('clientEvents', function (event) {
+                    //get list of events for displayed day
+                    if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
+                        return true;
+                    }
+                });
 
-            //search events with the same title as event where is mouse over
-            for (var i = 0; events.length > i; i++) {
+                //search events with the same title as event where is mouse over
+                for (var i = 0; events.length > i; i++) {
 
-                if (events[i].title == event.title) {
-                    events[i].textColor = 'blue'
+                    if (events[i].title == event.title) {
+                        events[i].textColor = 'blue'
+                    }
+                    else{
+                        events[i].textColor = ''
+                    }
                 }
-                else{
-                    events[i].textColor = ''
-                }
-            }
-            $('#calendar').fullCalendar("rerenderEvents");
+                $('#calendar').fullCalendar("rerenderEvents");
 
 
         });
 
         }
-
 
 
     });
@@ -2188,23 +2112,22 @@ else {
         });
     }, 1000);
 
-
     /*********************************************autocomplete for title start ***********************/
 
     $('#createEventModal #title').typeahead({
-        source: function (query, process) {
-            $.ajax({
-                url: "admin/temp_autocomplete.php",
-                type: 'POST',
-                dataType: 'JSON',
-                data: 'query=' + query,
-                success: function (data) {
-                    process(data);
-
-                }
-            });
-        }
-    });
+     source: function (query, process) {
+     $.ajax({
+     url: "admin/temp_autocomplete.php",
+     type: 'POST',
+     dataType: 'JSON',
+     data: 'query=' + query,
+     success: function(data) {
+     process(data);
+          //console.log(data);
+     }
+     });
+     }
+     });
 
     $('#editEventModal #edit-title').typeahead({
         source: function (query, process) {
@@ -2300,7 +2223,6 @@ else {
 
     });
 
-    /**********************************************option window end******************************************/
 
     /*********************************************************************************************************
     * fullscreen functionality:

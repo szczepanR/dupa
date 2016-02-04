@@ -89,6 +89,10 @@ $(document).ready(function(){
                         {
                             toastr["error"](change[i].message);
                         }
+                        else if (change[i].message.indexOf('Wiadomość')!=-1)
+                        {
+                            toastr["warning"](change[i].message);
+                        }
                         else
                         {
                             toastr["info"](change[i].message);
@@ -110,6 +114,10 @@ $(document).ready(function(){
         if (msg.indexOf('odwołano')!=-1||msg.indexOf('Odwołano')!=-1)
         {
             toastr["error"](msg);
+        }
+        else if (msg.indexOf('Wiadomość od')!=-1)
+        {
+            toastr["warning"](msg);
         }
         else
         {
@@ -388,6 +396,19 @@ $(document).ready(function(){
 
     });
 
+    //configure sounds
+    ion.sound({
+        sounds: [
+            {name: "Facebook"}
+        ],
+
+        path: "sounds/",
+        preload: true,
+        multiplay: false,
+        volume: 1
+    });
+
+
 
     //for resources filtering
     $('#selectResource').change(function(){
@@ -507,6 +528,40 @@ function getRadioVal(form, name) {
        return ((aName > bName) ? 1 : ((aName < bName) ? -1 : 0));
    },
 
+   eventAfterAllRender: function (view) {
+
+   /*******************************************************************************************************************
+   *second part for dynamically turn on/off drag&drop.
+   * We had to use  in eventAfterAllRender as it is execute after rerenderevents function
+   *
+   *******************************************************************************************************************/
+       if (document.getElementById('editCalendar').checked == true) {
+           $('#calendar').fullCalendar('getView').calendar.options.editable = true;
+
+           $('.fc-event').addTouch();
+
+           $(window).resize();
+           //console.log('checked')
+       }
+       else {
+           $('#calendar').fullCalendar('getView').calendar.options.editable = false;
+       }
+
+       if (document.getElementById('bigScreenCalendar').checked == true) {
+           $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+           //experimental, change row height
+           $('#calendar').find('.fc-slats td').css({"height": "3.2em"});
+           $(window).resize();
+           //console.log('checked')
+       }
+       else {
+
+           $('#calendar').find('.fc-slats td').css({"height": "2.5em"});
+           $(window).resize();
+       }
+
+
+   },
 
    //resources filtering taken from github churchdesk/fullcalendar, end
     viewRender: function(view, element) {
@@ -605,12 +660,18 @@ else {
 
                             //need to remove option height to set aspect Ratio, clever :)
                             $('#calendar').fullCalendar('option', 'height', '');
-                            //set aspect ratio
-                            element.fullCalendar('option', 'aspectRatio', 2.3);
-                            //set row height
-                            element.find('.fc-slats td').css({"height": "2.5em"});
-
-
+                            if (document.getElementById('bigScreenCalendar').checked == true)
+                            {
+                                $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+                                $('#calendar').find('.fc-slats td').css({"height": "3.2em"});
+                            }
+                            else
+                            {
+                                //set aspect ratio
+                                element.fullCalendar('option', 'aspectRatio', 2.35);
+                                //set row height
+                                element.find('.fc-slats td').css({"height": "2.5em"});
+                            }
                         }
                     });
                 }
@@ -1617,7 +1678,7 @@ else {
                             success: function (response) {
                                 //TODO: refetch does not work inside, why??
                                 $('#calendar').fullCalendar('refetchEvents');
-                                //console.log(response);
+                                socket.send(resourcename+ " odwołane poprzednio zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime +" odbędą się");
                             },
                             error: function (e) {
                                 alert('Wystąpił następujący błąd przy anulowaniu odwołania zajęć' + e.responseText);
@@ -1702,7 +1763,7 @@ else {
                                         //$('#calendar').fullCalendar('refetchEvents');
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
-                                        //console.log(response);
+                                        socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
                                     },
                                     error: function (e) {
                                         alert('Wystąpił następujący błąd przy modyfikowaniu zajęć' + e.responseText);
@@ -2099,22 +2160,120 @@ else {
     });
     /**********************************************autocomplete for title end******************************************/
 
-    /**********************************************about window start******************************************/
-    $('#aboutButton').off('click')
-    $('#aboutButton').on('click', function () {
-        BootstrapDialog.alert({
-            title: 'O programie',
-            message: 'Szczepan Rudnicki, szczepan.rudnicki@gmail.com, 2015',
-            type: BootstrapDialog.TYPE_WARNING, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-            closable: true, // <-- Default value is false
-            draggable: true, // <-- Default value is false
-            buttonLabel: 'Zamknij' // <-- Default value is 'OK',
+    /*****************************************************************************************************************
+     * show option window
+     *
+     *****************************************************************************************************************/
+    $('#optionsButton').off('click')
+    $('#optionsButton').on('click', function () {
+        $('#submitOptionButton').prop('disabled', true);
+        $('#optionsEventModal').modal('show');
+        $('input[type=checkbox]').change(function(){
+
+            $('#submitOptionButton').prop('disabled', false);
         });
+    });
+
+    /*****************************************************************************************************************
+     * drag & drop dynamically on/off
+     * this functionality is in two parts, this is first
+     * second located in callback eventAfterAllRender
+     *
+     *****************************************************************************************************************/
+    $('#submitOptionButton').off('click')
+    $('#submitOptionButton').on('click', function (e) {
+        e.preventDefault();
 
 
+        if (document.getElementById('editCalendar').checked == true || document.getElementById('bigScreenCalendar').checked == true) {
+
+            $('#calendar').fullCalendar('rerenderEvents');
+
+        }
+        else {
+
+            $('#calendar').fullCalendar('rerenderEvents');
+        }
+
+
+
+        $('#optionsEventModal').modal('hide');
+    });
+    /*
+    * Need to avoid turn on big screen on tablets
+    *
+    * */
+    $("#bigScreenCalendar").click( function(){
+        if( $(this).is(':checked') && ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
+        {
+
+                BootstrapDialog.alert({
+                    title: 'Uwaga',
+                    message: 'funkcja big screen tylko na kompach LENOVO :)',
+                    type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                    closable: true, // <-- Default value is false
+                    draggable: true, // <-- Default value is false
+                    buttonLabel: 'Zamknij' // <-- Default value is 'OK',
+                });
+
+
+            $('#bigScreenCalendar').removeAttr('checked');
+
+        };
 
     });
 
 
-    /**********************************************about window end******************************************/
+    /*********************************************************************************************************
+    * fullscreen functionality:
+    * single button to toggle fullscreen on off
+    * works ONLY with Chrome
+    *
+    * ********************************************************************************************************/
+    var goFS = document.getElementById("fsButton");
+
+    goFS.addEventListener("click", function() {
+
+        if(!document.webkitIsFullScreen) {
+
+            var conf = confirm("Przełączyć na tryb pełnego ekranu?");
+            var docelem = document.documentElement;
+
+            if (conf == true) {
+                if (document.getElementById('bigScreenCalendar').checked == true)
+                {
+                    $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+                }
+                else
+                {
+                    $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
+                }
+
+                if (docelem.requestFullscreen) {
+                    docelem.requestFullscreen();
+                }
+                else if (docelem.mozRequestFullScreen) {
+                    docelem.mozRequestFullScreen();
+                }
+                else if (docelem.webkitRequestFullScreen) {
+                    docelem.webkitRequestFullScreen();
+                }
+                else if (docelem.msRequestFullscreen) {
+                    docelem.msRequestFullscreen();
+                }
+            }
+        }
+        else {
+            $('#calendar').fullCalendar('option', 'aspectRatio', 2.35);
+                if(document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if(document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if(document.webkitCancelFullScreen()) {
+                    document.webkitCancelFullScreen();
+                }
+
+        }
+
+    }, false);
 });
