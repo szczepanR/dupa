@@ -530,24 +530,7 @@ function getRadioVal(form, name) {
 
    eventAfterAllRender: function (view) {
 
-   /*******************************************************************************************************************
-   *second part for dynamically turn on/off drag&drop.
-   * We had to use  in eventAfterAllRender as it is execute after rerenderevents function
-   *
-   *******************************************************************************************************************/
-       if (document.getElementById('editCalendar').checked == true) {
-           $('#calendar').fullCalendar('getView').calendar.options.editable = true;
-
-           $('.fc-event').addTouch();
-
-           $(window).resize();
-           //console.log('checked')
-       }
-       else {
-           $('#calendar').fullCalendar('getView').calendar.options.editable = false;
-       }
-
-       if (document.getElementById('bigScreenCalendar').checked == true) {
+     if (document.getElementById('bigScreenCalendar').checked == true) {
            $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
            //experimental, change row height
            $('#calendar').find('.fc-slats td').css({"height": "3.2em"});
@@ -565,6 +548,7 @@ function getRadioVal(form, name) {
 
    //resources filtering taken from github churchdesk/fullcalendar, end
     viewRender: function(view, element) {
+
 
         //click date to go to the specific date, we use datepicker  and here specify initial values
         $('#customDateButton').off('click')
@@ -617,9 +601,9 @@ function getRadioVal(form, name) {
 
             }*/
             var date = $('#calendar').fullCalendar('getDate');
-           loadResources2(date)
+            loadResources2(date)
             $('#calendar').fullCalendar('refetchEvents');
-            //$('#calendar').fullCalendar('render', true);
+
         });
 
         //click print button
@@ -678,6 +662,7 @@ else {
             }
 
         });
+
     },
 
            //action when click on calendar to add new event
@@ -1693,6 +1678,8 @@ else {
 
          //when drag and drop existing event
     eventDrop: function(event, delta, revertFunc, resources) {
+
+        //$('#calendar').unbind('taphold');
             var starttime = $.fullCalendar.moment(event.start).format('HH:mm');
             var endtime = $.fullCalendar.moment(event.end).format('HH:mm');
         //var endtime = $.fullCalendar.moment(event.start).add(delta,'ms').format('HH:mm');
@@ -1771,7 +1758,7 @@ else {
                                 })
                             }
                             else{
-                                $('#calendar').fullCalendar('refetchEvents');
+                                $('#calendar').fullCalendar('rerenderEvents');
                                 //no need so far
                                 //dialogRef.close();
                             }
@@ -2009,58 +1996,63 @@ else {
 
     eventRender: function (event, element) {
 
-        /***************************************************************************************************************
-         * enable dragg option for touch devices
-         *
-         ***************************************************************************************************************/
-        $(element).addTouch();
+        //detect if we allow to drag&drop events
+        if (document.getElementById('editCalendar').checked == true) {
 
-            //disable moving break for now :)
-            if (event.title == 'PRZERWA') {
+            element.addTouchAllEvents();
+        }
+        else {
 
-                event.editable = false;
-            }
+            element.addTouch();
+        }
+
+
+        //disable moving break for now :)
+        if (event.title == 'PRZERWA') {
+
+            event.editable = false;
+        }
+
         //disable moving cancelled events
         if (event.category_id == 6) {
 
             event.editable = false;
             /**********************************************************************************************************
-            *workaround for printing cancelled events,
-            *we cannot use background propoerty because it will no print
-            *we need to use img src as background and add this to .fc-bg, so far so good :)
-            ********************************************************************************************************/
+             *workaround for printing cancelled events,
+             *we cannot use background propoerty because it will no print
+             *we need to use img src as background and add this to .fc-bg, so far so good :)
+             ********************************************************************************************************/
             element.css('background', "none");
             element.find('.fc-bg').append('<img src ="/images/cancel2.png" width=100% height=100%/>');
         }
 
-            //this  is fix for appearing icons during selecting new event
-            if (event.repeat_freq == null) {
+        //this  is fix for appearing icons during selecting new event
+        if (event.repeat_freq == null) {
 
-                element.find('.fc-time').append('');
-            }
-            //glyphicon should appear only when event is created and it is reccurent
-            else if(event.repeat_freq != 0)
-            {
-                element.find('.fc-time').append(' <span class="glyphicon glyphicon-refresh"></span>');
-            }
+            element.find('.fc-time').append('');
+        }
 
+        //glyphicon should appear only when event is created and it is reccurent
+        else if (event.repeat_freq != 0) {
 
+            element.find('.fc-time').append(' <span class="glyphicon glyphicon-refresh"></span>');
+        }
+
+        //add description to events
         element.find('.fc-title').append("<br/>" + event.description);
 
         //this  is fix for appearing custom border during selecting new event
-            if (event.description == null ) {
+        if (event.description == null) {
 
-                element.css('border-color', '#FFFFFF');
+            element.css('border-color', '#FFFFFF');
+        }
 
+        //red border should appear only when event is created and it has description
+        //"!= null" -- this does not work probably after adding new event there is empty text but not null
+        else if (event.description != '') {
+            element.css('border-color', '#ff000f');
 
-            }
-            //red border should appear only when event is created and it has description
-            //"!= null" -- this does not work probably after adding new event there is empty text but not null
-            else if (event.description != '')
-            {
-                element.css('border-color', '#ff000f');
-
-            }
+        }
 
         //to have more readable events and see spaces between events in column wee add small margin to events
         $(element).css("margin-bottom", "2px");
@@ -2068,37 +2060,11 @@ else {
         /**************************************************************************************************************
          * highlight all events titile to blue with the same title when event is pressed longer.
          **************************************************************************************************************/
-        element.bind('taphold', function (e) {
+        myTaphold(element, event);
 
-                //get day viewed
-                var currentViewDate = $('#calendar').fullCalendar('getDate')
+    },
 
-                var events = $('#calendar').fullCalendar('clientEvents', function (event) {
-                    //get list of events for displayed day
-                    if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
-                        return true;
-                    }
-                });
-
-                //search events with the same title as event where is mouse over
-                for (var i = 0; events.length > i; i++) {
-
-                    if (events[i].title == event.title) {
-                        events[i].textColor = 'blue'
-                    }
-                    else{
-                        events[i].textColor = ''
-                    }
-                }
-                $('#calendar').fullCalendar("rerenderEvents");
-
-
-        });
-
-        }
-
-
-    });
+  });
         /**************************************************************************************************************
          * checking resources when today button clicked, this need to be after loading fullcalendar
          * explanation under link http://stackoverflow.com/questions/27193160/affecting-fullcalendar-today-button-fc-today-button
@@ -2107,27 +2073,71 @@ else {
 
         $(".fc-today-button").click(function() {
             checkResources();
-
-
         });
     }, 1000);
 
-    /*********************************************autocomplete for title start ***********************/
+    /*****************************************************************************************************************
+     * Function taken from http://www.tech.theplayhub.com/long_press_in_javascript/
+     * need to put it into eventRender callback.
+     * @param elementum
+     * @param event
+     *****************************************************************************************************************/
+    function myTaphold(elementum, event){
+
+        var longpress = false;
+        var startTime, endTime;
+
+        elementum.on('mousedown touchstart', function () {
+            startTime = new Date().getTime();
+        });
+        elementum.on('mouseup touchend', function () {
+            endTime = new Date().getTime();
+            longpress = (endTime - startTime < 150) ? false : true;
+        });
+
+        elementum.on('click', function () {
+            if (longpress) {
+                //get day viewed
+                var currentViewDate = $('#calendar').fullCalendar('getDate')
+                var events = $('#calendar').fullCalendar('clientEvents', function (event) {
+                    //get list of events for displayed day
+                    if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
+                        return true;
+                    }
+                });
+                //search events with the same title as event where is mouse over
+                for (var i = 0; events.length > i; i++) {
+
+                    if (events[i].title == event.title) {
+
+                        events[i].textColor = 'blue'
+                    }
+                    else {
+
+                        events[i].textColor = ''
+                    }
+                }
+                $('#calendar').fullCalendar("rerenderEvents");
+            }
+        });
+    }
+
+       /*********************************************autocomplete for title start ***********************/
 
     $('#createEventModal #title').typeahead({
-     source: function (query, process) {
-     $.ajax({
-     url: "admin/temp_autocomplete.php",
-     type: 'POST',
-     dataType: 'JSON',
-     data: 'query=' + query,
-     success: function(data) {
-     process(data);
-          //console.log(data);
-     }
-     });
-     }
-     });
+        source: function (query, process) {
+            $.ajax({
+                url: "admin/temp_autocomplete.php",
+                type: 'POST',
+                dataType: 'JSON',
+                data: 'query=' + query,
+                success: function (data) {
+                    process(data);
+                    //console.log(data);
+                }
+            });
+        }
+    });
 
     $('#editEventModal #edit-title').typeahead({
         source: function (query, process) {
@@ -2166,6 +2176,7 @@ else {
      *****************************************************************************************************************/
     $('#optionsButton').off('click')
     $('#optionsButton').on('click', function () {
+
         $('#submitOptionButton').prop('disabled', true);
         $('#optionsEventModal').modal('show');
         $('input[type=checkbox]').change(function(){
@@ -2177,7 +2188,7 @@ else {
     /*****************************************************************************************************************
      * drag & drop dynamically on/off
      * this functionality is in two parts, this is first
-     * second located in callback eventAfterAllRender
+     * second located in callback eventRender
      *
      *****************************************************************************************************************/
     $('#submitOptionButton').off('click')
@@ -2188,39 +2199,32 @@ else {
         if (document.getElementById('editCalendar').checked == true || document.getElementById('bigScreenCalendar').checked == true) {
 
             $('#calendar').fullCalendar('rerenderEvents');
-
         }
         else {
 
             $('#calendar').fullCalendar('rerenderEvents');
         }
 
-
-
         $('#optionsEventModal').modal('hide');
     });
-    /*
+    /****
     * Need to avoid turn on big screen on tablets
     *
-    * */
-    $("#bigScreenCalendar").click( function(){
-        if( $(this).is(':checked') && ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)))
-        {
+    *****/
+    $("#bigScreenCalendar").click(function () {
+        if ($(this).is(':checked') && ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
 
-                BootstrapDialog.alert({
-                    title: 'Uwaga',
-                    message: 'funkcja big screen tylko na kompach LENOVO :)',
-                    type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
-                    closable: true, // <-- Default value is false
-                    draggable: true, // <-- Default value is false
-                    buttonLabel: 'Zamknij' // <-- Default value is 'OK',
-                });
-
+            BootstrapDialog.alert({
+                title: 'Uwaga',
+                message: 'funkcja big screen tylko na kompach LENOVO :)',
+                type: BootstrapDialog.TYPE_INFO, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+                closable: true, // <-- Default value is false
+                draggable: true, // <-- Default value is false
+                buttonLabel: 'Zamknij' // <-- Default value is 'OK',
+            });
 
             $('#bigScreenCalendar').removeAttr('checked');
-
         };
-
     });
 
 
@@ -2232,48 +2236,55 @@ else {
     * ********************************************************************************************************/
     var goFS = document.getElementById("fsButton");
 
-    goFS.addEventListener("click", function() {
+    goFS.addEventListener("click", function () {
 
-        if(!document.webkitIsFullScreen) {
+        if (!document.webkitIsFullScreen) {
 
             var conf = confirm("Przełączyć na tryb pełnego ekranu?");
             var docelem = document.documentElement;
 
             if (conf == true) {
-                if (document.getElementById('bigScreenCalendar').checked == true)
-                {
+                if (document.getElementById('bigScreenCalendar').checked == true) {
+
                     $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
                 }
-                else
-                {
+                else {
+
                     $('#calendar').fullCalendar('option', 'aspectRatio', 2.05);
                 }
 
                 if (docelem.requestFullscreen) {
+
                     docelem.requestFullscreen();
                 }
                 else if (docelem.mozRequestFullScreen) {
+
                     docelem.mozRequestFullScreen();
                 }
                 else if (docelem.webkitRequestFullScreen) {
+
                     docelem.webkitRequestFullScreen();
                 }
                 else if (docelem.msRequestFullscreen) {
+
                     docelem.msRequestFullscreen();
                 }
             }
         }
         else {
             $('#calendar').fullCalendar('option', 'aspectRatio', 2.35);
-                if(document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if(document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if(document.webkitCancelFullScreen()) {
-                    document.webkitCancelFullScreen();
-                }
+            if (document.exitFullscreen) {
 
+                document.exitFullscreen();
+            }
+            else if (document.mozCancelFullScreen) {
+
+                document.mozCancelFullScreen();
+            }
+            else if (document.webkitCancelFullScreen()) {
+
+                document.webkitCancelFullScreen();
+            }
         }
-
     }, false);
 });

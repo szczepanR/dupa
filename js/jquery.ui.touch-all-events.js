@@ -139,20 +139,20 @@
 					return;
 				}
 				iPadTouchStart(event); /*We need to trigger two events here to support one touch drag and drop*/
-				//event.preventDefault();
+				event.preventDefault();
 				return false;
 				break;
 
 			case "touchmove":
 				cancelHold();
 				type = "mousemove";
-				//event.preventDefault();
+				event.preventDefault();
 				break;
 
 			case "touchend":
 				if (cancelMouseUp) {
 					cancelMouseUp = false;
-					//event.preventDefault();
+					event.preventDefault();
 					return false;
 				}
 				cancelHold();
@@ -185,16 +185,14 @@
 	$.extend($.support, {
 		touch: "ontouchend" in document
 	});
-
-	$.fn.addTouch = function() {
-	    if ($.support.touch) {
-            this.each(function(i,el){
-                el.addEventListener("touchstart", iPadTouchHandler, false);
-                //el.addEventListener("touchmove", iPadTouchHandler, false);
-                el.addEventListener("touchend", iPadTouchHandler, false);
-               // el.addEventListener("touchcancel", iPadTouchHandler, false);
-            });
-	    }
+	$.fn.addTouchAllEvents = function() {
+		if ($.support.touch) {
+			this.each(function(i,el){
+				el.addEventListener("touchstart", iPadTouchHandler, false);
+				el.addEventListener("touchmove", iPadTouchHandler, false);
+				el.addEventListener("touchend", iPadTouchHandler, false);
+				el.addEventListener("touchcancel", iPadTouchHandler, false);
+			});
+		}
 	};
-
 })(jQuery);

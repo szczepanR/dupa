@@ -477,9 +477,9 @@ function getRadioVal(form, name) {
             lang: 'pl',
             defaultView: 'resourceDay',
             //defaultView:'agendaWeek',
-            editable: true,
+            editable: false, //<--user cannot edit events
             droppable: true,
-            selectable: true,
+            selectable: false,//<--user cannot create events
             selectHelper: true,
             minTime: "08:00:00",
             maxTime: "18:00:00",
@@ -538,6 +538,10 @@ function getRadioVal(form, name) {
        if (document.getElementById('editCalendar').checked == true) {
            $('#calendar').fullCalendar('getView').calendar.options.editable = true;
 
+           /***************************************************************************************************************
+            * enable dragg option for touch devices
+            *
+            ***************************************************************************************************************/
            $('.fc-event').addTouch();
 
            $(window).resize();
@@ -559,6 +563,9 @@ function getRadioVal(form, name) {
            $('#calendar').find('.fc-slats td').css({"height": "2.5em"});
            $(window).resize();
        }
+
+
+       //set droppable to false as we want enable it only if taphold is in action. please check taphold event
 
 
    },
@@ -2009,11 +2016,6 @@ else {
 
     eventRender: function (event, element) {
 
-        /***************************************************************************************************************
-         * enable dragg option for touch devices
-         *
-         ***************************************************************************************************************/
-        $(element).addTouch();
 
             //disable moving break for now :)
             if (event.title == 'PRZERWA') {
