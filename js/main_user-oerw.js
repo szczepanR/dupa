@@ -21,7 +21,7 @@ function getResourceName(resourceID){
         cache: false,
         type: "POST",
         datatype: "json",
-        url: "admin/process.php",
+        url: "admin-oerw/process.php",
         //async: false, danger, don't know what how it will dangerous!!!!!
         async: false,
         data: 'type=getResourceName'+'&resourceID=' + resourceID,
@@ -48,7 +48,7 @@ $(document).ready(function(){
      ****************************************************************************************************************/
 
     var serverIP = '192.168.1.111';
-    var serverPort = '3000';
+    var serverPort = '4000';
     var socket = io.connect('http://'+serverIP+':'+serverPort);
     var disconnectTime =0;
 
@@ -73,7 +73,7 @@ $(document).ready(function(){
             cache: false,
             type: "POST",
             datatype: "json",
-            url: "admin/process.php",
+            url: "admin-oerw/process.php",
             data: 'type=getInfoFromDb&disconnectTime='+disconnectTime,
             success: function (data) {
                 var change = jQuery.parseJSON(data);
@@ -168,7 +168,7 @@ $(document).ready(function(){
         var $table = $('#messagesTable');
         $table.bootstrapTable('refresh');
         $table.bootstrapTable({
-            url: 'admin/messagesManage.php',
+            url: 'admin-oerw/messagesManage.php',
             columns: [{
                 field: 'messageid',
                 title: 'ID',
@@ -201,7 +201,7 @@ $(document).ready(function(){
         }
         //console.log(actualDate);
         $.ajax({
-            url: "admin/json-resources.php",
+            url: "admin-oerw/json-resources.php",
             type: 'GET',
             //async: false,
             dataType: 'json',
@@ -243,7 +243,7 @@ $(document).ready(function(){
         actualDate = actualDate.format('e');
         //console.log(actualDate);
         $.ajax({
-            url: "admin/json-resources.php",
+            url: "admin-oerw/json-resources.php",
             type: 'GET',
             //async: false,
             dataType: 'json',
@@ -285,7 +285,7 @@ $(document).ready(function(){
         
         //console.log(actualDate)
         $.ajax({
-            url: "admin/json-resources.php",
+            url: "admin-oerw/json-resources.php",
             type: 'GET',
             //async: false,
             dataType: 'json',
@@ -493,12 +493,12 @@ function getRadioVal(form, name) {
             firstDay:  1,
 
             //define resource source
-            resources: "admin/json-resources.php",
+            resources: "admin-oerw/json-resources.php",
 
             //define events source
             events:
                 {
-                    url: "admin/json-events.php",
+                    url: "admin-oerw/json-events.php",
                     type: 'POST'
 
                 },
@@ -757,7 +757,7 @@ else {
                                 $.ajax({
                                     cache: false,
                                     type: "POST",
-                                    url: "admin/add-event.php",
+                                    url: "admin-oerw/add-event.php",
                                     data: $('#createAppointmentForm').serialize() + "&category_id=" + category + "&start-time=" + starttime2 + "&end-time=" + endtime2,
                                     success: function () {
 
@@ -817,7 +817,7 @@ else {
                             $.ajax({
                                 cache: false,
                                 type: "POST",
-                                url: "admin/add-study.php",
+                                url: "admin-oerw/add-study.php",
                                 data: $('#createStudyForm').serialize() + "&category_id=" + category,
                                 success: function () {
                                     //alert();
@@ -889,7 +889,7 @@ else {
                             $.ajax({
                                 cache: false,
                                 type: "POST",
-                                url: "admin/add-break.php",
+                                url: "admin-oerw/add-break.php",
                                 data: $('#BreakAppointmentForm').serialize() + "&category_id=" + category,
                                 success: function () {
                                     //alert();
@@ -947,7 +947,7 @@ else {
                             $.ajax({
                                 cache: false,
                                 type: "POST",
-                                url: "admin/add-leave.php",
+                                url: "admin-oerw/add-leave.php",
                                 data: "leaveTitle=" + leaveTitle +"&leaveDate=" + leaveeventdate +"&leaveStartTime=" + leavestarttime2 +"&leaveEndTime=" + leaveendtime2 +"&leaveResourceID=" + leaveresourceID + "&category_id=" + category,
                                 success: function () {
                                     //alert();
@@ -1054,7 +1054,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/process.php",
+                                    url: "admin-oerw/process.php",
                                     data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
@@ -1074,7 +1074,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/process.php",
+                                    url: "admin-oerw/process.php",
                                     data: 'type=delete-child-event&event_id=' + event_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1094,7 +1094,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/process.php",
+                                    url: "admin-oerw/process.php",
                                     data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1176,7 +1176,7 @@ else {
                             cache: false,
                             type: "POST",
                             datatype: "json",
-                            url: "admin/process.php",
+                            url: "admin-oerw/process.php",
                             data: 'type=updateDescription&event_id=' + event_id + '&description=' + description2json,
                             success: function (response) {
                                 //TODO: refetch does not work inside, why??
@@ -1237,7 +1237,7 @@ else {
                                         cache: false,
                                         type: "POST",
                                         datatype: "json",
-                                        url: "admin/process.php",
+                                        url: "admin-oerw/process.php",
                                         data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id,
                                         success: function (response) {
                                             socket.send(resourcename+ ". Usunięto zajęcia dla " +event.title+" o godzinie " +starttime);
@@ -1255,7 +1255,7 @@ else {
                                         cache: false,
                                         type: "POST",
                                         datatype: "json",
-                                        url: "admin/process.php",
+                                        url: "admin-oerw/process.php",
                                         data: 'type=delete-events-from-day&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&repeat_freq=' + repeat_freq,
                                         success: function (response) {
                                             //console.log(response.status);
@@ -1299,7 +1299,7 @@ else {
                                         cache: false,
                                         type: "POST",
                                         datatype: "json",
-                                        url: "admin/process.php",
+                                        url: "admin-oerw/process.php",
                                         data: 'type=delete-child-event&event_id=' + event_id,
                                         success: function (response) {
                                             socket.send(resourcename+ ". Usunięto zajęcia dla " +event.title+" o godzinie " +starttime);
@@ -1317,7 +1317,7 @@ else {
                                         cache: false,
                                         type: "POST",
                                         datatype: "json",
-                                        url: "admin/process.php",
+                                        url: "admin-oerw/process.php",
                                         data: 'type=delete-events-from-day&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&repeat_freq=' + repeat_freq,
                                         success: function (response) {
                                             socket.send("Usunięto wszystkie zajęcia dla " +event.title+" w dniu " +eventdate);
@@ -1336,7 +1336,7 @@ else {
                                         cache: false,
                                         type: "POST",
                                         datatype: "json",
-                                        url: "admin/process.php",
+                                        url: "admin-oerw/process.php",
                                         data: 'type=delete-all-events&event_id=' + event_id + '&parent_id=' + parent_id +'&event_date=' + eventdate,
                                         success: function (response) {
                                             $('#calendar').fullCalendar('refetchEvents');
@@ -1452,7 +1452,7 @@ else {
                                 cache: false,
                                 type: "POST",
                                 datatype: "json",
-                                url: "admin/update-event.php",
+                                url: "admin-oerw/update-event.php",
                                 data: $('#editAppointmentForm').serialize() + '&type=cancel-event' + '&event_id=' + event_id + '&repeat_freq=' + repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&description=' + editDescription,
                                 success: function (response) {
                                     $('#calendar').fullCalendar('refetchEvents');
@@ -1494,7 +1494,7 @@ else {
                                             cache: false,
                                             type: "POST",
                                             datatype: "json",
-                                            url: "admin/update-event.php",
+                                            url: "admin-oerw/update-event.php",
                                             data: $('#editAppointmentForm').serialize() + '&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                             success: function (response) {
                                                 //$('#calendar').fullCalendar('refetchEvents');
@@ -1532,7 +1532,7 @@ else {
                                             cache: false,
                                             type: "POST",
                                             datatype: "json",
-                                            url: "admin/update-event.php",
+                                            url: "admin-oerw/update-event.php",
                                             //here is something wrong with description
                                             data: $('#editAppointmentForm').serialize() + '&type=update-child-event' + '&event_id=' + event_id + '&repeat_freq=' + repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                             success: function (response) {
@@ -1555,7 +1555,7 @@ else {
                                             cache: false,
                                             type: "POST",
                                             datatype: "json",
-                                            url: "admin/update-event.php",
+                                            url: "admin-oerw/update-event.php",
                                             data: $('#editAppointmentForm').serialize() + '&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq=' + repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                             success: function (response) {
                                                 $('#calendar').fullCalendar('refetchEvents');
@@ -1608,7 +1608,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/process.php",
+                                    url: "admin-oerw/process.php",
                                     data: 'type=cancelEvent&event_id=' + event_id + '&description=NB:' + description2json + '&category_id=' +category_id,
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
@@ -1628,7 +1628,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/process.php",
+                                    url: "admin-oerw/process.php",
                                     data: 'type=cancelEventFromDay&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&description= NB ' + description2json + '&category_id=' +category_id,
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
@@ -1658,7 +1658,7 @@ else {
                             cache: false,
                             type: "POST",
                             datatype: "json",
-                            url: "admin/process.php",
+                            url: "admin-oerw/process.php",
                             data: 'type=cancelEvent&event_id=' + event_id + '&description=' + description2json + '&category_id=' +category_id,
                             success: function (response) {
                                 //TODO: refetch does not work inside, why??
@@ -1744,7 +1744,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/update-event.php",
+                                    url: "admin-oerw/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events'+'&event_id=' + event_id + '&parent_id=' + parent_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime+ '&category_id=' + category_id,
                                     success: function (response) {
                                         //$('#calendar').fullCalendar('refetchEvents');
@@ -1782,7 +1782,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/update-event.php",
+                                    url: "admin-oerw/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-child-event'+'&event_id=' + event_id+ '&repeat_freq='+ repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1804,7 +1804,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/update-event.php",
+                                    url: "admin-oerw/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1899,7 +1899,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/update-event.php",
+                                    url: "admin-oerw/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events'+'&event_id=' + event_id + '&parent_id=' + parent_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime+ '&category_id=' + category_id,
                                     success: function (response) {
                                         //$('#calendar').fullCalendar('refetchEvents');
@@ -1937,7 +1937,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/update-event.php",
+                                    url: "admin-oerw/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-child-event'+'&event_id=' + event_id+ '&repeat_freq='+ repeat_freq + '&category_id=' + category_id + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1960,7 +1960,7 @@ else {
                                     cache: false,
                                     type: "POST",
                                     datatype: "json",
-                                    url: "admin/update-event.php",
+                                    url: "admin-oerw/update-event.php",
                                     data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -2158,7 +2158,7 @@ else {
     $('#createEventModal #title').typeahead({
         source: function (query, process) {
             $.ajax({
-                url: "admin/temp_autocomplete.php",
+                url: "admin-oerw/temp_autocomplete.php",
                 type: 'POST',
                 dataType: 'JSON',
                 data: 'query=' + query,
@@ -2173,7 +2173,7 @@ else {
     $('#editEventModal #edit-title').typeahead({
         source: function (query, process) {
             $.ajax({
-                url: "admin/temp_autocomplete.php",
+                url: "admin-oerw/temp_autocomplete.php",
                 type: 'POST',
                 dataType: 'JSON',
                 data: 'type=nameAutocomplete&query=' + query,
@@ -2188,7 +2188,7 @@ else {
     $('#createStudyModal #studyTitle').typeahead({
         source: function (query, process) {
             $.ajax({
-                url: "admin/temp_autocomplete.php",
+                url: "admin-oerw/temp_autocomplete.php",
                 type: 'POST',
                 dataType: 'JSON',
                 data: 'type=nameAutocomplete&query=' + query,
