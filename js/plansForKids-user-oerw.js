@@ -227,10 +227,6 @@ setTimeout(function () {
 
             viewRender: function (view, element) {
 
-
-
-
-
                 //click date to go to the specific date, we use datepicker  and here specify initial values
                 $('#customDateButton').off('click')
                 $('#customDateButton').on('click', function (e) {
@@ -338,38 +334,6 @@ setTimeout(function () {
                 });
             },
 
-            /* !!!!!!!!!!!!!!!!!!!!!!!NOT working!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-             eventMouseover: function( event, jsEvent, view ) {
-
-             //get day viewed
-             var currentViewDate = $('#calendar-user').fullCalendar('getDate')
-
-
-             var events = $('#calendar-user').fullCalendar('clientEvents', function (event) {
-             //get list of events for displayed day
-             if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
-             return true;
-
-             }
-
-
-             });
-
-             //search events with the same title as event where is mouse over
-             for (var i = 0; events.length > i; i++) {
-
-             if (events[i].title == event.title) {
-             events[i].borderColor = 'blue'
-             console.log(event.title)
-
-
-             }
-
-
-             }
-             $('#calendar-user').fullCalendar("rerenderEvents");
-
-             },*/
 
             //action when click on calendar to add new event
             // start
@@ -1380,28 +1344,25 @@ setTimeout(function () {
 
             eventRender: function (event, element) {
 
+                
+
                 //disable moving break for now :)
                 if (event.title == 'PRZERWA') {
 
                     event.editable = false;
                 }
+
                 //disable moving cancelled events
                 if (event.category_id == 6) {
 
                     event.editable = false;
                     /**********************************************************************************************************
-                     workaround for printing cancelled events,
-                     we cannot use background propoerty because it will no print
-                     we need to use img src as background and add this to .fc-bg, so far so good :)
-                     *********************************************************************************************************/
+                     *workaround for printing cancelled events,
+                     *we cannot use background propoerty because it will no print
+                     *we need to use img src as background and add this to .fc-bg, so far so good :)
+                     ********************************************************************************************************/
                     element.css('background', "none");
                     element.find('.fc-bg').append('<img src ="/images/cancel2.png" width=100% height=100%/>');
-
-
-
-
-
-
                 }
 
                 //this  is fix for appearing icons during selecting new event
@@ -1409,37 +1370,46 @@ setTimeout(function () {
 
                     element.find('.fc-time').append('');
                 }
+
                 //glyphicon should appear only when event is created and it is reccurent
-                else if(event.repeat_freq != 0)
-                {
+                else if (event.repeat_freq != 0) {
+
                     element.find('.fc-time').append(' <span class="glyphicon glyphicon-refresh"></span>');
                 }
 
+                //add description to events
+                //for plan for groups title will be null so need to add description after fc-time which always exists
+                if (event.title !=null){
 
-                element.find('.fc-title').append("<br/>" + event.description);
+                    element.find('.fc-title').append("<br/> " + event.description);
+                }
+                else if (event.description == null){
 
+                    element.find('.fc-time').append('<br/>');
+                }
+                else{
+
+                    element.find('.fc-time').append('<br/><p style="font-size:1.1em">' + event.description);
+                }
                 //this  is fix for appearing custom border during selecting new event
-                if (event.description == null ) {
+                if (event.description == null) {
 
                     element.css('border-color', '#FFFFFF');
-
-
                 }
+
                 //red border should appear only when event is created and it has description
-                //"!= null" -- this does not work probably afteradding new event there is emptytext but not null
-                else if (event.description != '')
-                {
+                //"!= null" -- this does not work probably after adding new event there is empty text but not null
+                else if (event.description != '') {
                     element.css('border-color', '#ff000f');
 
                 }
-                //experimental  put some
-
 
                 //to have more readable events and see spaces between events in column wee add small margin to events
                 $(element).css("margin-bottom", "2px");
 
-            }
 
+
+            },
 
         });
     }

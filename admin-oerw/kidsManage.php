@@ -17,7 +17,7 @@ require_once '../config-OERW/db-config.php';
 //below query required to diplay polish signs on page
     $dbh->query('SET NAMES utf8');
 
-    $stmt = $dbh->prepare("SELECT child_id, firstname, lastname FROM child");
+    $stmt = $dbh->prepare("SELECT child_id, firstname, lastname, groupName FROM child");
     $stmt->execute();
 
     $kids = array();
@@ -27,6 +27,7 @@ require_once '../config-OERW/db-config.php';
             $kidsArray['child_id'] = $row['child_id'];
             $kidsArray['firstname'] = $row['firstname'];
             $kidsArray['lastname'] = $row['lastname'];
+            $kidsArray['groupName'] = $row['groupName'];
             $kids[] = $kidsArray;
         }
     }

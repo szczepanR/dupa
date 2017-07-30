@@ -18,12 +18,14 @@ $start_time = $_POST['edit-start-time'];
 $end_time = $_POST['edit-end-time'];
 $resourceID = $_POST['edit-resourceID'];
 $category_id = $_POST['category_id'];
+$event_start_date = $_POST['event-start-date'];
 
 $start = $start_date . " " . $start_time;
 $end = $start_date . " " . $end_time;
 //update all events
 $firephp->log($start_time);
 $firephp->log($category_id);
+$firephp->log($event_start_date);
 if ($type == 'update-all-events'){
     //$repeat_freq = $_POST['repeat_freq'];
     //$repeats = $_POST['repeats'];
@@ -36,7 +38,7 @@ if ($type == 'update-all-events'){
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
         $stmt = $dbh->prepare("UPDATE events_parent SET
-            title=:title, start_date=:start_date, start_time=:start_time, end_time=:end_time, resourceID=:resourceID, category_id=:category_id, weekday=:weekday WHERE parent_id=:parent_id");
+            title=:title, start_date=:start_date, start_time=:start_time, end_time=:end_time, resourceID=:resourceID, category_id=:category_id, weekday=:weekday WHERE parent_id=:parent_id AND CONCAT_WS(DATE(start_date),' ',start_date)>= CONCAT_WS(DATE(start_date),' ','$event_start_date')");
 
         $stmt->bindParam(':title', $title );
         $stmt->bindParam(':start_date', $start_date);
@@ -47,13 +49,14 @@ if ($type == 'update-all-events'){
         $stmt->bindParam(':parent_id', $parent_id);
         $stmt->bindParam(':category_id', $category_id);
 
+
         $stmt->execute();
         $firephp->log($title, 'title');
 
         $dbh->query('SET NAMES utf8');
 
         //changes only time  start=CONCAT_WS(' ',DATE(start),:start_time), end=CONCAT_WS(' ',DATE(end),:end_time)
-        $stmt = $dbh->prepare("UPDATE events SET title=:title, start=CONCAT_WS(' ',DATE(start),:start_time), end=CONCAT_WS(' ',DATE(end),:end_time), resourceID=:resourceID, category_id=:category_id WHERE parent_id=:parent_id");
+        $stmt = $dbh->prepare("UPDATE events SET title=:title, start=CONCAT_WS(' ',DATE(start),:start_time), end=CONCAT_WS(' ',DATE(end),:end_time), resourceID=:resourceID, category_id=:category_id WHERE parent_id=:parent_id AND CONCAT_WS(DATE(start),' ',start)>= CONCAT_WS(DATE(start),' ','$event_start_date')");
 
         $stmt->bindParam(':title', $title );
         $stmt->bindParam(':start_time', $start_time);
@@ -61,6 +64,7 @@ if ($type == 'update-all-events'){
         $stmt->bindParam(':resourceID', $resourceID);
         $stmt->bindParam(':parent_id', $parent_id);
         $stmt->bindParam(':category_id', $category_id);
+
         $stmt->execute();
 
         $dbh->commit();

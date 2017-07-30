@@ -1,37 +1,37 @@
-<!DOCTYPE html>
 
+<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">-->
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Kalendarz OERW - strona użytkownika</title>
-
     <meta charset='utf8'/>
 
+    <title>Kalendarz OERW - strona użytkownika</title>
     <link href="css/fullcalendar.css" rel="stylesheet"/>
     <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
     <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <!--<link href="css/bootstrap-clockpicker.min.css" rel="stylesheet"/>-->
     <link href="css/custom.css" rel="stylesheet">
     <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
     <link href="css/bootstrap-editable.css" rel="stylesheet">
     <link href="css/bootstrap-multiselect.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="css/toastr.min.css" rel="stylesheet">
-    <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
     <link href="css/bootstrap-table.css" rel="stylesheet">
+    <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
     <script src="js/jquery.js"></script>
-    <script src="js/moment.js"></script>
     <script src="js/jquery.mobile.custom.min.js"></script>
+    <script src="js/moment.js"></script>
     <script src="js/jquery-ui.js"></script>
-    <script src="js/fullcalendar-user.js"></script>
+    <script src="js/fullcalendar.js"></script>
     <script src="js/bootstrap.js"></script>
     <!--<script src="js/bootstrap-clockpicker.min.js"></script>-->
     <script src='js/lang-all.js'></script>
     <script src='js/bootstrap-dialog.js'></script>
     <script src="js/bootstrap-table.min.js"></script>
     <script src="js/bootstrap-table-pl-PL.min.js"></script>
-    <script src="js/main_user-oerw.js"></script>
-    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="js/main_admin-oerw.js"></script>
+    <!--<script src="js/bootstrap3-typeahead.min.js"></script>-->
     <!--<script src="js/validator.min.js"></script>-->
     <script src="js/bootstrap-datepicker.min.js"></script>
     <script src="js/bootstrap-datepicker-pl.min.js"></script>
@@ -40,22 +40,30 @@
     <script src="js/bootstrap-datetimepicker.min.js"></script>
     <script src="js/toastr.min.js"></script>
     <script src="js/ion.sound.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
     <script src="js/jquery.ui.touch.js"></script>
     <script src="js/jquery.ui.touch-all-events.js"></script>
-    <script src="http://192.168.1.111:4000/socket.io/socket.io.js" type="text/javascript"></script>
-    <style>
+    <script src="http://192.168.1.33:4000/socket.io/socket.io.js" type="text/javascript"></script>
+
+
+
+    <style type='text/css'>
         body {
             margin: 0;
             padding: 0;
             padding-top: 15px;
             font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-
             /*font-size: 14px;*/
+
+
         }
         #calendar {
             width: 100%;
             margin: 40px auto;
             /*height: 400px;*/
+
+
+
         }
         #calendar .current_entry
         {
@@ -71,12 +79,6 @@
             height:30px;
             padding:4px;
         }
-        .fc-slats td{
-            height: 2.5em;
-        }
-        h2{
-            font-size: 20px;
-        }
         .navbar-brand{
 
             padding-right: 0px;
@@ -91,13 +93,27 @@
             display:block;
             font-size:10px;
         }
+        .fc-slats td{
+            height: 2.5em;
+        }
+        h2{
+            font-size: 20px;
+        }
+        .navbar ul.nav li a {
+            z-index: 10000;
+        }
+        .funkyradio input[type="radio"]:empty ~ label {
+            margin-top: 0.5em;
+        }
     </style>
 
-</head>
-<!--<body background="/images/xmas.jpg">-->
 
+</head>
+<body>
 <nav class="navbar navbar-default navbar-fixed-top">
+
     <div class="container-fluid">
+
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
@@ -106,21 +122,30 @@
             </a>
 
         </div>
+
         <div class="navbar-form navbar-left">
 
             <button type="button" class="btn btn-default" id="customDateButton">
                 <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span> Data
             </button>
+            <!--commented out 26.09.2015 looks like nobody is using this ext view-->
+            <!--<div class="btn-group">
+                <select id="selectView">
 
+                    <option value="viewStd" selected>Widok standardowy</option>
+                    <option value="viewExt">Widok roszerzony</option>
 
-            <button type="button" id="selectView-refresh" class="btn btn-default">
-                <span class="glyphicon glyphicon-repeat" aria-hidden="true" ></span> Odśwież widok</button>
-
-            <div class="btn-group">
-                <select id="selectResource" name="multiselect[]" multiple="multiple">
                 </select>
-
+                <button id="selectView-refresh" class="btn btn-primary">Odśwież widok</button>
             </div>
+ <div class="btn-group">-->
+            <button type="button" id="selectView-refresh" class="btn btn-default">
+                <span class="glyphicon glyphicon-repeat" aria-hidden="true" ></span> Odśwież widok
+            </button>
+            <select id="selectResource" name="multiselect[]" multiple="multiple">
+            </select>
+
+
 
             <button type="button" class="btn btn-default" id="printButton">
                 <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Drukuj
@@ -129,14 +154,17 @@
         </div>
 
         <div class="navbar-form navbar-right">
+
+            
             <div class="btn-group" role="group">
-                <a href="#" role="button" class="btn btn-default active ">K. ogólny</a>
+                <a href="#" role="button" class="btn btn-primary active ">K. ogólny</a>
                 <a href="/plansForKids-user-oerw.html" role="button" class="btn btn-default">K. dziecka</a>
+                <a href="/groupPlan-oerw.html" role="button" class="btn btn-default ">K. grupy</a>
             </div>
             <button class="btn btn-default" type="button" id="messagesButton">
                 <span class="glyphicon glyphicon-envelope" aria-hidden="true" ></span>
             </button>
-           <button type="button" class="btn btn-default" id="messagesListButton">
+            <button type="button" class="btn btn-default" id="messagesListButton">
                 <span class="glyphicon glyphicon-bell" aria-hidden="true" ></span>
             </button>
             <button type="button" class="btn btn-default" id="optionsButton">
@@ -147,10 +175,309 @@
             </button>
         </div>
 
-</div>
+    </div>
 </nav>
 <!-- page view-->
 <div id="calendar"></div>
+
+
+<!-- page view-->
+
+
+<!--*********************************modal window for adding new event start*********************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+<div id="createEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEvent"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelEvent" class="modal-title">Dodawanie nowych zajęć</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="title">Imię i nazwisko dziecka</label>
+                                    <input type="text" name="title" class="form-control" id="title" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="resourceID">Terapeuta</label>
+                                    <input type="text" name="resourceID" class="form-control" id="resourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="event-date">Data</label>
+                                    <input type="text" name="event-date" class="form-control" id="event-date"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="start-time">Początek zajęć</label>
+
+                                    <div class="input-group date" id="start-time-div">
+                                        <input type="text" class="form-control" id="start-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="end-time">Koniec zajęć</label>
+                                    <!--<input type="text" name="edit-end-time" class="form-control" id="edit-end-time">-->
+                                    <div class="input-group date" id="end-time-div">
+                                        <input type="text" class="form-control" id="end-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="overhours" id="overhours" value="5"/>
+                                        <label for="overhours">Nadgodziny</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="eventDescription">Notatki</label>
+                                    <textarea class="form-control" name="eventDescription" id="eventDescription"
+                                              rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-primary">
+                                        <input type="checkbox" name="repeats" id="repeats" value="1"/>
+                                        <label for="repeats">Powtarzanie</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="repeatFreqDiv">
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" value="1" name="repeat-freq" align="bottom" id="everyDay">
+                                        <label for="everyDay">Codziennie</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" value="7" name="repeat-freq" align="bottom" id="everyWeek">
+                                        <label for="everyWeek">Co tydzień</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button type="submit" class="btn btn-success" id="submitButton">Dodaj</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ************************************modal window for adding new event end***************************************-->
+
+<!-- *******************************************modal window for adding new study start******************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+<div id="createStudyModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelstudy"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelstudy" class="modal-title">Dodawanie badania</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createStudyForm">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="studyTitle">Imię i nazwisko dziecka</label>
+                                    <input type="text" name="studyTitle" class="form-control" id="studyTitle">
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="studyResourceID">Terapeuta</label>
+                                    <input type="text" name="studyResourceID" class="form-control" id="studyResourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="studyDate">Data</label>
+                                    <input type="text" name="studyDate" class="form-control" id="studyDate"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="studyStartTime">Początek zajęć</label>
+                                    <input type="text" name="studyStartTime" class="form-control" id="studyStartTime">
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="studyEndTime">Koniec zajęć</label>
+                                    <input type="text" name="studyEndTime" class="form-control" id="studyEndTime">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="studyDescription">Notatki</label>
+                                    <textarea class="form-control" name="studyDescription" id="studyDescription"
+                                              rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                <button type="submit" class="btn btn-success" id="study-submitButton">Dodaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--************************************* modal window for adding new event end**************************************-->
+
+
+<!--****************************** modal window for editing event start**********************************************-->
+<div id="editEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="editmyModalLabel1" class="modal-title">Edycja zajęć</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="edit-title">Imię i nazwisko dziecka</label>
+                                    <input type="text" name="edit-title" class="form-control" id="edit-title">
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="edit-resourceID">Terapeuta</label>
+                                    <input type="text" name="edit-resourceID" class="form-control" id="edit-resourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="edit-event-date">Data</label>
+                                    <input type="text" name="edit-event-date" class="form-control" id="edit-event-date"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="edit-start-time">Początek zajęć</label>
+
+                                    <div class="input-group date" id="edit-start-time-div">
+                                        <input type="text" class="form-control" id="edit-start-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="edit-end-time">Koniec zajęć</label>
+
+                                    <div class="input-group date" id="edit-end-time-div">
+                                        <input type="text" class="form-control" id="edit-end-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="editOverhours" id="editOverhours"/>
+                                        <label for="editOverhours">Nadgodziny</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="edit-description">Notatki</label>
+                                    <textarea class="form-control" name="edit-description" id="edit-description"
+                                              rows="3" readonly="readonly"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="edit-close-submitButton">Zamknij</button>
+                <button type="submit" class="btn btn-success" id="edit-confirm-submitButton">Zachowaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- *********************************************modal window for editing event end*********************************-->
+
 
 <!--****************************************** modal window for preview event start**********************************-->
 <div id="previewEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="previewmyModalLabel1"
@@ -242,15 +569,101 @@
                 <div class="pull-left">
                     <button type="submit" class="btn btn-warning" id="cancelSubmitButton">Odwołaj</button>
                     <button type="submit" class="btn btn-warning" id="cancelCancelSubmitButton">Anuluj odwołanie</button>
+                    <button type="submit" class="btn btn-primary" id="additional-event">Zaj.dodatkowe</button>
                 </div>
-                <button class="btn cancel" data-dismiss="modal" aria-hidden="true"id="cancelPreviewButton">Zamknij</button>
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
                 <button type="submit" class="btn btn-primary" id="edit-submitButton">Modyfikuj</button>
-
+                <button type="submit" class="btn btn-danger" id="delete-submitButton">Usuń</button>
             </div>
         </div>
     </div>
 </div>
 <!--**************************************** modal window for preview event end**************************************-->
+<!--****************************************** modal window for preview teacher leave start**********************************-->
+<div id="leavepreviewEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="leavepreviewmyModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="leavepreviewmyModalLabel1" class="modal-title">Podgląd nieobecności</h4>
+            </div>
+            <div class="modal-body">
+                <form id="leavepreviewAppointmentForm">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="leavepreview-title">Przyczyna nieobecności</label>
+                                    <input type="text" name="leavepreview-title" class="form-control" id="leavepreview-title"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="leavepreview-resourceID">Terapeuta</label>
+                                    <input type="text" name="leavepreview-resourceID" class="form-control" id="leavepreview-resourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leavepreview-event-date">Data</label>
+                                    <input type="text" name="leavepreview-event-date" class="form-control" id="leavepreview-event-date"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leavepreview-start-time">Początek</label>
+                                    <input type="text" name="preview-start-time" class="form-control" id="leavepreview-start-time"
+                                           readonly="readonly">
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leavepreview-end-time">Koniec</label>
+                                    <input type="text" name="leavepreview-end-time" class="form-control" id="leavepreview-end-time"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="preview-description">Notatki</label>
+                                    <div id="leavepreviewDescriptionButtons">
+                                        <button type="button" class="btn btn-default" aria-label="ok" id="leavepreviewDescriptionButtonOK">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" aria-label="cancel" id="leavepreviewDescriptionButtonCancel">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control" name="leavepreview-description" id="leavepreview-description"
+                                              readonly="readonly" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+                <button type="submit" class="btn btn-danger" id="leavedelete-submitButton">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**************************************** modal window for preview teacher leave end**************************************-->
+
+
 <!--****************************************** modal window for cancel event start**********************************-->
 <div id="cancelEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cancelmyModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -298,29 +711,32 @@
     </div>
 </div>
 <!--**************************************** modal window for cancel event end**************************************-->
-<!--****************************** modal window for editing event start**********************************************-->
-<div id="editEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel1"
+<!--************************************* modal window for add break start*******************************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+
+
+<div id="createBreakModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelBreak"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-                <h4 id="editmyModalLabel1" class="modal-title">Edycja zajęć</h4>
+                <h4 id="myModalLabelBreak" class="modal-title">Dodawanie Przerwy</h4>
             </div>
             <div class="modal-body">
-                <form id="editAppointmentForm">
+                <form id="BreakAppointmentForm">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-xs-5">
                                 <div class="form-group">
-                                    <label for="edit-title">Imię i nazwisko dziecka</label>
-                                    <input type="text" name="edit-title" class="form-control" id="edit-title">
+                                    <label for="breakTitle">.</label>
+                                    <input type="text" name="breakTitle" class="form-control" id="breakTitle" value="PRZERWA"  readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xs-5 col-xs-offset-2">
                                 <div class="form-group">
-                                    <label for="edit-resourceID">Terapeuta</label>
-                                    <input type="text" name="edit-resourceID" class="form-control" id="edit-resourceID"
+                                    <label for="breakResourceID">Dla</label>
+                                    <input type="text" name="breakResourceID" class="form-control" id="breakResourceID"
                                            readonly="readonly">
                                 </div>
                             </div>
@@ -328,36 +744,22 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <label for="edit-event-date">Data</label>
-                                    <input type="text" name="edit-event-date" class="form-control" id="edit-event-date"
+                                    <label for="breakDate">Data</label>
+                                    <input type="text" name="breakDate" class="form-control" id="breakDate"
                                            readonly="readonly">
                                 </div>
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <label for="edit-start-time">Początek zajęć</label>
-
-                                    <div class="input-group date" id="edit-start-time-div">
-                                        <input type="text" class="form-control" id="edit-start-time" readonly>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
-                                    </div>
-
+                                    <label for="breakStartTime">Początek</label>
+                                    <input type="text" name="breakStartTime" class="form-control" id="breakStartTime" readonly="readonly">
                                 </div>
 
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <label for="edit-end-time">Koniec zajęć</label>
-
-                                    <div class="input-group date" id="edit-end-time-div">
-                                        <input type="text" class="form-control" id="edit-end-time" readonly>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
-                                    </div>
-
+                                    <label for="breakEndTime">Koniec</label>
+                                    <input type="text" name="breakEndTime" class="form-control" id="breakEndTime" readonly="readonly">
                                 </div>
 
                             </div>
@@ -365,32 +767,341 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <div class="funkyradio">
-                                    <div class="funkyradio-danger">
-                                        <input type="checkbox" name="editOverhours" id="editOverhours"/>
-                                        <label for="editOverhours">Nadgodziny</label>
+                                    <div class="funkyradio-default">
+                                        <input type="checkbox" name="breakRepeats" id="breakRepeats" value="1"/>
+                                        <label for="breakRepeats">Powtarzanie</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="breakRepeatFreqDiv">
+
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-default">
+                                        <input type="radio" value="1" name="breakRepeatFreq" align="bottom" id="breakEveryDay">
+                                        <label for="breakEveryDay">Codziennie</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-default">
+                                        <input type="radio" value="7" name="breakRepeatFreq" align="bottom" id="breakEveryWeek">
+                                        <label for="breakEveryWeek">Co tydzień</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                <button type="submit" class="btn btn-success" id="break-submitButton">Dodaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal window for add break
+end
+-->
+<!--************************************* modal window for add leave start*******************************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+
+<div id="createLeaveModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelBreak"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelLeave" class="modal-title">Dodawanie nieobecności terapeuty</h4>
+            </div>
+            <div class="modal-body">
+                <form id="LeaveAppointmentForm">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="leaveTitle">Typ nieobecności</label>
+                                    <input type="text" name="leaveTitle" class="form-control" id="leaveTitle" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="leaveResourceID">Dla</label>
+                                    <input type="text" name="breakResourceID" class="form-control" id="leaveResourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leaveDate">Data</label>
+                                    <input type="text" name="leaveDate" class="form-control" id="leaveDate"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leaveStartTime">Początek</label>
+                                    <div class="input-group date" id="leaveStartTimeDiv">
+                                        <input type="text" class="form-control" id="leaveStartTime" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leaveEndTime">Koniec</label>
+                                    <div class="input-group date" id="leaveEndTimeDiv">
+                                        <input type="text" class="form-control" id="leaveEndTime" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xs-12">
-                                <div class="form-group">
-                                    <label for="edit-description">Notatki</label>
-                                    <textarea class="form-control" name="edit-description" id="edit-description"
-                                              rows="3" readonly="true"></textarea>
+                            <div class="col-xs-10">
+                                <strong>Odwołać zajęcia indyw. w trakcie nieobecności?:</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" value="yes" name="cancelRelatedEventsforLeave" align="bottom" id="cancelRelatedEventsforLeaveYes">
+                                        <label for="cancelRelatedEventsforLeaveYes">Tak</label>
+                                    </div>
                                 </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="funkyradio no-gutter">
+                                    <div class="funkyradio-primary">
+                                        <input type="radio" value="no" name="cancelRelatedEventsforLeave" align="bottom" id="cancelRelatedEventsforLeaveNo" checked="checked">
+                                        <label for="cancelRelatedEventsforLeaveNo">Nie</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                <button type="submit" class="btn btn-success" id="leaveSubmitButton">Dodaj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal window for add leave
+end
+-->
+
+<!--*************** div for delete single begin **************************************************************************-->
+<div id="deleteSingleEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelDeleteSingle"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelDeleteSingle" class="modal-title">Usuwanie zajęć</h4>
+            </div>
+            <div class="modal-body">
+                <form id="deleteNoRepeats">
+                    <div class="container-fluid">
+                        <div class="span11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="optionsRadio" id="deleteChildEvent" value="deleteSingle"
+                                           checked="checked">
+                                    <label for="deleteChildEvent"> Usuń tylko te zajęcia</label>
+                                </div>
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="optionsRadio" id="deleteEventsFromDay"
+                                           value="DeleteAllFromDay">
+                                    <label for="deleteEventsFromDay"> Usuń wszystkie zajęcia z tego dnia (dziecko
+                                        nieobecne cały dzień)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                <button type="submit" class="btn btn-danger" id="deleteSingle-submitButton">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--*************** div for delete single end ****************************************************************************-->
+
+<!--*************** div for delete repeate events begin **************************************************************************-->
+<div id="deleteRepeateEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelDelRepeate"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelDelRepeate" class="modal-title">Usuwanie zajęć</h4>
+            </div>
+            <div class="modal-body">
+                Te zajęcia odbywają się <label for="checkRepeatsLabel" style="display:inline-block"></label>. Wybierz odpowienią opcję
+                <form id="deleteYesRepeats">
+                    <div class="container-fluid">
+                        <div class="span11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="optionsRadioRepeate" id="deleteChildEventRepeate"
+                                           value="deleteSingleRepeate" checked="checked"/>
+                                    <label for="deleteChildEventRepeate"> Usuń tylko te zajęcia</label>
+                                </div>
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="optionsRadioRepeate" id="deleteEventsFromDayRepeate"
+                                           value="DeleteAllFromDayRepeate"/>
+                                    <label for="deleteEventsFromDayRepeate"> Usuń wszystkie zajęcia z tego dnia (dziecko
+                                        nieobecne cały dzień)</label>
+                                </div>
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="optionsRadioRepeate" id="deleteAllRepeate"
+                                           value="DeleteAllRepeate"/>
+                                    <label for="deleteAllRepeate"> Usuń wszystkie zajęcia w tym dniu do końca
+                                        roku</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                <button type="submit" class="btn btn-danger" id="deleteRepeate-submitButton">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--*************** div for delete repete end ****************************************************************************-->
+
+
+<!--*************** div for delete breake begin **************************************************************************-->
+<div id="deleteBreakeModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelDelBreak"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelDelBreak" class="modal-title">Usuwanie przerwy</h4>
+            </div>
+            <div class="modal-body">
+                Ta przerwa odbywa się <label for="checkRepeatsLabel" style="display:inline-block"></label>.
+                <form id="deleteBreak">
+                    <div class="container-fluid">
+                        <div class="span11">
+                            <div class="funkyradio">
+                                <div class="funkyradio-success">
+                                    <input type="radio" name="deleteBreakOption" id="deleteBreakSingle"
+                                           value="deleteBreakSingle"/>
+                                    <label for="deleteBreakSingle"> Usuń tylko tą przerwę</label>
+                                </div>
+
+                                <div class="funkyradio-success" id="divAllBreak">
+                                    <input type="radio" name="deleteBreakOption" id="deleteAllBreak"
+                                           value="deleteAllBreak"/>
+                                    <label for="deleteAllBreak"> Usuń wszystkie zajęcia w tym dniu do końca
+                                        roku</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                <button type="submit" class="btn btn-danger" id="deleteBreakConfirmSubmitButton">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--*************** div for delete break end ****************************************************************************-->
+
+
+<!--****************************************** modal window for preview break start**********************************-->
+<div id="previewBreakModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="previewBreakModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="previewBreakModalLabel1" class="modal-title">Przerwa</h4>
+            </div>
+            <div class="modal-body">
+                <form id="previewBreakForm">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="previewBreakTitle">.</label>
+                                    <input type="text" name="previewBreakTitle" class="form-control" id="previewBreakTitle"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="previewBreakResourceID">Terapeuta</label>
+                                    <input type="text" name="previewBreakResourceID" class="form-control" id="previewBreakResourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="previewBreakDate">Data</label>
+                                    <input type="text" name="previewBreakDate" class="form-control" id="previewBreakDate"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="previewBreakStartTime">Początek</label>
+                                    <input type="text" name="previewBreakStartTime" class="form-control" id="previewBreakStartTime"
+                                           readonly="readonly">
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="previewBreakEndTime">Koniec</label>
+                                    <input type="text" name="previewBreakEndTime" class="form-control" id="previewBreakEndTime"
+                                           readonly="readonly">
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="edit-close-submitButton">Zamknij</button>
-                <button type="submit" class="btn btn-success" id="edit-confirm-submitButton">Zachowaj</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+                <button type="submit" class="btn btn-danger" id="deleteBreakSubmitButton">Usuń</button>
             </div>
         </div>
     </div>
 </div>
+<!--**************************************** modal window for preview break end**************************************-->
 <!-- *********************************************modal window for editing event end*********************************-->
 <div id="messageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messagemyModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -447,29 +1158,29 @@
             <div class="modal-body">
 
 
-                    <div id="toolbar">
-                        <div class="form-inline" role="form">
+                <div id="toolbar">
+                    <div class="form-inline" role="form">
 
-                        </div>
                     </div>
-                    <table id="messagesTable"
-                           data-height="300"
-                           data-toolbar="#toolbar"
-                           data-show-refresh="true"
-                           data-show-toggle="true"
-                           data-search="true"
-                           data-radio="true"
-                           data-show-columns="false"
-                            data-sort-name="timedate"
-                            data-sort-order="desc">
-                        <thead>
-                        <tr>
-                            <th data-field="messageid" data-halign="center" data-align="center">ID</th>
-                            <th data-field="timedate" data-halign="center" data-align="left">Data utworzenia</th>
-                            <th data-field="message" data-halign="center" data-align="left">Treść wiadomości</th>
-                        </tr>
-                        </thead>
-                    </table>
+                </div>
+                <table id="messagesTable"
+                       data-height="300"
+                       data-toolbar="#toolbar"
+                       data-show-refresh="true"
+                       data-show-toggle="true"
+                       data-search="true"
+                       data-radio="true"
+                       data-show-columns="false"
+                       data-sort-name="timedate"
+                       data-sort-order="desc">
+                    <thead>
+                    <tr>
+                        <th data-field="messageid" data-halign="center" data-align="center">ID</th>
+                        <th data-field="timedate" data-halign="center" data-align="left">Data utworzenia</th>
+                        <th data-field="message" data-halign="center" data-align="left">Treść wiadomości</th>
+                    </tr>
+                    </thead>
+                </table>
 
 
             </div>
@@ -493,7 +1204,7 @@
                         <div class="span11">
                             <div class="funkyradio">
                                 <div class="funkyradio-success">
-                                    <input type="checkbox" name="editCalendar" id="editCalendar">
+                                    <input type="checkbox" name="editCalendar" id="editCalendar" checked="checked">
                                     <label for="editCalendar">Edycja kalendarza (pozwala na przeciąganie palcem lub myszką zajęć)</label>
                                 </div>
 

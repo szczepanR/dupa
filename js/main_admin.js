@@ -47,7 +47,7 @@ $(document).ready(function(){
      *
      ****************************************************************************************************************/
 
-    var serverIP = '192.168.1.111';
+    var serverIP = '192.168.1.103';
     var serverPort = '3000';
     var socket = io.connect('http://'+serverIP+':'+serverPort);
     var disconnectTime =0;
@@ -422,6 +422,32 @@ $(document).ready(function(){
             element.fullCalendar('render', true);
 
     });
+    //click date to go to the specific date, we use datepicker  and here specify initial values
+    $('#customDateButton').off('click')
+    $('#customDateButton').on('click', function (e) {
+
+        var customDate = 0;
+        $('#customDateButton').datepicker({
+            weekStart: 1,
+            todayHighlight: true,
+            language: "pl",
+            daysOfWeekDisabled: "0,6",
+            autoclose: true,
+            format: "yyyy-mm-dd"
+
+
+        });
+        $('#customDateButton').datepicker('show');
+        $("#customDateButton").off("changeDate");
+        $("#customDateButton").on("changeDate", function (event) {
+
+            customDate = $("#customDateButton").datepicker('getFormattedDate')
+            // console.log(customDate);
+            $('#calendar').fullCalendar('gotoDate', customDate);
+            checkResources();
+
+        });
+    });
 /**********************for checking value checkboxes begin**************************/
 
 function getRadioVal(form, name) {
@@ -550,7 +576,8 @@ function getRadioVal(form, name) {
     viewRender: function(view, element) {
 
 
-        //click date to go to the specific date, we use datepicker  and here specify initial values
+        /*//click date to go to the specific date, we use datepicker  and here specify initial values
+        this code here gives reload checkresources multi times!!!!!
         $('#customDateButton').off('click')
         $('#customDateButton').on('click', function (e) {
 
@@ -566,15 +593,16 @@ function getRadioVal(form, name) {
 
             });
             $('#customDateButton').datepicker('show');
+            $("#customDateButton").off("changeDate");
             $("#customDateButton").on("changeDate", function (event) {
 
                 customDate = $("#customDateButton").datepicker('getFormattedDate')
                // console.log(customDate);
                 $('#calendar').fullCalendar('gotoDate', customDate);
-                checkResources()
+                checkResources();
 
             });
-        });
+        });*/
         //click refresh view button
         $('#selectView-refresh').off('click');
         $('#selectView-refresh').on('click', function () {
@@ -739,7 +767,8 @@ else {
                             //compare dates to check if range is corrcet
                             if (!(moment(starttime2, 'HH:mm').isBefore(moment(endtime2, 'HH:mm')))) {
                                 alert("nie no bez jaj, ustaw poprawnie czas rozpoczecia i zakoczenia zajeć")
-                                $('#submitButton').prop('disabled', true);
+
+                                e.preventDefault();
                             }
                             //if dates are correct do this
                             else {
@@ -881,24 +910,35 @@ else {
 
                         //now when click submit on form
                         $('#break-submitButton').on('click', function (e) {
+                            var start2 = $('#createBreakModal #breakStartTime').val();
+                            var end2 = $('#createBreakModal #breakEndTime').val();
+                            if (!(moment(start2, 'HH:mm').isBefore(moment(end2, 'HH:mm')))) {
+                                alert("nie no bez jaj, ustaw poprawnie czas rozpoczecia i zakoczenia zajeć")
+
+                                e.preventDefault();
+                            }
+                            else{
                             // We don't want this to act as a link so cancel the link action
                             $("#createBreakModal").modal('hide');
                             //just before sending the form we switching resource name to resource ID
                             $('#createBreakModal #breakResourceID').val(resourceID);
+
+                            console.log(end2);
                             e.preventDefault();
                             $.ajax({
                                 cache: false,
                                 type: "POST",
                                 url: "admin/add-break.php",
-                                data: $('#BreakAppointmentForm').serialize() + "&category_id=" + category,
+                                data: $('#BreakAppointmentForm').serialize() + "&category_id=" + category + "&breakStartTime=" + start2 + "&breakEndTime=" +end2,
                                 success: function () {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
                                     $('#calendar').fullCalendar('refetchEvents');
-                                    socket.send(resourcename +" masz nową przerwę dniu "+ eventdate +" w godz od"+ starttime +" do " + endtime);
+                                    socket.send(resourcename +" masz nową przerwę dniu "+ eventdate +" w godz od"+ start2 +" do " + end2);
                                 }
 
                             });
+                            }
 
                         });
 
@@ -1556,7 +1596,8 @@ else {
                                             type: "POST",
                                             datatype: "json",
                                             url: "admin/update-event.php",
-                                            data: $('#editAppointmentForm').serialize() + '&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq=' + repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
+                                            data: $('#editAppointmentForm').serialize() + '&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq=' + repeat_freq + '&edit-start-time='
+                                                                                        + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id + '&event-start-date=' + eventdate,
                                             success: function (response) {
                                                 $('#calendar').fullCalendar('refetchEvents');
                                                 socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
@@ -1629,7 +1670,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin/process.php",
-                                    data: 'type=cancelEventFromDay&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&description= NB ' + description2json + '&category_id=' +category_id,
+                                    data: 'type=cancelEventFromDay&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&description=NB:' + description2json + '&category_id=' +category_id,
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1805,7 +1846,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin/update-event.php",
-                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
+                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id + '&event-start-date=' + eventdate,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
@@ -1961,7 +2002,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin/update-event.php",
-                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
+                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id + '&event-start-date=' + eventdate,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
                                         if (response.status == "success")

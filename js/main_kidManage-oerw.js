@@ -2,7 +2,7 @@
  * Created by Sz on 2015-08-11.
  */
 
-function checkIfChildExist(firstname, lastname){
+function checkIfChildExist(firstname, lastname,groupName){
     var result = null;
     $.ajax({
         cache: false,
@@ -11,7 +11,7 @@ function checkIfChildExist(firstname, lastname){
         url: "admin-oerw/kidsAdd.php",
         //async: false, danger, don't know what how it will dangerous!!!!!
         async: false,
-        data: 'type=checkIfExist'+'&firstName=' + firstname + '&lastName=' + lastname,
+        data: 'type=checkIfExist'+'&firstName=' + firstname + '&lastName=' + lastname + '&groupName=' + groupName,
         success: function (response) {
             result = jQuery.parseJSON(response);
 
@@ -45,7 +45,11 @@ $(document).ready(function() {
                field: 'lastname',
                title: 'Nazwisko',
                sortable: true
-           }, {
+           },{
+               field: 'groupName',
+               title: 'Grupa',
+               sortable: true
+           },{
                field: 'operate',
                title: 'Akcja',
                align: 'center',
@@ -76,7 +80,8 @@ $(document).ready(function() {
             e.preventDefault();
             var firstname = $('#firstName').val();
             var lastname = $('#lastName').val();
-            var test = checkIfChildExist(firstname, lastname);
+            var groupName = $('#groupName').val();
+            var test = checkIfChildExist(firstname, lastname, groupName);
 
             $('#lastName').keyup(function () {
 
@@ -94,7 +99,7 @@ $(document).ready(function() {
                     type: "POST",
                     datatype: "json",
                     url: "admin-oerw/kidsAdd.php",
-                    data: 'type=addKid' + '&firstName=' + firstname + '&lastName=' + lastname,
+                    data: 'type=addKid' + '&firstName=' + firstname + '&lastName=' + lastname + '&groupName=' + groupName,
                     success: function () {
                         $('#createChildModal').modal('hide');
                         $table.bootstrapTable('refresh');
@@ -139,12 +144,14 @@ window.operateEvents = {
         $('#editChildModal').modal('show');
         $('#editfirstName').val(row.firstname);
         $('#editlastName').val(row.lastname);
+        $('#editgroupName').val(row.groupName);
         $('#editSubmitButton').off('click');
         //click submit button to edit child
         $('#editSubmitButton').on('click', function (e) {
             e.preventDefault();
             var firstname = $('#editfirstName').val();
             var lastname = $('#editlastName').val();
+            var groupName = $('#editgroupName').val();
 
             var test = checkIfChildExist(firstname, lastname);
 
@@ -167,7 +174,7 @@ window.operateEvents = {
                     type: "POST",
                     datatype: "json",
                     url: "admin-oerw/kidsAdd.php",
-                    data: 'type=editkid' + '&firstname=' + firstname + '&lastname=' + lastname + '&ID=' + row.child_id + '&oldfirstname=' + row.firstname + '&oldlastname=' + row.lastname,
+                    data: 'type=editkid' + '&firstname=' + firstname + '&lastname=' + lastname + '&groupName=' + groupName + '&ID=' + row.child_id + '&oldfirstname=' + row.firstname + '&oldlastname=' + row.lastname + '&oldgroupName=' + row.groupName,
                     success: function () {
                         $('#editChildModal').modal('hide');
                         $('#kidsTable').bootstrapTable('refresh');
@@ -188,7 +195,6 @@ window.operateEvents = {
         $('#editCanceltButton').on('click', function (e) {
             $('#editSubmitButton').prop('disabled', false);
             $('#kidExistsWarningEdit').addClass('hidden');
-
 
         });
 

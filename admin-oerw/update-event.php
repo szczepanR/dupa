@@ -36,13 +36,13 @@ if ($type == 'update-all-events'){
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
         $stmt = $dbh->prepare("UPDATE events_parent SET
-            title=:title, start_date=:start_date, start_time=:start_time, end_time=:end_time, resourceID=:resourceID, category_id=:category_id, weekday=:weekday WHERE parent_id=:parent_id");
+          start_date=:start_date, start_time=:start_time, end_time=:end_time,category_id=:category_id, weekday=:weekday WHERE parent_id=:parent_id");
 
-        $stmt->bindParam(':title', $title );
+
         $stmt->bindParam(':start_date', $start_date);
         $stmt->bindParam(':start_time', $start_time);
         $stmt->bindParam(':end_time', $end_time);
-        $stmt->bindParam(':resourceID', $resourceID);
+
         $stmt->bindParam(':weekday', $weekday);
         $stmt->bindParam(':parent_id', $parent_id);
         $stmt->bindParam(':category_id', $category_id);
@@ -53,12 +53,10 @@ if ($type == 'update-all-events'){
         $dbh->query('SET NAMES utf8');
 
         //changes only time  start=CONCAT_WS(' ',DATE(start),:start_time), end=CONCAT_WS(' ',DATE(end),:end_time)
-        $stmt = $dbh->prepare("UPDATE events SET title=:title, start=CONCAT_WS(' ',DATE(start),:start_time), end=CONCAT_WS(' ',DATE(end),:end_time), resourceID=:resourceID, category_id=:category_id WHERE parent_id=:parent_id");
+        $stmt = $dbh->prepare("UPDATE events SET start=CONCAT_WS(' ',DATE(start),:start_time), end=CONCAT_WS(' ',DATE(end),:end_time), category_id=:category_id WHERE parent_id=:parent_id");
 
-        $stmt->bindParam(':title', $title );
         $stmt->bindParam(':start_time', $start_time);
         $stmt->bindParam(':end_time', $end_time);
-        $stmt->bindParam(':resourceID', $resourceID);
         $stmt->bindParam(':parent_id', $parent_id);
         $stmt->bindParam(':category_id', $category_id);
         $stmt->execute();

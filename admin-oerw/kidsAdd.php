@@ -13,13 +13,14 @@ $type = $_POST['type'];
 if ($type=='checkIfExist') {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
+    $groupName = $_POST['groupName'];
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     //below query required to diplay polish signs on page
     $dbh->query('SET NAMES utf8');
 
-    $stmt = $dbh->prepare("SELECT child_id, firstname, lastname FROM child WHERE firstname='$firstName' AND lastname='$lastName'");
+    $stmt = $dbh->prepare("SELECT child_id, firstname, lastname, groupName FROM child WHERE firstname='$firstName' AND lastname='$lastName'AND groupName='$groupName'");
     $stmt->execute();
 
     $kids = "exists";
@@ -33,18 +34,18 @@ if ($type=='checkIfExist') {
 if ($type == 'addKid') {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
-    
+    $groupName = $_POST['groupName'];
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("INSERT INTO child (firstname, lastname)VALUES (:firstname, :lastname)");
+        $stmt = $dbh->prepare("INSERT INTO child (firstname, lastname, groupName)VALUES (:firstname, :lastname, :groupName)");
 
         $stmt->bindParam(':firstname', $firstName);
         $stmt->bindParam(':lastname', $lastName);
-
+        $stmt->bindParam(':groupName', $groupName);
         $stmt->execute();
         $dbh->commit();
     } catch (Exception $e) {
@@ -61,11 +62,15 @@ if ($type == 'editkid') {
     $kidID = $_POST['ID'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
+    $groupName = $_POST['groupName'];
     $oldfirstname = $_POST['oldfirstname'];
     $oldlastname = $_POST['oldlastname'];
+    $oldgroupName = $_POST['oldgroupName'];
     $newname = $firstname . ' ' . $lastname;
+    $newgroupName = $_POST['groupName'];
     $oldname = $oldfirstname . ' ' . $oldlastname;
-    $firephp->log($newname);
+
+    $firephp->log($newgroupName);
     $firephp->log($oldname);
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -74,12 +79,12 @@ if ($type == 'editkid') {
 
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("UPDATE child SET firstname=:firstname, lastname=:lastname  WHERE child_ID=:ID");
+        $stmt = $dbh->prepare("UPDATE child SET firstname=:firstname, lastname=:lastname, groupName=:groupName  WHERE child_ID=:ID");
 
         $stmt->bindParam(':ID', $kidID);
         $stmt->bindParam(':firstname', $firstname);
         $stmt->bindParam(':lastname', $lastname);
-
+        $stmt->bindParam(':groupName', $groupName);
 
         $stmt->execute();
         $dbh->commit();

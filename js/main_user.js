@@ -47,7 +47,7 @@ $(document).ready(function(){
      *
      ****************************************************************************************************************/
 
-    var serverIP = '192.168.1.111';
+    var serverIP = '192.168.1.33';
     var serverPort = '3000';
     var socket = io.connect('http://'+serverIP+':'+serverPort);
     var disconnectTime =0;
@@ -1556,7 +1556,7 @@ else {
                                             type: "POST",
                                             datatype: "json",
                                             url: "admin/update-event.php",
-                                            data: $('#editAppointmentForm').serialize() + '&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq=' + repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
+                                            data: $('#editAppointmentForm').serialize() + '&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq=' + repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id + '&event-start-date=' + eventdate,
                                             success: function (response) {
                                                 $('#calendar').fullCalendar('refetchEvents');
                                                 socket.send(resourcename+ " zmodyfikowano zajęcia dla " +event.title+" w dniu " +eventdate+" o godzinie " +starttime);
@@ -1629,7 +1629,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin/process.php",
-                                    data: 'type=cancelEventFromDay&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&description= NB ' + description2json + '&category_id=' +category_id,
+                                    data: 'type=cancelEventFromDay&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&description=NB:' + description2json + '&category_id=' +category_id,
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1805,7 +1805,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin/update-event.php",
-                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
+                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq  + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id + '&event-start-date=' + eventdate,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
                                         socket.send(resourcename+". Masz nowe zajęcia z "+event.title+" w dniu "+eventdate+ " o godz "+editStartTime);
@@ -1961,7 +1961,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin/update-event.php",
-                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id,
+                                    data: $('#editAppointmentForm').serialize()+'&type=update-all-events' + '&event_id=' + event_id + '&parent_id=' + parent_id + '&repeat_freq='+ repeat_freq + '&edit-start-time=' + editStartTime + '&edit-end-time=' + editEndTime + '&category_id=' + category_id + '&event-start-date=' + eventdate,
                                     success: function (response) {
                                         $('#calendar').fullCalendar('refetchEvents');
                                         if (response.status == "success")

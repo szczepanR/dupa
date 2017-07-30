@@ -19,7 +19,7 @@ $firephp = FirePHP::getInstance(true);
     $start = $start_date . " " . $start_time;
     $end = $start_date . " " . $end_time;
 //test value for endOfYear
-$endOfyear = date('2016-08-30');
+$endOfyear = date('2018-08-30');
 $startOfevent = date($start_date);
 //log start
 $firephp->log($title);

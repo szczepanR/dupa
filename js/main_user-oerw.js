@@ -47,7 +47,7 @@ $(document).ready(function(){
      *
      ****************************************************************************************************************/
 
-    var serverIP = '192.168.1.111';
+    var serverIP = '192.168.1.33';
     var serverPort = '4000';
     var socket = io.connect('http://'+serverIP+':'+serverPort);
     var disconnectTime =0;
@@ -482,7 +482,7 @@ function getRadioVal(form, name) {
             selectable: true,
             selectHelper: true,
             minTime: "08:00:00",
-            maxTime: "18:00:00",
+            maxTime: "15:00:00",
             displayEventEnd: true,
             weekends: false,
             allDaySlot: false,
@@ -776,135 +776,137 @@ else {
                     }
 
 
-                }, {
-                    label: 'Nowe badanie',
-                    cssClass: 'btn-success',
-                    action: function (dialogItself) {
-                        //set color for study
-                        var category = 2;
-
-                        dialogItself.close();
-                        //reset form to the clear values
-                        $('#createStudyModal').find('form')[0].reset();
-                        //human read start end and day
-
-                        var starttime = $.fullCalendar.moment(start).format('HH:mm');
-                        var endtime = $.fullCalendar.moment(end).format('HH:mm');
-                        var eventdate = $.fullCalendar.moment(start).format('YYYY-MM-DD');
-                        var resourcename = getResourceName(resources);
-                        var resourceID = resources;
-                        var mywhen = starttime + ' - ' + endtime + ' dnia: ' + eventdate + ' dla: ' + resourceID;
-                        $('#createStudyModal #studyDate').val(eventdate);
-                        $('#createStudyModal #studyStartTime').val(starttime);
-                        $('#createStudyModal #studyEndTime').val(endtime);
-                        $('#createStudyModal #studyResourceID').val(resourcename);
-                        //$('#createStudyModal #studyDescription').val(event.description);
-                        $('#createStudyModal').modal('show');
-
-
-                        //fix for looping when add second third etc.. event
-                        $('#study-submitButton').off('click')
-
-                        //now when click submit on form
-                        $('#study-submitButton').on('click', function (e) {
-                            //we need title to print it on notification
-                            var title = $('#createStudyModal #studyTitle').val();
-                            // We don't want this to act as a link so cancel the link action
-                            $("#createStudyModal").modal('hide');
-                            //just before sending the form we switching resource name to resource ID
-                            $('#createStudyModal #studyResourceID').val(resourceID);
-                            e.preventDefault();
-                            $.ajax({
-                                cache: false,
-                                type: "POST",
-                                url: "admin-oerw/add-study.php",
-                                data: $('#createStudyForm').serialize() + "&category_id=" + category,
-                                success: function () {
-                                    //alert();
-                                    $('#calendar').fullCalendar('unselect');
-                                    $('#calendar').fullCalendar('refetchEvents');
-                                    socket.send(resourcename+" dodano nowe badanie dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
-
-                                }
-
-                            });
-
-                        });
-
-                    }
-
-                }, {
-                    label: 'Przerwa',
-                    cssClass: 'btn-success',
-                    action: function (dialogItself) {
-
-                        //set color for break
-                        var category = 3;
-
-                        dialogItself.close();
-                        //reset form to the clear values
-                        $('#createBreakModal').find('form')[0].reset();
-                        //human read start end and day
-
-                        var starttime = $.fullCalendar.moment(start).format('HH:mm');
-                        var endtime = $.fullCalendar.moment(end).format('HH:mm');
-                        var eventdate = $.fullCalendar.moment(start).format('YYYY-MM-DD');
-                        var resourcename = getResourceName(resources);
-                        var resourceID = resources;
-                        var mywhen = starttime + ' - ' + endtime + ' dnia: ' + eventdate + ' dla: ' + resourceID;
-                        $('#createBreakModal #breakDate').val(eventdate);
-                        $('#createBreakModal #breakStartTime').val(starttime);
-                        $('#createBreakModal #breakEndTime').val(endtime);
-                        $('#createBreakModal #breakResourceID').val(resourcename);
-                        $('#createBreakModal').modal('show');
-
-
-
-                        //default we don't wanna see repeat-freq options
-                        document.getElementById('breakRepeatFreqDiv').style.display = 'none';
-                        //now if we click repeats we schould see hidden options
-                        document.getElementById('breakRepeats').onclick = function () {
-                            // access properties using this keyword
-                            if (this.checked) {
-                                document.getElementById('breakRepeatFreqDiv').style.display = 'block';
-                            } else {
-                                //if repeats not checked we reset values and hide
-                                $('input[name="breakRepeatFreq"]').prop('checked', false);
-                                document.getElementById('repeatFreqDiv').style.display = 'none';
-                            }
-
-
-                        };
-
-                        //fix for looping when add second third etc.. event
-                        $('#break-submitButton').off('click')
-
-                        //now when click submit on form
-                        $('#break-submitButton').on('click', function (e) {
-                            // We don't want this to act as a link so cancel the link action
-                            $("#createBreakModal").modal('hide');
-                            //just before sending the form we switching resource name to resource ID
-                            $('#createBreakModal #breakResourceID').val(resourceID);
-                            e.preventDefault();
-                            $.ajax({
-                                cache: false,
-                                type: "POST",
-                                url: "admin-oerw/add-break.php",
-                                data: $('#BreakAppointmentForm').serialize() + "&category_id=" + category,
-                                success: function () {
-                                    //alert();
-                                    $('#calendar').fullCalendar('unselect');
-                                    $('#calendar').fullCalendar('refetchEvents');
-                                    socket.send(resourcename +" masz nową przerwę dniu "+ eventdate +" w godz od"+ starttime +" do " + endtime);
-                                }
-
-                            });
-
-                        });
-
-
-                    }
-                }, {
+                },
+                    // {
+                //    label: 'Nowe badanie',
+                //    cssClass: 'btn-success',
+                //    action: function (dialogItself) {
+                //        //set color for study
+                //        var category = 2;
+                //
+                //        dialogItself.close();
+                //        //reset form to the clear values
+                //        $('#createStudyModal').find('form')[0].reset();
+                //        //human read start end and day
+                //
+                //        var starttime = $.fullCalendar.moment(start).format('HH:mm');
+                //        var endtime = $.fullCalendar.moment(end).format('HH:mm');
+                //        var eventdate = $.fullCalendar.moment(start).format('YYYY-MM-DD');
+                //        var resourcename = getResourceName(resources);
+                //        var resourceID = resources;
+                //        var mywhen = starttime + ' - ' + endtime + ' dnia: ' + eventdate + ' dla: ' + resourceID;
+                //        $('#createStudyModal #studyDate').val(eventdate);
+                //        $('#createStudyModal #studyStartTime').val(starttime);
+                //        $('#createStudyModal #studyEndTime').val(endtime);
+                //        $('#createStudyModal #studyResourceID').val(resourcename);
+                //        //$('#createStudyModal #studyDescription').val(event.description);
+                //        $('#createStudyModal').modal('show');
+                //
+                //
+                //        //fix for looping when add second third etc.. event
+                //        $('#study-submitButton').off('click')
+                //
+                //        //now when click submit on form
+                //        $('#study-submitButton').on('click', function (e) {
+                //            //we need title to print it on notification
+                //            var title = $('#createStudyModal #studyTitle').val();
+                //            // We don't want this to act as a link so cancel the link action
+                //            $("#createStudyModal").modal('hide');
+                //            //just before sending the form we switching resource name to resource ID
+                //            $('#createStudyModal #studyResourceID').val(resourceID);
+                //            e.preventDefault();
+                //            $.ajax({
+                //                cache: false,
+                //                type: "POST",
+                //                url: "admin-oerw/add-study.php",
+                //                data: $('#createStudyForm').serialize() + "&category_id=" + category,
+                //                success: function () {
+                //                    //alert();
+                //                    $('#calendar').fullCalendar('unselect');
+                //                    $('#calendar').fullCalendar('refetchEvents');
+                //                    socket.send(resourcename+" dodano nowe badanie dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
+                //
+                //                }
+                //
+                //            });
+                //
+                //        });
+                //
+                //    }
+                //
+                ////}, {
+                //    label: 'Przerwa',
+                //    cssClass: 'btn-success',
+                //    action: function (dialogItself) {
+                //
+                //        //set color for break
+                //        var category = 3;
+                //
+                //        dialogItself.close();
+                //        //reset form to the clear values
+                //        $('#createBreakModal').find('form')[0].reset();
+                //        //human read start end and day
+                //
+                //        var starttime = $.fullCalendar.moment(start).format('HH:mm');
+                //        var endtime = $.fullCalendar.moment(end).format('HH:mm');
+                //        var eventdate = $.fullCalendar.moment(start).format('YYYY-MM-DD');
+                //        var resourcename = getResourceName(resources);
+                //        var resourceID = resources;
+                //        var mywhen = starttime + ' - ' + endtime + ' dnia: ' + eventdate + ' dla: ' + resourceID;
+                //        $('#createBreakModal #breakDate').val(eventdate);
+                //        $('#createBreakModal #breakStartTime').val(starttime);
+                //        $('#createBreakModal #breakEndTime').val(endtime);
+                //        $('#createBreakModal #breakResourceID').val(resourcename);
+                //        $('#createBreakModal').modal('show');
+                //
+                //
+                //
+                //        //default we don't wanna see repeat-freq options
+                //        document.getElementById('breakRepeatFreqDiv').style.display = 'none';
+                //        //now if we click repeats we schould see hidden options
+                //        document.getElementById('breakRepeats').onclick = function () {
+                //            // access properties using this keyword
+                //            if (this.checked) {
+                //                document.getElementById('breakRepeatFreqDiv').style.display = 'block';
+                //            } else {
+                //                //if repeats not checked we reset values and hide
+                //                $('input[name="breakRepeatFreq"]').prop('checked', false);
+                //                document.getElementById('repeatFreqDiv').style.display = 'none';
+                //            }
+                //
+                //
+                //        };
+                //
+                //        //fix for looping when add second third etc.. event
+                //        $('#break-submitButton').off('click')
+                //
+                //        //now when click submit on form
+                //        $('#break-submitButton').on('click', function (e) {
+                //            // We don't want this to act as a link so cancel the link action
+                //            $("#createBreakModal").modal('hide');
+                //            //just before sending the form we switching resource name to resource ID
+                //            $('#createBreakModal #breakResourceID').val(resourceID);
+                //            e.preventDefault();
+                //            $.ajax({
+                //                cache: false,
+                //                type: "POST",
+                //                url: "admin-oerw/add-break.php",
+                //                data: $('#BreakAppointmentForm').serialize() + "&category_id=" + category,
+                //                success: function () {
+                //                    //alert();
+                //                    $('#calendar').fullCalendar('unselect');
+                //                    $('#calendar').fullCalendar('refetchEvents');
+                //                    socket.send(resourcename +" masz nową przerwę dniu "+ eventdate +" w godz od"+ starttime +" do " + endtime);
+                //                }
+                //
+                //            });
+                //
+                //        });
+                //
+                //
+                //    }
+                //}
+                    {
                     label: 'Urlop',
                     cssClass: 'btn-warning',
                     action: function (dialogItself) {
@@ -916,7 +918,7 @@ else {
                         $('#createLeaveModal').find('form')[0].reset();
                         //default we create event for all day
                         var leavestarttime = moment().set({'hour': 08, 'minute': 00, 'second': 00}).format('HH:mm');
-                        var leaveendtime = moment().set({'hour': 18, 'minute': 00, 'second': 00}).format('HH:mm');
+                        var leaveendtime = moment().set({'hour': 15, 'minute': 00, 'second': 00}).format('HH:mm');
                         var leaveeventdate = $.fullCalendar.moment(start).format('YYYY-MM-DD');
                         var leaveTitle =  $('#createLeaveModal #leaveTitle').val();
                         var leaveresourcename = getResourceName(resources);
@@ -928,7 +930,11 @@ else {
                         $('#createLeaveModal #leaveEndTime').val(leaveendtime);
                         $('#createLeaveModal #leaveResourceID').val(leaveresourcename);
 
+                        $('#leaveSubmitButton').prop('disabled',true);
                         $('#createLeaveModal').modal('show');
+                        $('#leaveTitle').keyup(function () {
+                            $('#leaveSubmitButton').prop('disabled', this.value == "" ? true : false);
+                        });
 
                         //fix for looping when add second third etc.. event
                         $('#leaveSubmitButton').off('click')
@@ -939,6 +945,8 @@ else {
                             var leavestarttime2 =  $('#createLeaveModal #leaveStartTime').val();
                             var leaveendtime2 = $('#createLeaveModal #leaveEndTime').val();
                             var leaveTitle =  $('#createLeaveModal #leaveTitle').val();
+                            var cancelrelatedinleave = getRadioVal(document.getElementById("LeaveAppointmentForm"),"cancelRelatedEventsforLeave");
+                            var description = "NB.SPEC.";
 
                             // We don't want this to act as a link so cancel the link action
                             $("#createLeaveModal").modal('hide');
@@ -948,7 +956,7 @@ else {
                                 cache: false,
                                 type: "POST",
                                 url: "admin-oerw/add-leave.php",
-                                data: "leaveTitle=" + leaveTitle +"&leaveDate=" + leaveeventdate +"&leaveStartTime=" + leavestarttime2 +"&leaveEndTime=" + leaveendtime2 +"&leaveResourceID=" + leaveresourceID + "&category_id=" + category,
+                                data: "leaveTitle=" + leaveTitle +"&leaveDate=" + leaveeventdate +"&leaveStartTime=" + leavestarttime2 +"&leaveEndTime=" + leaveendtime2 +"&leaveResourceID=" + leaveresourceID + "&category_id=" + category + "&canelrelatedEventsForLeave=" + cancelrelatedinleave + "&description=" +description,
                                 success: function () {
                                     //alert();
                                     $('#calendar').fullCalendar('unselect');
@@ -1109,6 +1117,104 @@ else {
                         })
                  })
                 }
+
+                else if(category_id == 4)
+                {
+                    $('#leavepreviewEventModal #leavepreview-title').val(event.title);
+                    $('#leavepreviewEventModal #leavepreview-event-date').val(eventdate);
+                    $('#leavepreviewEventModal #leavepreview-start-time').val(starttime);
+                    $('#leavepreviewEventModal #leavepreview-end-time').val(endtime);
+                    $('#leavepreviewEventModal #leavepreview-resourceID').val(resourcename);
+                    $('#leavepreviewEventModal #leavepreview-description').val(event.description);
+                    $('#leavepreview-description').prop("readonly", true);
+                    document.getElementById('leavepreviewDescriptionButtons').style.display = 'none';
+                    $('#leavepreviewEventModal').modal('show');
+                    /*****************************************description processing begin*************************************************/
+                    $('#leavepreviewEventModal #leavepreview-description').focus(function (e) {
+                        e.preventDefault();
+                        $('#leavepreview-description').prop("readonly", false);
+                        $('#leavedelete-submitButton').prop('disabled', true);
+                        document.getElementById('leavepreviewDescriptionButtons').style.display = 'block';
+
+                    });
+
+                    $('#leavepreviewDescriptionButtonOK').off('click');
+                    $('#leavepreviewDescriptionButtonOK').on('click', function () {
+                        var description2json = $("#leavepreview-description").val();
+                        $.ajax({
+                            cache: false,
+                            type: "POST",
+                            datatype: "json",
+                            url: "admin-oerw/process.php",
+                            data: 'type=updateDescription&event_id=' + event_id + '&description=' + description2json,
+                            success: function (response) {
+                                //TODO: refetch does not work inside, why??
+                                $('#calendar').fullCalendar('refetchEvents');
+                                socket.send("Dodano opis do nieobecności dla " + resourcename+" w dniu "+ eventdate +" o godz "+ starttime);
+                            },
+                            error: function (e) {
+                                alert('Wystąpił następujący błąd przy dodawaniu opisu' + e.responseText);
+                            }
+                        })
+
+                        $('#leavepreview-description').prop("readonly", true);
+                        document.getElementById('leavepreviewDescriptionButtons').style.display = 'none';
+                        $('#leavedelete-submitButton').prop('disabled', false);
+                    });
+
+                    $('#leavepreviewDescriptionButtonCancel').off('click');
+                    $('#leavepreviewDescriptionButtonCancel').on('click', function () {
+                        $('#leavepreviewEventModal #preview-description').val(event.description);
+                        $('#leavepreview-description').prop("readonly", true);
+                        document.getElementById('leavepreviewDescriptionButtons').style.display = 'none';
+
+                        $('#leavedelete-submitButton').prop('disabled', false);
+
+                    });
+
+
+                    /*****************************************description processing end*************************************************/
+
+                    $('#leavedelete-submitButton').off('click');
+
+                    // if "delete button clicked" on sigle event deletion
+                    $('#leavedelete-submitButton').on('click', function () {
+                        $('#leavepreviewEventModal').modal('hide');
+                        BootstrapDialog.confirm({
+                            type: BootstrapDialog.TYPE_DANGER,
+                            closable: false,
+                            title: 'Uwaga',
+                            message: 'Czy napewno usunąć nieobecność?',
+                            btnCancelLabel: 'Anuluj',
+                            btnOKLabel: 'OK',
+                            btnOKClass: 'btn-danger',
+                            callback: function (result) {
+
+                                if (result == true) {
+                                    //variable to hold radio buttons values with options for deleting events
+                                    $.ajax({
+                                        cache: false,
+                                        type: "POST",
+                                        datatype: "json",
+                                        url: "admin-oerw/process.php",
+                                        data: 'type=delete-leave&event_id=' + event_id + '&parent_id=' + parent_id + "&description=" + event.description + "&event_date=" + eventdate +
+                                        "&starttime=" + starttime + "&endtime=" + endtime +'&resourceID=' + resourceID,
+                                        success: function (response) {
+                                            socket.send("Usunięto nieobecność dla " + resourcename + " o godzinie " + starttime);
+                                            $('#calendar').fullCalendar('refetchEvents');
+                                            //console.log(response);
+                                        },
+                                        error: function (e) {
+                                            alert('Wystąpił następujący błąd przy usuwaniu zajęć' + e.responseText);
+                                        }
+                                    })
+                                }
+                            }
+                        })
+
+                        })
+
+                }
                 else {
 
                     //put values to modal
@@ -1134,15 +1240,18 @@ else {
                     if(event.category_id == 6)
                     {
 
-                        document.getElementById('cancelCancelSubmitButton').style.display = 'block';
+                        document.getElementById('cancelCancelSubmitButton').style.display = 'inline';
+                        document.getElementById('additional-event').style.display = 'inline';
                         document.getElementById('cancelSubmitButton').style.display = 'none';
-
+                        document.getElementById('edit-submitButton').style.display = 'none'
                     }
                     //if not cancelled then we can simply enable this button
                     else
                     {
                         document.getElementById('cancelCancelSubmitButton').style.display = 'none';
-                        document.getElementById('cancelSubmitButton').style.display = 'block';
+                        document.getElementById('additional-event').style.display = 'none';
+                        document.getElementById('cancelSubmitButton').style.display = 'inline';
+                        document.getElementById('edit-submitButton').style.display = 'inline'
 
                     }
                     //we also don't want to see cancel button nor cancel cancel when leave or break is current event
@@ -1629,7 +1738,7 @@ else {
                                     type: "POST",
                                     datatype: "json",
                                     url: "admin-oerw/process.php",
-                                    data: 'type=cancelEventFromDay&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&description= NB ' + description2json + '&category_id=' +category_id,
+                                    data: 'type=cancelEventFromDay&event_date=' + eventdate + '&title=' + title + '&start_time=' + starttime + '&description=NB:' + description2json + '&category_id=' +category_id,
                                     success: function (response) {
                                         //TODO: refetch does not work inside, why??
                                         $('#calendar').fullCalendar('refetchEvents');
@@ -1672,6 +1781,102 @@ else {
                         })
                         $('#previewEventModal').modal('hide');
                     });
+
+                    $('#additional-event').off('click');
+                    $('#additional-event').on('click', function (e) {
+                        $('#previewEventModal').modal('hide');
+
+                        //set color for typical lesson
+                        var category = 1;
+
+                        //reset form to the clear values
+                        $('#createEventModal').find('form')[0].reset();
+                        //human read start end and day
+
+                        //var starttime = $.fullCalendar.moment(event.start).format('HH:mm');
+                        //var endtime = $.fullCalendar.moment(event.end).format('HH:mm');
+                        //var eventdate = $.fullCalendar.moment(event.start).format('YYYY-MM-DD');
+                       // var resourcename = getResourceName(resources);
+                        //var resourceID = resources;
+
+                        $('#createEventModal #event-date').val(eventdate);
+                        $('#createEventModal #start-time').val(starttime);
+                        $('#createEventModal #end-time').val(endtime);
+                        $('#createEventModal #resourceID').val(resourcename);
+                        $('#createEventModal').modal('show');
+
+                        // assign function to onclick property of checkbox
+                        //default we don't wanna see repeat-freq options
+                        document.getElementById('repeatFreqDiv').style.display = 'none';
+                        //now if we click repeats we schould see hidden options
+                        document.getElementById('repeats').onclick = function () {
+                            // access properties using this keyword
+                            if (this.checked) {
+                                document.getElementById('repeatFreqDiv').style.display = 'block';
+                            } else {
+                                //if repeats not checked we reset values and hide
+                                $('input[name="repeat-freq"]').prop('checked', false);
+                                document.getElementById('repeatFreqDiv').style.display = 'none';
+                            }
+
+
+                        };
+
+                        //simple validation for title, just diable submit button if title is empty
+                        $('#submitButton').prop('disabled', true);
+                        $('#createEventModal #title').keyup(function () {
+                            $('#submitButton').prop('disabled', this.value == "" ? true : false);
+                        });
+
+
+                        //fix for looping when add second third etc.. event
+                        $('#submitButton').off('click')
+                        //now when click submit on form
+                        $('#submitButton').on('click', function (e) {
+                            //we need title to print it on notification
+                            var title = $('#createEventModal #title').val();
+                            //there is problem with pass to php starttime and endtime from form,
+                            //need to walkaround , so manually pass these two values to the PHP
+                            var starttime2 = $('#createEventModal #start-time').val();
+                            var endtime2 = $('#createEventModal #end-time').val();
+
+                            //compare dates to check if range is corrcet
+                            if (!(moment(starttime2, 'HH:mm').isBefore(moment(endtime2, 'HH:mm')))) {
+                                alert("nie no bez jaj, ustaw poprawnie czas rozpoczecia i zakoczenia zajeć")
+                                $('#submitButton').prop('disabled', true);
+                            }
+                            //if dates are correct do this
+                            else {
+
+                                $("#createEventModal").modal('hide');
+                                // enh. add category for overhours
+                                //check if checkbox is checked
+                                if (document.getElementById('overhours').checked == true) {
+
+                                    category = 5;
+                                }
+                                //just before sending the form we switching resource name to resource ID
+                                $('#createEventModal #resourceID').val(resourceID);
+                                e.preventDefault();
+                                $.ajax({
+                                    cache: false,
+                                    type: "POST",
+                                    url: "admin-oerw/add-event.php",
+                                    data: $('#createAppointmentForm').serialize() + "&category_id=" + category + "&start-time=" + starttime2 + "&end-time=" + endtime2,
+                                    success: function () {
+
+                                        $('#calendar').fullCalendar('unselect');
+                                        $('#calendar').fullCalendar('refetchEvents');
+                                        socket.send(resourcename+" dodano nowe zajęcia dla " + title +" w dniu "+ eventdate +" o godz "+ starttime);
+
+
+                                    }
+
+                                });
+                            }
+                        });
+
+                    })
 
                 }
             },

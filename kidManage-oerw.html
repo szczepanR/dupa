@@ -98,7 +98,12 @@
             </button>
 
         </div>
+           <div class="navbar-form navbar-left">
+               <a href="/eventStatistic-oerw.html" role="button" class="btn btn-default ">
+                   <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Statystyki
+               </a>
 
+           </div>
         <div class="navbar-form navbar-right">
             <div class="btn-group">
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -113,15 +118,10 @@
                 </ul>
             </div>
             <div class="btn-group" role="group">
-                <a href="/admin-oerw.html" role="button" class="btn btn-default">K. ogólny</a>
+                <a href="/admin-oerw.html" role="button" class="btn btn-default ">K. ogólny</a>
                 <a href="/plansForKids-user-oerw.html" role="button" class="btn btn-default">K. dziecka</a>
+                <a href="/groupPlan-oerw.html" role="button" class="btn btn-default">K. grup</a>
             </div>
-            <button type="button" class="btn btn-default" id="optionButton">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>
-            </button>
-            <button type="button" class="btn btn-default" id="aboutButton">
-                <span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span>
-            </button>
 
         </div>
 
@@ -148,6 +148,7 @@
                 <th data-field="child_id" data-halign="center" data-align="center">ID</th>
                 <th data-field="firstname" data-halign="center" data-align="center">Imię</th>
                 <th data-field="lastname" data-halign="center" data-align="center">Nazwisko</th>
+                <th data-field="groupName" data-halign="center" data-align="center">Grupa</th>
             </tr>
             </thead>
         </table>
@@ -180,6 +181,25 @@
                                     <label class="control-label" for="lastName">Nazwisko dziecka</label>
                                     <input type="text" name="lastName" class="form-control" id="lastName" autocomplete="off">
 
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <!--<label class="control-label" for="groupName">Grupa</label>-->
+                                    <!--<input type="text" name="groupName" class="form-control" id="groupName" autocomplete="off">-->
+                                    <label for="groupName">Grupa:</label>
+                                    <select class="form-control" id="groupName">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+ 					<option>F</option>
+                                        <option>G</option>
+                                        <option>H</option>
+                                        <option>I</option>
+                                       <option>J</option>
+                                     </select>
                                 </div>
                             </div>
                         </div>
@@ -227,6 +247,26 @@
                                 <div class="form-group">
                                     <label class="control-label" for="lastName">Nazwisko dziecka</label>
                                     <input type="text" name="lastName" class="form-control" id="editlastName" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <!--<label class="control-label" for="editGroupName">Grupa</label>-->
+                                    <!--<input type="text" name="editGroupName" class="form-control" id="editGroupName" autocomplete="off">-->
+                                    <label for="editgroupName">Grupa:</label>
+                                    <select class="form-control" id="editgroupName">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+					<option>F</option>
+                                        <option>G</option>
+                                        <option>H</option>
+                                        <option>I</option>
+                                       <option>J</option>
+                                    </select>
 
                                 </div>
                             </div>

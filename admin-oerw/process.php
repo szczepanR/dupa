@@ -25,10 +25,104 @@ if ($type == 'delete-all-events'){
 
     $stmt->execute();
     $stmt2->execute();
+    $dbh->commit();
     if($stmt && $stmt2)
         echo json_encode(array('status'=>'success'));
         else
         echo json_encode(array('status'=>'failed'));
+
+
+}
+if ($type == 'delete-leave'){
+    try {
+        $event_id = $_POST['event_id'];
+        $event_date = $_POST['event_date'];
+        $start_time = $_POST['starttime'];
+        $end_time = $_POST['endtime'];
+        $description = "NB.SPEC.";
+        $resourceID = $_POST['resourceID'];
+        $newDescription = "";
+        $beginLeave = date($event_date);
+        //
+        $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $dbh->beginTransaction();
+        $stmt = $dbh->prepare("DELETE FROM events WHERE event_id='$event_id'");
+        $stmt->execute();
+        $dbh->commit();
+    }
+    catch (Exception $e) {
+        $firephp->log($e, 'error');
+        $dbh->rollback();
+
+    }
+    $dbh->beginTransaction();
+   try {
+
+        $stmt = $dbh->prepare("UPDATE events SET description=:newDescription, category_id=1 WHERE resourceID=:resourceid AND DATE(start)='$event_date' AND
+                                 ((TIME(start)>'$start_time' AND TIME(start)<'$end_time') OR
+                                 (TIME(end)>'$start_time' AND TIME(end)<'$end_time') OR
+                                 (TIME(start)='$start_time' AND TIME(end)='$end_time') OR
+                                 (TIME(start)='$start_time' AND TIME(start)<'$end_time') OR
+                                 (TIME(end)='$end_time' AND TIME(end)>'$start_time')) AND category_id=6 AND description LIKE'%$description%'");
+        $stmt->bindParam(':resourceid', $resourceID);
+        $stmt->bindParam(':newDescription', $newDescription);
+        $stmt->execute();
+        $dbh->commit();
+
+
+    }
+    catch (Exception $e) {
+        $firephp->log($e, 'error');
+        $dbh->rollback();
+
+    }
+
+
+}
+if ($type == 'delete-leave-for-kid'){
+    try {
+        $event_id = $_POST['event_id'];
+        $event_date = $_POST['event_date'];
+        $start_time = $_POST['starttime'];
+        $end_time = $_POST['endtime'];
+        $description = $_POST['description'];;
+        $resourcename = $_POST['resourcename'];
+        $newDescription = "";
+        $beginLeave = date($event_date);
+        $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $dbh->beginTransaction();
+        $stmt = $dbh->prepare("DELETE FROM events WHERE event_id='$event_id'");
+        $stmt->execute();
+        $dbh->commit();
+    }
+    catch (Exception $e) {
+        $firephp->log($e, 'error');
+        $dbh->rollback();
+
+    }
+    $dbh->beginTransaction();
+    try {
+
+        $stmt = $dbh->prepare("UPDATE events SET description=:newDescription, category_id=1 WHERE title=:resourcename AND DATE(start)='$event_date' AND
+                                 ((TIME(start)>'$start_time' AND TIME(start)<'$end_time') OR
+                                 (TIME(end)>'$start_time' AND TIME(end)<'$end_time') OR
+                                 (TIME(start)='$start_time' AND TIME(end)='$end_time') OR
+                                 (TIME(start)='$start_time' AND TIME(start)<'$end_time') OR
+                                 (TIME(end)='$end_time' AND TIME(end)>'$start_time')) AND category_id=6 AND description LIKE'%$description%'");
+        $stmt->bindParam(':resourcename', $resourcename);
+        $stmt->bindParam(':newDescription', $newDescription);
+        $stmt->execute();
+        $dbh->commit();
+
+
+    }
+    catch (Exception $e) {
+        $firephp->log($e, 'error');
+        $dbh->rollback();
+
+    }
 
 
 }
@@ -101,6 +195,29 @@ if ($type == 'delete-events-from-day') {
 
 }
 
+//get resource Name, for group plan resources are kids!!!!
+if ($type == 'getResourceNameForGroup'){
+    $resource_id = $_POST['resourceID'];
+
+    $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbh->query('SET NAMES utf8');
+    $stmt = $dbh->prepare("SELECT * FROM child WHERE child_id='$resource_id'");
+    //below query required to diplay polish signs on page
+
+    $stmt->execute();
+    $resources = array();
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $resourcesArray['id'] = $row['child_id'];
+        $firstname = $row['firstname'];
+        $lastname = $row['lastname'];
+        $resourcesArray['groupName'] = $row['groupName'];
+        $resourcesArray['name'] = $firstname . ' ' . $lastname;
+        $resources = $resourcesArray;
+    }
+    echo json_encode($resources);
+}
 //get resource Name
 if ($type == 'getResourceName'){
     $resource_id = $_POST['resourceID'];
@@ -109,6 +226,26 @@ if ($type == 'getResourceName'){
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $dbh->query('SET NAMES utf8');
     $stmt = $dbh->prepare("SELECT * FROM resources WHERE resourceid='$resource_id'");
+    //below query required to diplay polish signs on page
+
+    $stmt->execute();
+    $resources = array();
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $resourcesArray['id'] = $row['resourceid'];
+        $resourcesArray['name'] = $row['name'];
+        $resources = $resourcesArray;
+    }
+    echo json_encode($resources);
+}
+//get teacher Id for group calendar
+if ($type == 'getTeacherId'){
+    $name = $_POST['name'];
+
+    $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbh->query('SET NAMES utf8');
+    $stmt = $dbh->prepare("SELECT * FROM resources WHERE name='$name'");
     //below query required to diplay polish signs on page
 
     $stmt->execute();

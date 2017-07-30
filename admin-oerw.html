@@ -43,7 +43,7 @@
     <script src="js/bootstrap3-typeahead.min.js"></script>
     <script src="js/jquery.ui.touch.js"></script>
     <script src="js/jquery.ui.touch-all-events.js"></script>
-    <script src="http://192.168.1.111:4000/socket.io/socket.io.js" type="text/javascript"></script>
+    <script src="http://192.168.1.103:4000/socket.io/socket.io.js" type="text/javascript"></script>
 
 
 
@@ -101,6 +101,9 @@
         }
         .navbar ul.nav li a {
             z-index: 10000;
+        }
+        .funkyradio input[type="radio"]:empty ~ label {
+            margin-top: 0.5em;
         }
         </style>
 
@@ -163,8 +166,9 @@
                 </ul>
             </div>
             <div class="btn-group" role="group">
-                <a href="#" role="button" class="btn btn-default active ">K. ogólny</a>
+                <a href="#" role="button" class="btn btn-primary active ">K. ogólny</a>
                 <a href="/plansForKids-user-oerw.html" role="button" class="btn btn-default">K. dziecka</a>
+                <a href="/groupPlan-oerw.html" role="button" class="btn btn-default ">K. grupy</a>
             </div>
             <button class="btn btn-default" type="button" id="messagesButton">
                 <span class="glyphicon glyphicon-envelope" aria-hidden="true" ></span>
@@ -574,6 +578,7 @@
                 <div class="pull-left">
                     <button type="submit" class="btn btn-warning" id="cancelSubmitButton">Odwołaj</button>
                     <button type="submit" class="btn btn-warning" id="cancelCancelSubmitButton">Anuluj odwołanie</button>
+                    <button type="submit" class="btn btn-primary" id="additional-event">Zaj.dodatkowe</button>
                 </div>
                 <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
                 <button type="submit" class="btn btn-primary" id="edit-submitButton">Modyfikuj</button>
@@ -583,6 +588,91 @@
     </div>
 </div>
 <!--**************************************** modal window for preview event end**************************************-->
+<!--****************************************** modal window for preview teacher leave start**********************************-->
+<div id="leavepreviewEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="leavepreviewmyModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="leavepreviewmyModalLabel1" class="modal-title">Podgląd nieobecności</h4>
+            </div>
+            <div class="modal-body">
+                <form id="leavepreviewAppointmentForm">
+
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="leavepreview-title">Przyczyna nieobecności</label>
+                                    <input type="text" name="leavepreview-title" class="form-control" id="leavepreview-title"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="leavepreview-resourceID">Terapeuta</label>
+                                    <input type="text" name="leavepreview-resourceID" class="form-control" id="leavepreview-resourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leavepreview-event-date">Data</label>
+                                    <input type="text" name="leavepreview-event-date" class="form-control" id="leavepreview-event-date"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leavepreview-start-time">Początek</label>
+                                    <input type="text" name="preview-start-time" class="form-control" id="leavepreview-start-time"
+                                           readonly="readonly">
+                                </div>
+
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="leavepreview-end-time">Koniec</label>
+                                    <input type="text" name="leavepreview-end-time" class="form-control" id="leavepreview-end-time"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="preview-description">Notatki</label>
+                                    <div id="leavepreviewDescriptionButtons">
+                                        <button type="button" class="btn btn-default" aria-label="ok" id="leavepreviewDescriptionButtonOK">
+                                            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" aria-label="cancel" id="leavepreviewDescriptionButtonCancel">
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                    <textarea class="form-control" name="leavepreview-description" id="leavepreview-description"
+                                              readonly="readonly" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
+                <button type="submit" class="btn btn-danger" id="leavedelete-submitButton">Usuń</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**************************************** modal window for preview teacher leave end**************************************-->
+
+
 <!--****************************************** modal window for cancel event start**********************************-->
 <div id="cancelEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cancelmyModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -787,8 +877,31 @@ end
                             </div>
                         </div>
                         </div>
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <strong>Odwołać zajęcia indyw. w trakcie nieobecności?:</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <div class="funkyradio">
+                                <div class="funkyradio-primary">
+                                    <input type="radio" value="yes" name="cancelRelatedEventsforLeave" align="bottom" id="cancelRelatedEventsforLeaveYes">
+                                    <label for="cancelRelatedEventsforLeaveYes">Tak</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-3">
+                            <div class="funkyradio no-gutter">
+                                <div class="funkyradio-primary">
+                                    <input type="radio" value="no" name="cancelRelatedEventsforLeave" align="bottom" id="cancelRelatedEventsforLeaveNo" checked="checked">
+                                    <label for="cancelRelatedEventsforLeaveNo">Nie</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                 </div>
                 </form>
             </div>
             <div class="modal-footer">

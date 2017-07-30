@@ -12,7 +12,7 @@ $firephp = FirePHP::getInstance(true);
     $start_date = $_POST['event-date'];
     $weekday = date('N', strtotime($start_date));
     //test value for endOfYear
-    $endOfyear = date('2016-08-30');
+    $endOfyear = date('2018-08-30');
     $startOfevent = date($start_date);
     $start_time = $_POST['start-time'];
     $end_time = $_POST['end-time'];
