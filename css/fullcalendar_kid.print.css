@@ -4,7 +4,6 @@
  * (c) 2013 Adam Shaw
  */
 
-html{-webkit-print-color-adjust:exact;}
 .fc {
 	direction: ltr;
 	text-align: left;
@@ -30,7 +29,6 @@ body .fc { /* extra precedence to overcome jqui */
 .fc-unthemed .fc-row,
 .fc-unthemed .fc-popover {
 	border-color: #ddd;
-
 }
 
 .fc-unthemed .fc-popover {
@@ -58,8 +56,8 @@ body .fc { /* extra precedence to overcome jqui */
 
 .fc-bgevent { /* default look for background events */
 	background: rgb(143, 223, 130);
-	opacity: .3;
-	filter: alpha(opacity=30); /* for IE */
+	/*opacity: .3;*/
+	/*filter: alpha(opacity=30); !* for IE *!*/
 }
 
 .fc-nonbusiness { /* default look for non-business-hours areas */
@@ -124,7 +122,7 @@ body .fc { /* extra precedence to overcome jqui */
 
 /* Firefox has an annoying inner border */
 .fc button::-moz-focus-inner { margin: 0; padding: 0; }
-	
+
 .fc-state-default { /* non-theme */
 	border: 1px solid;
 }
@@ -146,7 +144,7 @@ body .fc { /* extra precedence to overcome jqui */
 	top: .05em; /* seems to be a good adjustment across browsers */
 	margin: 0 .1em;
 }
-	
+
 /*
   button states
   borrowed from twitter bootstrap (http://twitter.github.com/bootstrap/)
@@ -262,7 +260,7 @@ previous button's border...
 
 .fc-unthemed .fc-popover .fc-header .fc-close {
 	font-size: 12px; /*sz było 25px*/
-	margin-top: 4px;
+	margin-top: 0px;
 }
 
 /* jqui themed */
@@ -383,7 +381,7 @@ previous button's border...
 }
 
 .fc-row .fc-bg {
-	z-index: 1;
+	z-index: 1000;
 }
 
 /* highlighting cells & background event skeleton */
@@ -463,9 +461,10 @@ temporary rendered events).
 --------------------------------------------------------------------------------------------------*/
 
 .fc-event {
+
 	position: relative; /* for resize handle and other inner positioning */
 	display: block; /* make the <a> tag block */
-	font-size: .65em;/*sz bylo .85*/
+	font-size: .6em;/*sz bylo .85*/
 	line-height: 1.3;
 	border-radius: 3px;
 	border: 1px solid #3a87ad; /* default BORDER color */
@@ -501,7 +500,6 @@ be a descendant of the grid when it is being dragged.
 .fc-day-grid-event {
 	margin: 1px 2px 0; /* spacing between events and edges */
 	padding: 0 1px;
-	
 }
 
 /* events that are continuing to/from another week. kill rounded corners and butt up against edge */
@@ -593,7 +591,7 @@ a.fc-more:hover {
 
 .fc-toolbar {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 0em;
 }
 
 .fc-toolbar .fc-left {
@@ -618,11 +616,12 @@ a.fc-more:hover {
 .fc .fc-toolbar > * > :first-child { /* extra precedence to override button border margins */
 	margin-left: 0;
 }
-	
+
 /* title text */
 
 .fc-toolbar h2 {
-	margin: 0;
+	font-size: 15px !important;
+	padding-bottom: 0 !important;
 }
 
 /* button layering (for border precedence) */
@@ -635,7 +634,7 @@ a.fc-more:hover {
 .fc-toolbar .ui-state-hover {
 	z-index: 2;
 }
-	
+
 .fc-toolbar .fc-state-down {
 	z-index: 3;
 }
@@ -746,7 +745,7 @@ a.fc-more:hover {
 }
 
 .fc-agenda-view .fc-day-grid .fc-row {
-	min-height: 2em; /* sz all-day section will never get shorter than this */
+	min-height: 3em; /* all-day section will never get shorter than this */
 }
 
 .fc-agenda-view .fc-day-grid .fc-row .fc-content-skeleton {
@@ -795,7 +794,7 @@ a.fc-more:hover {
 }
 
 .fc-time-grid > .fc-bg {
-	z-index: 1;
+	z-index: 1000;
 }
 
 .fc-time-grid .fc-slats,
@@ -833,7 +832,7 @@ a.fc-more:hover {
 --------------------------------------------------------------------------------------------------*/
 
 .fc-slats td {
-	height: 2.5em; /* default value = 1.5, szczepan chnged to 2.5 */
+	height: 2.0em; /* default value = 1.5, szczepan chnged to 2.5 */
 	border-bottom: 0; /* each cell is responsible for its top border */
 }
 
@@ -842,7 +841,7 @@ a.fc-more:hover {
 }
 
 .fc-slats .ui-widget-content { /* for jqui theme */
-	background: none; /* see through to fc-bg */
+	background: #fff; /* see through to fc-bg */
 }
 
 
@@ -880,7 +879,7 @@ a.fc-more:hover {
 .fc-time-grid .fc-event,
 .fc-time-grid .fc-bgevent {
 	position: absolute;
-	z-index: 1; /* scope inner z-index's */
+	z-index: 1000; /* scope inner z-index's */
 }
 
 .fc-time-grid .fc-bgevent {
@@ -918,6 +917,7 @@ be a descendant of the grid when it is being dragged.
 
 .fc-time-grid-event {
 	overflow: hidden; /* don't let the bg flow over rounded corners */
+
 }
 
 .fc-time-grid-event > .fc-content { /* contains the time and title, but no bg and resizer */
@@ -928,6 +928,7 @@ be a descendant of the grid when it is being dragged.
 .fc-time-grid-event .fc-time,
 .fc-time-grid-event .fc-title {
 	padding: 0 1px;
+
 }
 
 .fc-time-grid-event .fc-time {
@@ -938,8 +939,9 @@ be a descendant of the grid when it is being dragged.
 .fc-time-grid-event .fc-bg {
 	z-index: 1;
 	background: #fff;
-	opacity: .25;
-	filter: alpha(opacity=25); /* for IE */
+	/*opacity: .25;*/
+	/*filter: alpha(opacity=25); !* for IE *!*/
+
 }
 
 /* short mode, where time and title are on the same line */
@@ -969,7 +971,7 @@ be a descendant of the grid when it is being dragged.
 }
 
 .fc-time-grid-event.fc-short .fc-title {
-	font-size: .85em; /* make the title text the same size as the time */
+	font-size: 1em; /* make the title text the same size as the time */
 	padding: 0; /* undo padding from above */
 }
 
@@ -991,21 +993,31 @@ be a descendant of the grid when it is being dragged.
 }
 
 .fc-time-grid-event .fc-resizer:after {
-	content: "__";
+	content: "";
 }
-/*szczepan*/
+/* Vertical Scroller & Containers
+--------------------------------------------------------------------------------------------------*/
+
+
+/* Button Controls
+--------------------------------------------------------------------------------------------------*/
+
+.fc-button-group,
+.fc button {
+	display: none; /* don't display any button-related controls */
+}
 .fc-day-header,
 .fc-axis,
 .fc-widget-header,
-.fc-sat{
-	font-size: 9px;
+.fc-sat th{
+	font-size: 10px;
 }
+.fc,
+.fc-ltr,
+.fc-unthemed{
+	margin-top: 0 !important;
 
-.fc-szczepan{
-
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+}
+.fc-bg{
+	background: #fff;
 }

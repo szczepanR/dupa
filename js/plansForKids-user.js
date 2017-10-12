@@ -1394,8 +1394,8 @@ setTimeout(function () {
                      we cannot use background propoerty because it will no print
                      we need to use img src as background and add this to .fc-bg, so far so good :)
                      *********************************************************************************************************/
-                    element.css('background', "none");
-                    element.find('.fc-bg').append('<img src ="/images/cancel2.png" width=100% height=100%/>');
+                    //element.css('background', "white");
+                    //element.find('.fc-bg').append('<img src ="/images/cancel2.png" width=100% height=100%/>');
 
 
 
@@ -1419,20 +1419,20 @@ setTimeout(function () {
                 element.find('.fc-title').append("<br/>" + event.description);
 
                 //this  is fix for appearing custom border during selecting new event
-                if (event.description == null ) {
-
-                    element.css('border-color', '#FFFFFF');
-
-
-                }
-                //red border should appear only when event is created and it has description
-                //"!= null" -- this does not work probably afteradding new event there is emptytext but not null
-                else if (event.description != '')
-                {
-                    element.css('border-color', '#ff000f');
-
-                }
-                //experimental  put some
+                //if (event.description == null ) {
+                //
+                //    element.css('border-color', '#FFFFFF');
+                //
+                //
+                //}
+                ////red border should appear only when event is created and it has description
+                ////"!= null" -- this does not work probably afteradding new event there is emptytext but not null
+                //else if (event.description != '')
+                //{
+                //    element.css('border-color', '#ff000f');
+                //
+                //}
+                ////experimental  put some
 
 
                 //to have more readable events and see spaces between events in column wee add small margin to events

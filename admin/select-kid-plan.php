@@ -14,7 +14,7 @@ $firephp->log($childName);
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$stmt = $dbh->prepare("SELECT e.event_id, e.parent_id, e.title, e.start, e.end, e.resourceID, e.repeat_freq, e.description, r.name, r.resourceID FROM events e LEFT JOIN resources r ON e.resourceID = r.resourceID WHERE e.title=:childName");
+$stmt = $dbh->prepare("SELECT e.event_id, e.parent_id, e.title, e.start, e.end, e.resourceID, e.repeat_freq, e.description, e.category_id, r.name, r.resourceID, r.speciality FROM events e LEFT JOIN resources r ON e.resourceID = r.resourceID WHERE e.title=:childName");
 
     $stmt->bindParam(':childName', $childName);
 
@@ -32,7 +32,8 @@ $stmt = $dbh->prepare("SELECT e.event_id, e.parent_id, e.title, e.start, e.end, 
     $eventArray['end'] = $row['end'];
     $eventArray['resources'] = $row['resourceID'];
     $eventArray['repeat_freq'] = $row['repeat_freq'];
-    $eventArray['description']  = $row['description'];
+    $eventArray['category_id'] = $row['category_id'];
+    $eventArray['description']  = $row['speciality'];
     $events[] = $eventArray;
 }
     echo json_encode($events);

@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/js/main_admin.js" />
+    <bookmark url="file://$PROJECT_DIR$/css/custom.css" line="270" />
+    <bookmark url="file://$PROJECT_DIR$/js/fullcalendar.js" />
+    <bookmark url="file://$PROJECT_DIR$/js/main_admin.js" line="710" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="94d4962d-9be7-4d2b-bdc6-5cb0efba6d27" name="Default" comment="last working version from oerw server">
+    <list default="true" id="94d4962d-9be7-4d2b-bdc6-5cb0efba6d27" name="Default" comment="version 2.0&#10;new GUI&#10;upload files&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/delete_file.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/documentsManage.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/download.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/statistics-wwr.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/upload.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/fullcalendar_kid.print.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/statistics-wwr.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/statistics.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/bootbox.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/bootstrap-clockpicker.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/bootstrap-popover.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/bootstrap-tooltip.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/bootstrapValidator.min.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/js/chosen.jquery.min.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw.html" afterPath="$PROJECT_DIR$/admin-oerw.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/add-break.php" afterPath="$PROJECT_DIR$/admin-oerw/add-break.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/add-event.php" afterPath="$PROJECT_DIR$/admin-oerw/add-event.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/add-leave.php" afterPath="$PROJECT_DIR$/admin-oerw/add-leave.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/kidsAdd.php" afterPath="$PROJECT_DIR$/admin-oerw/kidsAdd.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/kidsManage.php" afterPath="$PROJECT_DIR$/admin-oerw/kidsManage.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/process.php" afterPath="$PROJECT_DIR$/admin-oerw/process.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/select-kid-plan.php" afterPath="$PROJECT_DIR$/admin-oerw/select-kid-plan.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin-oerw/update-event.php" afterPath="$PROJECT_DIR$/admin-oerw/update-event.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin.html" afterPath="$PROJECT_DIR$/admin.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/add-break.php" afterPath="$PROJECT_DIR$/admin/add-break.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/add-event.php" afterPath="$PROJECT_DIR$/admin/add-event.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/update-event.php" afterPath="$PROJECT_DIR$/admin/update-event.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main_admin-oerw.js" afterPath="$PROJECT_DIR$/js/main_admin-oerw.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/json-events.php" afterPath="$PROJECT_DIR$/admin/json-events.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/json-resources.php" afterPath="$PROJECT_DIR$/admin/json-resources.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/kidsAdd.php" afterPath="$PROJECT_DIR$/admin/kidsAdd.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/kidsManage.php" afterPath="$PROJECT_DIR$/admin/kidsManage.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/messagesManage.php" afterPath="$PROJECT_DIR$/admin/messagesManage.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/process.php" afterPath="$PROJECT_DIR$/admin/process.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/resourceAdd.php" afterPath="$PROJECT_DIR$/admin/resourceAdd.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/resourceManage.php" afterPath="$PROJECT_DIR$/admin/resourceManage.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin/select-kid-plan.php" afterPath="$PROJECT_DIR$/admin/select-kid-plan.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/bootstrap.css" afterPath="$PROJECT_DIR$/css/bootstrap.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/custom.css" afterPath="$PROJECT_DIR$/css/custom.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/fullcalendar.css" afterPath="$PROJECT_DIR$/css/fullcalendar.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/js/bootstrap.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main_admin.js" afterPath="$PROJECT_DIR$/js/main_admin.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main_kidManage-oerw.js" afterPath="$PROJECT_DIR$/js/main_kidManage-oerw.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main_user-oerw.js" afterPath="$PROJECT_DIR$/js/main_user-oerw.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main_user.js" afterPath="$PROJECT_DIR$/js/main_user.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/plansForKids-user-oerw.js" afterPath="$PROJECT_DIR$/js/plansForKids-user-oerw.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main_kidManage.js" afterPath="$PROJECT_DIR$/js/main_kidManage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main_resourceManage.js" afterPath="$PROJECT_DIR$/js/main_resourceManage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/plansForKids-user.js" afterPath="$PROJECT_DIR$/js/plansForKids-user.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/kidManage-oerw.html" afterPath="$PROJECT_DIR$/kidManage-oerw.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nodejs/node_modules/request/node_modules/hawk/test/browser.js" afterPath="$PROJECT_DIR$/nodejs/node_modules/request/node_modules/hawk/test/browser.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nodejs/node_modules/request/node_modules/hawk/test/client.js" afterPath="$PROJECT_DIR$/nodejs/node_modules/request/node_modules/hawk/test/client.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nodejs/node_modules/request/node_modules/http-signature/node_modules/jsprim/node_modules/verror/Makefile.targ" afterPath="$PROJECT_DIR$/nodejs/node_modules/request/node_modules/http-signature/node_modules/jsprim/node_modules/verror/Makefile.targ" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plansForKids-user-oerw.html" afterPath="$PROJECT_DIR$/plansForKids-user-oerw.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/nodejs/server.js" afterPath="$PROJECT_DIR$/nodejs/server.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plansForKids-user.html" afterPath="$PROJECT_DIR$/plansForKids-user.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resourceManage-oerw.html" afterPath="$PROJECT_DIR$/resourceManage-oerw.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user-oerw.html" afterPath="$PROJECT_DIR$/user-oerw.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user.html" afterPath="$PROJECT_DIR$/user.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resourceManage.html" afterPath="$PROJECT_DIR$/resourceManage.html" />
     </list>
     <ignored path="Scheduler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,20 +67,44 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="admin.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="admin.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.9360147">
-              <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+            <state vertical-scroll-proportion="268.9091">
+              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
               <folding>
-                <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#a#0;n#li#3;n#ul#0;n#li#1;n#ul#0;n#li#2;n#ul#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#11;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#12;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#9;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#0;n#div#12;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#0;n#div#13;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#14;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#15;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#17;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#div#18;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <marker date="1507838699608" expanded="true" signature="3489:3610" placeholder="{...}" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="plansForKids-user.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/plansForKids-user.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.3333335">
+              <caret line="8" column="56" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fullcalendar_kid.print.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/fullcalendar_kid.print.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="11.716049">
+              <caret line="466" column="17" selection-start-line="466" selection-start-column="17" selection-end-line="466" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -73,8 +112,18 @@
       <file leaf-file-name="main_admin.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/main_admin.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+            <state vertical-scroll-proportion="-50.964287">
+              <caret line="1263" column="136" selection-start-line="1263" selection-start-column="136" selection-end-line="1263" selection-end-column="136" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kidManage.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/kidManage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-8.222222">
+              <caret line="140" column="47" selection-start-line="140" selection-start-column="47" selection-end-line="140" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -84,13 +133,61 @@
         <entry file="file://$PROJECT_DIR$/nodejs/server.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main_kidManage.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/js/main_kidManage.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="download.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/download.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bootstrap.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/css/bootstrap.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.33147115">
+              <caret line="4704" column="11" selection-start-line="4704" selection-start-column="11" selection-end-line="4704" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="json-resources.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/json-resources.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-17.333334">
+              <caret line="26" column="29" selection-start-line="15" selection-start-column="0" selection-end-line="26" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -103,61 +200,62 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/admin/kidsAdd.php" root0="SKIP_INSPECTION" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/admin.html" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/js/main_admin.js" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/admin/resourceManage.php" />
-        <option value="$PROJECT_DIR$/admin/resourceAdd.php" />
-        <option value="$PROJECT_DIR$/js/main_resourceManage.js" />
-        <option value="$PROJECT_DIR$/admin/kidsAdd.php" />
-        <option value="$PROJECT_DIR$/js/main_kidManage.js" />
-        <option value="$PROJECT_DIR$/admin/messagesManage.php" />
-        <option value="$PROJECT_DIR$/admin/process.php" />
-        <option value="$PROJECT_DIR$/nodejs/server.js" />
-        <option value="$PROJECT_DIR$/js/main_user.js" />
-        <option value="$PROJECT_DIR$/css/fullcalendar.css" />
-        <option value="$PROJECT_DIR$/js/jquery.mobile.custom.min.js" />
-        <option value="$PROJECT_DIR$/js/jquery.mobile.custom.min2.js" />
-        <option value="$PROJECT_DIR$/js/jquery.touch.min.js" />
-        <option value="$PROJECT_DIR$/js/jquery.ui.touch-all-events.js" />
-        <option value="$PROJECT_DIR$/js/jquery.ui.touch.js" />
-        <option value="$PROJECT_DIR$/kidManage.html" />
-        <option value="$PROJECT_DIR$/plansForKids-user.html" />
-        <option value="$PROJECT_DIR$/resourceManage.html" />
-        <option value="$PROJECT_DIR$/nodejs/server-oerw.js" />
-        <option value="$PROJECT_DIR$/admin-OERW/add-break.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/add-event.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/add-leave.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/add-study.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/json-events.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/json-kids.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/json-resources.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/kidsAdd.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/kidsManage.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/messagesManage.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/process.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/resourceAdd.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/resourceManage.php" />
-        <option value="$PROJECT_DIR$/admin-OERW/select-kid-plan.php" />
         <option value="$PROJECT_DIR$/admin-OERW/temp_autocomplete.php" />
         <option value="$PROJECT_DIR$/admin-OERW/update-event.php" />
         <option value="$PROJECT_DIR$/js/main_resourceManage-oerw.js" />
         <option value="$PROJECT_DIR$/js/main_user-oerw.js" />
         <option value="$PROJECT_DIR$/plansForKids-user-oerw.html" />
         <option value="$PROJECT_DIR$/resourceManage-oerw.html" />
-        <option value="$PROJECT_DIR$/js/main_admin-oerw.js" />
         <option value="$PROJECT_DIR$/user.html" />
         <option value="$PROJECT_DIR$/user-oerw.html" />
         <option value="$PROJECT_DIR$/js/plansForKids-user-oerw.js" />
         <option value="$PROJECT_DIR$/groupPlan-oerw.html" />
         <option value="$PROJECT_DIR$/admin-oerw/kidsManage.php" />
-        <option value="$PROJECT_DIR$/kidManage-oerw.html" />
         <option value="$PROJECT_DIR$/admin-oerw/kidsAdd.php" />
         <option value="$PROJECT_DIR$/js/main_kidManage-oerw.js" />
+        <option value="$PROJECT_DIR$/admin/json-events.php" />
+        <option value="$PROJECT_DIR$/admin/json-resources.php" />
+        <option value="$PROJECT_DIR$/assets/js/ace-extra.min.js" />
+        <option value="$PROJECT_DIR$/assets/css/ace.min.css" />
+        <option value="$PROJECT_DIR$/admin/messagesManage.php" />
+        <option value="$PROJECT_DIR$/eventStatistic-oerw.html" />
+        <option value="$PROJECT_DIR$/admin/statistics-wwr.php" />
+        <option value="$PROJECT_DIR$/js/statistics-wwr.js" />
+        <option value="$PROJECT_DIR$/statistics.html" />
+        <option value="$PROJECT_DIR$/admin/kidsManage.php" />
         <option value="$PROJECT_DIR$/admin-oerw.html" />
-        <option value="$PROJECT_DIR$/admin.html" />
+        <option value="$PROJECT_DIR$/js/main_admin-oerw.js" />
+        <option value="$PROJECT_DIR$/nodejs/server.js" />
+        <option value="$PROJECT_DIR$/assets/css/fonts.googleapis.com.css" />
+        <option value="$PROJECT_DIR$/css/fullcalendar.css" />
+        <option value="$PROJECT_DIR$/css/fileinput.css" />
+        <option value="$PROJECT_DIR$/js/locales/pl.js" />
+        <option value="$PROJECT_DIR$/css/custom.css" />
+        <option value="$PROJECT_DIR$/admin/documentsManage.php" />
+        <option value="$PROJECT_DIR$/admin/upload.php" />
+        <option value="$PROJECT_DIR$/admin/download.php" />
+        <option value="$PROJECT_DIR$/admin/delete_file.php" />
+        <option value="$PROJECT_DIR$/admin/kidsAdd.php" />
+        <option value="$PROJECT_DIR$/kidManage-oerw.html" />
+        <option value="$PROJECT_DIR$/admin/resourceManage.php" />
+        <option value="$PROJECT_DIR$/js/main_resourceManage.js" />
+        <option value="$PROJECT_DIR$/admin/resourceAdd.php" />
+        <option value="$PROJECT_DIR$/resourceManage.html" />
+        <option value="$PROJECT_DIR$/plansForKids-user.html" />
+        <option value="$PROJECT_DIR$/css/fullcalendar.print.css" />
+        <option value="$PROJECT_DIR$/admin/select-kid-plan.php" />
+        <option value="$PROJECT_DIR$/js/plansForKids-user.js" />
+        <option value="$PROJECT_DIR$/css/fullcalendar_kid.print.css" />
+        <option value="$PROJECT_DIR$/admin/process.php" />
+        <option value="$PROJECT_DIR$/js/main_kidManage.js" />
+        <option value="$PROJECT_DIR$/kidManage.html" />
         <option value="$PROJECT_DIR$/js/main_admin.js" />
+        <option value="$PROJECT_DIR$/admin.html" />
       </list>
     </option>
   </component>
@@ -171,10 +269,9 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="1680" />
-    <option name="y" value="22" />
+    <option name="y" value="24" />
     <option name="width" value="1680" />
-    <option name="height" value="1050" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -223,6 +320,26 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Problems" />
         <subPane subId="Project Files">
@@ -273,7 +390,11 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="config-OERW">
+            <PATH_ELEMENT USER_OBJECT="js">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="locales">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -287,7 +408,39 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="config">
+            <PATH_ELEMENT USER_OBJECT="js">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="lang">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="html">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="css">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="html">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT USER_OBJECT="admin">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -296,26 +449,6 @@
         <subPane subId="Tests" />
       </pane>
       <pane id="Scratches" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scheduler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scheduler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Scheduler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -324,7 +457,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
-    <property name="DefaultHtmlFileTemplate" value="Html" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="recentsLimit" value="5" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="LayoutCode.rearrangeEntriesHTML" value="true" />
@@ -351,6 +484,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/css" />
+      <recent name="$PROJECT_DIR$/admin" />
       <recent name="C:\xampp\htdocs\admin" />
       <recent name="C:\xampp\htdocs\Scheduler\admin" />
     </key>
@@ -432,6 +567,13 @@
       <option name="number" value="Default" />
       <updated>1427402141333</updated>
     </task>
+    <task id="LOCAL-00001" summary="last working version from oerw server">
+      <created>1501452399278</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1501452399278</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -444,16 +586,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1680" y="22" width="1680" height="1050" extended-state="6" />
+    <frame x="0" y="24" width="1680" height="1026" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18803419" sideWeight="0.5685864" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16605617" sideWeight="0.5685864" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291536" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960895" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32849163" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33409092" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3284091" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24969475" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12695925" sideWeight="0.43141362" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32922733" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -464,7 +607,6 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13270637" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -482,173 +624,77 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="last working version from oerw server" />
-    <option name="LAST_COMMIT_MESSAGE" value="last working version from oerw server" />
+    <MESSAGE value="version 2.0&#10;new GUI&#10;upload files&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 2.0&#10;new GUI&#10;upload files&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="37" />
+      <option name="time" value="38" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/main_admin-oerw.js">
+    <entry file="file://$PROJECT_DIR$/admin-oerw/statistics-oerw.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2321" column="0" selection-start-line="2321" selection-start-column="0" selection-end-line="2321" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw/temp_autocomplete.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw/kidsAdd.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="94" column="66" selection-start-line="94" selection-start-column="66" selection-end-line="94" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw/kidsManage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="54" selection-start-line="28" selection-start-column="54" selection-end-line="28" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/add-break.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.111111">
-          <caret line="114" column="105" selection-start-line="112" selection-start-column="38" selection-end-line="114" selection-end-column="105" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/resourceManage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="2" selection-start-line="7" selection-start-column="0" selection-end-line="35" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB_files/triggers.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/messagesManage.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="51" selection-start-line="29" selection-start-column="51" selection-end-line="29" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/process.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.019933555">
-          <caret line="262" column="12" selection-start-line="262" selection-start-column="12" selection-end-line="262" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/css/fullcalendar.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="424" column="18" selection-start-line="424" selection-start-column="12" selection-end-line="424" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/fullcalendar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4187" column="24" selection-start-line="4187" selection-start-column="20" selection-end-line="4187" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <marker date="1442949918000" expanded="true" signature="138307:138443" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="138323:138429" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="138340:138412" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="165526:165633" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="165715:166032" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="165882:166028" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="168238:168685" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="168266:168395" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="168283:168380" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="168437:168671" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="168454:168656" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="168502:168617" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="178727:178829" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="178908:179299" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="179070:179216" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="197172:197306" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="197188:197292" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="198528:198798" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="198649:198765" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="213355:214023" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="213511:213911" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="252564:253016" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="252580:252763" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="252594:252746" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="252648:252731" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="253361:253487" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="253378:253473" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="253817:253962" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="253834:253948" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="268771:269368" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="268787:268971" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="268801:268954" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="268855:268939" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="268987:269352" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="269001:269335" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="269056:269320" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="270042:270149" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="270059:270135" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="270548:270693" placeholder="..." />
-            <marker date="1442949918000" expanded="true" signature="270564:270680" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/jquery.touch.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/jquery.ui.touch.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86422414">
-          <caret line="198" column="4" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin/events.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.08716707">
+          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/json-events.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
+        <state vertical-scroll-proportion="0.074074075">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/add-break.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.259259">
+          <caret line="79" column="9" selection-start-line="76" selection-start-column="7" selection-end-line="79" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-oerw/add-leave.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="43.407406">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/font-awesome/4.5.0/css/font-awesome.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/bootstrap.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36758894">
+          <caret line="4" column="15404" selection-start-line="4" selection-start-column="14656" selection-end-line="4" selection-end-column="15404" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/groupPlan-oerw.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.52300245">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin-oerw.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.888889">
+          <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main_admin-oerw.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -659,7 +705,139 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin/update-event.php">
+    <entry file="file://$PROJECT_DIR$/assets/css/ace-skins.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/ace.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/add-event.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.6666667">
+          <caret line="87" column="9" selection-start-line="84" selection-start-column="8" selection-end-line="87" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jquery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/ace-part2.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.2213439">
+          <caret line="0" column="104816" selection-start-line="0" selection-start-column="104816" selection-end-line="0" selection-end-column="104816" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/fullcalendar.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="16402" selection-start-line="7" selection-start-column="16402" selection-end-line="7" selection-end-column="16402" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/fullcalendar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9853" column="37" selection-start-line="9853" selection-start-column="28" selection-end-line="9853" selection-end-column="37" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/fonts.googleapis.com.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.7358491">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/fullcalendar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.087167">
+          <caret line="1000" column="16" selection-start-line="1000" selection-start-column="16" selection-end-line="1000" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/events.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.15496369">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/locales/pl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="26" column="32" selection-start-line="26" selection-start-column="32" selection-end-line="26" selection-end-column="32" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/fileinput.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.689223">
+          <caret line="146" column="21" selection-start-line="146" selection-start-column="21" selection-end-line="146" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/custom.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.592592">
+          <caret line="319" column="1" selection-start-line="319" selection-start-column="1" selection-end-line="319" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/statistics-wwr.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="6.6666665">
+          <caret line="8" column="38" selection-start-line="7" selection-start-column="0" selection-end-line="8" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/statistics-wwr.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="184" column="41" selection-start-line="184" selection-start-column="8" selection-end-line="184" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/statistics.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.327273">
+          <caret line="171" column="52" selection-start-line="167" selection-start-column="44" selection-end-line="171" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/kidsManage.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -667,194 +845,157 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/jquery.ui.touch-punch.min.js">
+    <entry file="file://$PROJECT_DIR$/admin/upload.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19396552">
-          <caret line="10" column="450" selection-start-line="10" selection-start-column="450" selection-end-line="10" selection-end-column="450" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/jquery.ui.touch-all-events.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/jquery.mobile.custom.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="5057" selection-start-line="2" selection-start-column="5041" selection-end-line="2" selection-end-column="5057" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resourceManage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09988901">
-          <caret line="5" column="47" selection-start-line="5" selection-start-column="47" selection-end-line="5" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plansForKids-user.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13984461">
-          <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/db-config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodejs/server-oerw.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30172414">
-          <caret line="23" column="43" selection-start-line="23" selection-start-column="43" selection-end-line="23" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config-OERW/db-config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plansForKids-user-oerw.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.666666">
-          <caret line="124" column="30" selection-start-line="124" selection-start-column="30" selection-end-line="124" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resourceManage-oerw.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-22.666666">
-          <caret line="115" column="48" selection-start-line="115" selection-start-column="48" selection-end-line="115" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main_resourceManage-oerw.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.7216496">
-          <caret line="326" column="41" selection-start-line="326" selection-start-column="41" selection-end-line="326" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main_user-oerw.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="44.20962">
-          <caret line="2151" column="33" selection-start-line="2151" selection-start-column="33" selection-end-line="2151" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw/json-kids.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main_user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-0.08958838">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user.html">
+    <entry file="file://$PROJECT_DIR$/admin/documentsManage.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-28.666666">
-          <caret line="43" column="60" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
+        <state vertical-scroll-proportion="-12.666667">
+          <caret line="19" column="118" selection-start-line="19" selection-start-column="118" selection-end-line="19" selection-end-column="118" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/user-oerw.html">
+    <entry file="file://$PROJECT_DIR$/admin/kidsAdd.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-28.666666">
-          <caret line="43" column="60" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
-          <folding />
+        <state vertical-scroll-proportion="-19.925926">
+          <caret line="165" column="56" selection-start-line="165" selection-start-column="56" selection-end-line="165" selection-end-column="56" />
+          <folding>
+            <marker date="1507502856342" expanded="true" signature="636:737" placeholder="SELECT child..child..." />
+            <marker date="1507502856342" expanded="true" signature="1534:1784" placeholder="INSERT INTO child..." />
+            <marker date="1507502856342" expanded="true" signature="3272:3510" placeholder="UPDATE child..." />
+            <marker date="1507502856342" expanded="true" signature="4262:4326" placeholder="UPDATE event..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/plansForKids-user-oerw.js">
+    <entry file="file://$PROJECT_DIR$/admin/delete_file.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.9698276">
-          <caret line="340" column="0" selection-start-line="340" selection-start-column="0" selection-end-line="340" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.08716707">
+          <caret line="4" column="35" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="35" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/groupPlan-oerw.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7391787">
-          <caret line="116" column="26" selection-start-line="116" selection-start-column="26" selection-end-line="116" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kidManage-oerw.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57731956">
-          <caret line="250" column="142" selection-start-line="249" selection-start-column="36" selection-end-line="250" selection-end-column="142" />
+        <state vertical-scroll-proportion="-22.666666">
+          <caret line="205" column="38" selection-start-line="186" selection-start-column="32" selection-end-line="205" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/resourceManage.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.666666">
+          <caret line="28" column="60" selection-start-line="28" selection-start-column="60" selection-end-line="28" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main_kidManage-oerw.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7">
-          <caret line="83" column="71" selection-start-line="83" selection-start-column="71" selection-end-line="83" selection-end-column="71" />
+        <state vertical-scroll-proportion="-2.107143">
+          <caret line="124" column="65" selection-start-line="124" selection-start-column="61" selection-end-line="124" selection-end-column="65" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5136742">
-          <caret line="45" column="37" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/js/main_admin-oerw.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.020737328">
-          <caret line="2266" column="0" selection-start-line="2266" selection-start-column="0" selection-end-line="2266" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw/temp_autocomplete.php">
+    <entry file="file://$PROJECT_DIR$/js/main_resourceManage.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="142" column="125" selection-start-line="142" selection-start-column="125" selection-end-line="142" selection-end-column="125" />
+          <folding>
+            <marker date="1507583825899" expanded="true" signature="7000:7109" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resourceManage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.6779661">
+          <caret line="191" column="49" selection-start-line="191" selection-start-column="49" selection-end-line="191" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw/kidsAdd.php">
+    <entry file="file://$PROJECT_DIR$/admin/resourceAdd.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5505351">
-          <caret line="94" column="66" selection-start-line="94" selection-start-column="66" selection-end-line="94" selection-end-column="66" />
+        <state vertical-scroll-proportion="-10.072727">
+          <caret line="49" column="51" selection-start-line="49" selection-start-column="51" selection-end-line="49" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin-oerw/kidsManage.php">
+    <entry file="file://$PROJECT_DIR$/css/fullcalendar.print.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59928656">
-          <caret line="28" column="54" selection-start-line="28" selection-start-column="54" selection-end-line="28" selection-end-column="54" />
+        <state vertical-scroll-proportion="-0.22222222">
+          <caret line="59" column="43" selection-start-line="58" selection-start-column="4" selection-end-line="59" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/select-kid-plan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.666666">
+          <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/plansForKids-user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.821428">
+          <caret line="1397" column="22" selection-start-line="1397" selection-start-column="22" selection-end-line="1397" selection-end-column="22" />
+          <folding>
+            <marker date="1507588477392" expanded="true" signature="73396:73536" placeholder="{...}" />
+            <marker date="1507588477392" expanded="true" signature="73555:73746" placeholder="//..." />
+            <marker date="1507588477392" expanded="true" signature="73817:73919" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/fullcalendar_kid.print.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="11.716049">
+          <caret line="466" column="17" selection-start-line="466" selection-start-column="17" selection-end-line="466" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/json-resources.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.333334">
+          <caret line="26" column="29" selection-start-line="15" selection-start-column="0" selection-end-line="26" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/process.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.7272727">
+          <caret line="119" column="30" selection-start-line="119" selection-start-column="30" selection-end-line="119" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plansForKids-user.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.3333335">
+          <caret line="8" column="56" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/kidManage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.222222">
+          <caret line="140" column="47" selection-start-line="140" selection-start-column="47" selection-end-line="140" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -862,32 +1003,60 @@
     <entry file="file://$PROJECT_DIR$/nodejs/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main_admin.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+        <state vertical-scroll-proportion="-50.964287">
+          <caret line="1263" column="136" selection-start-line="1263" selection-start-column="136" selection-end-line="1263" selection-end-column="136" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/admin.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.9360147">
-          <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+        <state vertical-scroll-proportion="268.9091">
+          <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
           <folding>
-            <element signature="n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#a#0;n#li#3;n#ul#0;n#li#1;n#ul#0;n#li#2;n#ul#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#div#4;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#div#6;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#7;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#11;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#12;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#9;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#0;n#div#12;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#0;n#div#13;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#14;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#15;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#17;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#div#18;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <marker date="1507838699608" expanded="true" signature="3489:3610" placeholder="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/main_kidManage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/download.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/bootstrap.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33147115">
+          <caret line="4704" column="11" selection-start-line="4704" selection-start-column="11" selection-end-line="4704" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>

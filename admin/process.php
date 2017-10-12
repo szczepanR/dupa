@@ -17,7 +17,7 @@ if ($type == 'delete-all-events'){
     $event_date = $_POST['event_date'];
 
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $stmt = $dbh->prepare("DELETE FROM events WHERE parent_id='$parent_id' AND CONCAT_WS(DATE(start),' ',start)>= CONCAT_WS(DATE(start),' ','$event_date')");
     $stmt2 = $dbh->prepare("DELETE FROM events_parent WHERE parent_id='$parent_id'");
@@ -118,6 +118,24 @@ if ($type == 'getResourceName'){
         $resourcesArray['id'] = $row['resourceid'];
         $resourcesArray['name'] = $row['name'];
         $resources = $resourcesArray;
+    }
+    echo json_encode($resources);
+}
+if ($type == 'getResourceName2'){
+
+    $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbh->query('SET NAMES utf8');
+    $stmt = $dbh->prepare("SELECT * FROM resources");
+    //below query required to diplay polish signs on page
+
+    $stmt->execute();
+    $resources = array();
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $resourcesArray['id'] = $row['resourceid'];
+        $resourcesArray['name'] = $row['name'];
+        $resources[] = $resourcesArray;
     }
     echo json_encode($resources);
 }
@@ -358,6 +376,8 @@ if ($type == 'deleteResource') {
 //insert new message to database
 if ($type == 'addMessage') {
     $message = $_POST['message'];
+    $sender = $_POST['sender'];
+    $recipient = "wszyscy";
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -366,11 +386,40 @@ if ($type == 'addMessage') {
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
         $stmt = $dbh->prepare("INSERT INTO messages
-                    (timedate, message)
-                    VALUES (NOW(), :message)");
+                    (timedate, sender, recipient, message)
+                    VALUES (NOW(), :sender, :recipient, :message)");
+        $stmt->bindParam(':message', $message);
+        $stmt->bindParam(':sender', $sender);
+        $stmt->bindParam(':recipient', $recipient);
+        $stmt->execute();
+        $dbh->commit();
+    }
+    catch (Exception $e) {
+        $firephp->log($e, 'error');
+        $dbh->rollback();
+    }
+    echo json_encode($message);
+
+}
+//insert new private message to database
+if ($type == 'addPrivateMessage') {
+    $message = $_POST['message'];
+    $sender = $_POST['sender'];
+    $recipient = $_POST['recipient'];
+    $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    try {
+
+        $dbh->beginTransaction();
+        $dbh->query('SET NAMES utf8');
+        $stmt = $dbh->prepare("INSERT INTO messages
+                    (timedate, sender, recipient, message)
+                    VALUES (NOW(), :sender, :recipient, :message)");
 
         $stmt->bindParam(':message', $message);
-
+        $stmt->bindParam(':sender', $sender);
+        $stmt->bindParam(':recipient', $recipient);
         $stmt->execute();
         $dbh->commit();
 
@@ -382,5 +431,31 @@ if ($type == 'addMessage') {
 
     }
     echo json_encode($message);
+
+}
+if ($type == 'getPhoneNumber') {
+    $firstname =$_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $firephp->log($firstname, 'firstname');
+    $firephp->log($lastname, 'lastname');
+    $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $dbh->beginTransaction();
+    $dbh->query('SET NAMES utf8');
+
+    $stmt = $dbh->prepare("SELECT phone FROM child WHERE firstname=:firstname AND lastname=:lastname");
+    $stmt->bindParam(':firstname', $firstname);
+    $stmt->bindParam(':lastname', $lastname);
+    $stmt->execute();
+    $dbh->commit();
+    $kids = array();
+    if ($stmt ->rowCount() != 0) {
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $phone = $row['phone'];
+            $kids[] = $phone;
+        }
+    }
+    echo json_encode($kids);
 
 }

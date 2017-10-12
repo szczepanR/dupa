@@ -4,67 +4,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset='utf8'/>
+    <meta charset='utf8' name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>Kalendarz WWR - strona admina</title>
-    <link href="css/fullcalendar.css" rel="stylesheet"/>
     <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
     <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/custom.css" rel="stylesheet">
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet"/>-->
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link href="css/fullcalendar.css" rel="stylesheet"/>
     <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
     <link href="css/bootstrap-editable.css" rel="stylesheet">
-    <link href="css/bootstrap-multiselect.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-multiselect.min.css" rel="stylesheet">
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
     <link href="css/toastr.min.css" rel="stylesheet">
     <link href="css/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
     <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
-    <script src="js/jquery.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--<script src="js/jquery.js"></script>-->
+    <script src="js/jquery-2.2.4.js"></script>
+    <!--<script src="js/jquery-migrate-3.0.0.js"></script>-->
+    <!--<script src="js/jquery-3.2.1.js"></script>-->
     <script src="js/jquery.mobile.custom.min.js"></script>
     <script src="js/moment.js"></script>
-    <script src="js/jquery-ui.js"></script>
+    <!--<script src="js/jquery-ui.js"></script>-->
     <script src="js/fullcalendar.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <!--<script src="js/bootstrap-clockpicker.min.js"></script>-->
+    <script src="assets/js/bootstrap.min.js"></script>
     <script src='js/lang-all.js'></script>
     <script src='js/bootstrap-dialog.js'></script>
     <script src="js/bootstrap-table.min.js"></script>
     <script src="js/bootstrap-table-pl-PL.min.js"></script>
     <script src="js/main_admin.js"></script>
-    <!--<script src="js/bootstrap3-typeahead.min.js"></script>-->
-    <!--<script src="js/validator.min.js"></script>-->
     <script src="js/bootstrap-datepicker.min.js"></script>
     <script src="js/bootstrap-datepicker-pl.min.js"></script>
     <script src="js/bootstrap-editable.min.js"></script>
-    <script src="js/bootstrap-multiselect.js"></script>
+    <script src="assets/js/bootstrap-multiselect.min.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
     <script src="js/toastr.min.js"></script>
     <script src="js/ion.sound.min.js"></script>
     <script src="js/bootstrap3-typeahead.min.js"></script>
-    <script src="js/jquery.ui.touch.js"></script>
-    <script src="js/jquery.ui.touch-all-events.js"></script>
-    <script src="http://192.168.1.103:3000/socket.io/socket.io.js" type="text/javascript"></script>
-
-
+    <!--<script src="js/jquery.ui.touch.js"></script>-->
+    <!--<script src="js/jquery.ui.touch-punch.min.js"></script>-->
+    <!--<script src="js/jquery.ui.touch-all-events.js"></script>-->
+    <script src="js/cookies.js"></script>
+    <!-- ace scripts -->
+    <script src="assets/js/ace-elements.min.js"></script>
+    <script src="assets/js/ace.min.js"></script>
+    <!-- ace settings handler -->
+    <script src="assets/js/ace-extra.min.js"></script>
+    <script src="http://192.168.0.33:3000/socket.io/socket.io.js" type="text/javascript"></script>
 
     <style type='text/css'>
-        body {
-            margin: 0;
-            padding: 0;
-            padding-top: 15px;
-            font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-            /*font-size: 14px;*/
+        /*body {*/
+            /*margin: 0;*/
+            /*padding: 0;*/
+            /*padding-top: 15px;*/
+
+            /*!*font-size: 14px;*!*/
 
 
-        }
-        #calendar {
-            width: 100%;
-            margin: 40px auto;
-            /*height: 400px;*/
+        /*}*/
+        /*#calendar {*/
+            /*width: 100%;*/
+            /*!*margin: 40px auto;*!*/
+            /*!*height: 400px;*!*/
 
 
 
-        }
+        /*}*/
         #calendar .current_entry
         {
             border-color: #ff0000;
@@ -75,119 +88,194 @@
         input[readonly] {
             cursor: default;
         }
-        .modal-header{
-            height:30px;
-            padding:4px;
-        }
-        .navbar-brand{
-
-            padding-right: 0px;
-            padding-left: 2px;
-            line-height:12px;
-            padding-top:20px;
-            padding-bottom:5px;
-            font-size: 14px;
-
-        }
-        .navbar-brand small {
-            display:block;
-            font-size:10px;
-        }
+        /*.modal-header{*/
+            /*height:30px;*/
+            /*padding:4px;*/
+        /*}*/
         .fc-slats td{
             height: 2.5em;
         }
         h2{
             font-size: 20px;
         }
-        .navbar ul.nav li a {
-            z-index: 10000;
-        }
+        /*.navbar ul.nav li a {*/
+            /*z-index: 10000;*/
+        /*}*/
         </style>
 
 
 </head>
-<body>
-<nav class="navbar navbar-default navbar-fixed-top">
+<body class="skin-3">
 
-    <div class="container-fluid">
-
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-                Plan WWR
-                <small>admin</small>
+<div id="navbar" class="navbar navbar-default          ace-save-state">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="index.html" class="navbar-brand">
+                <small>
+                    Plan WWR
+                </small>
             </a>
-
         </div>
-
-        <div class="navbar-form navbar-left">
-
-                <button type="button" class="btn btn-default" id="customDateButton">
-                <span class="glyphicon glyphicon-calendar" aria-hidden="true" ></span> Data
-                </button>
-            <!--commented out 26.09.2015 looks like nobody is using this ext view-->
-                       <!--<div class="btn-group">
-                           <select id="selectView">
-
-                               <option value="viewStd" selected>Widok standardowy</option>
-                               <option value="viewExt">Widok roszerzony</option>
-
-                           </select>
-                           <button id="selectView-refresh" class="btn btn-primary">Odśwież widok</button>
-                       </div>
-            <div class="btn-group">-->
-            <button type="button" id="selectView-refresh" class="btn btn-default">
-                <span class="glyphicon glyphicon-repeat" aria-hidden="true" ></span> Odśwież widok
-            </button>
-                <select id="selectResource" name="multiselect[]" multiple="multiple">
-                </select>
-
-
-
-            <button type="button" class="btn btn-default" id="printButton">
-                <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Drukuj
-            </button>
-
+        <div class="navbar-buttons navbar-header pull-left" role="navigation">
+            <ul class="nav ace-nav">
+                <li class="blue dropdown-modal" id="customDateButton">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-calendar"></i>
+                    </a>
+                </li>
+                <li>
+                    <select id="selectResource" class="multiselect" multiple="">
+                    </select>
+                </li>
+                <li class="blue" id="printButton">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="glyphicon glyphicon-print"></i>
+                    </a>
+                </li>
+                <li class="blue" id="selectView-refresh">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="glyphicon glyphicon-repeat"></i>
+                    </a>
+                </li>
+            </ul>
         </div>
+        <div class="navbar-buttons navbar-header pull-right" role="navigation">
+            <ul class="nav ace-nav">
 
-        <div class="navbar-form navbar-right">
+                <li class="blue" id="messagesButton">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="glyphicon glyphicon-send"></i>
+                    </a>
+                </li>
+                <li class="green dropdown-modal" id="messagesListButton">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-envelope"></i>
+                    </a>
+                </li>
+                <li class="purple dropdown-modal">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-tachometer"></i>
+                        <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle clickable" data-toggle="dropdown">
-                   Panel zarządzania <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu clickable">
-                    <li class="clickable"><a href="/kidManage.html">Zarządzanie dziećmi</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="clickable"><a href="/resourceManage.html" >Zarządzanie specjalistami</a></li>
-                </ul>
+                    <ul class="dropdown-menu-right dropdown-navbar navbar-grey dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="ace-icon fa fa-cogs"></i>
+                            Zarządzanie
+                        </li>
+
+                        <li class="dropdown-content">
+                            <ul class="dropdown-menu dropdown-navbar navbar-grey">
+                                <li>
+                                    <a target="_blank" href="/kidManage.html">
+                                        Zarządzanie dziećmi
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="/resourceManage.html">
+                                        Zarządzanie specjalistami
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a target="_blank" href="/plansForKids-user.html">
+                                        Kalendarz indywidualny dziecka
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="optionsButton" style="cursor: pointer">
+                                        Opcje programu
+                                    </a>
+                                </li>
+                                <li>
+                                    <a target="_blank" href="/statistics.html">
+                                        Statystyka
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="light-blue dropdown-modal">
+                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                        <i class="glyphicon glyphicon-user"></i>
+								<span class="user-info">
+									<small>Witaj,</small>
+                                    <span id="usernameDiv"></span>
+								</span>
+
+                        <i class="ace-icon fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu-right dropdown-navbar navbar-grey dropdown-menu dropdown-caret dropdown-close">
+                        <li class="dropdown-header">
+                            <i class="ace-icon fa fa-cogs"></i>
+                            Użytkownik
+                        </li>
+                        <li class="dropdown-content">
+                            <ul class="dropdown-menu dropdown-navbar navbar-grey">
+                                <li>
+                                    <a href="#">
+                                        Profil (nieaktywne)
+                                    </a>
+                                </li>
+
+                                <li id="userButton">
+                                    <a href="#">
+                                        Wyloguj
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                </li>
+            </ul>
+        </div>
+    </div><!-- /.navbar-container -->
+</div>
+<!-- page view-->
+<div class="loader" id="loader"></div>
+<div id="calendar">
+</div>
+
+<!-- page view-->
+<!--*********************************modal window for selecting type event start*********************************-->
+<div id="seletctEventTypeModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="seletctEventTypeModalLabel"
+aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header modal-header-warning">
+            <h4 id="seletctEventTypeModalLabel" class="modal-title">Wybór zajęć</h4>
+        </div>
+        <div class="modal-body">
+            <div class="center">
+            <button class="btn btn-app btn-info btn-xs no-radius" id="lesson-button">
+                <i class="ace-icon fa fa-book bigger-160"></i>
+                Zajęcia
+            </button>
+            <button class="btn btn-app btn-info btn-xs no-radius" id="study-button">
+                <i class="ace-icon fa fa-flask bigger-160"></i>
+                Badanie
+            </button>
+            <button class="btn btn-app btn-info btn-xs no-radius" id="break-button">
+                <i class="ace-icon fa fa-cutlery bigger-160"></i>
+                Przerwa
+            </button>
+            <button class="btn btn-app btn-info btn-xs no-radius" id="vacation-button">
+                <i class="ace-icon fa fa-fighter-jet bigger-160"></i>
+                Urlop
+            </button>
             </div>
-            <div class="btn-group" role="group">
-                <a href="#" role="button" class="btn btn-default active ">K. ogólny</a>
-                <a href="/plansForKids-user.html" role="button" class="btn btn-default">K. dziecka</a>
-            </div>
-            <button class="btn btn-default" type="button" id="messagesButton">
-                <span class="glyphicon glyphicon-envelope" aria-hidden="true" ></span>
-            </button>
-            <button type="button" class="btn btn-default" id="messagesListButton">
-                <span class="glyphicon glyphicon-bell" aria-hidden="true" ></span>
-            </button>
-            <button type="button" class="btn btn-default" id="optionsButton">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>
-            </button>
-            <button type="button" class="btn btn-default" id="fsButton">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true" ></span>
-            </button>
         </div>
-
+        <div class="modal-footer">
+            <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+        </div>
     </div>
-</nav>
-<!-- page view-->
-<div id="calendar"></div>
-
-
-<!-- page view-->
-
+</div>
+</div>
+<!--*********************************modal window for selecting type event end*********************************-->
 
 <!--*********************************modal window for adding new event start*********************************-->
 <!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
@@ -196,7 +284,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="myModalLabelEvent" class="modal-title">Dodawanie nowych zajęć</h4>
             </div>
             <div class="modal-body">
@@ -258,7 +346,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-danger">
                                         <input type="checkbox" name="overhours" id="overhours" value="5"/>
-                                        <label for="overhours">Nadgodziny</label>
+                                        <label class="label-normal-font" for="overhours">Nadgodziny</label>
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +366,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-primary">
                                         <input type="checkbox" name="repeats" id="repeats" value="1"/>
-                                        <label for="repeats">Powtarzanie</label>
+                                        <label class="label-normal-font" for="repeats">Powtarzanie</label>
                                     </div>
                                 </div>
                             </div>
@@ -288,7 +376,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-primary">
                                         <input type="radio" value="1" name="repeat-freq" align="bottom" id="everyDay">
-                                        <label for="everyDay">Codziennie</label>
+                                        <label class="label-normal-font" for="everyDay">Codziennie</label>
                                     </div>
                                 </div>
                             </div>
@@ -296,7 +384,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-primary">
                                         <input type="radio" value="7" name="repeat-freq" align="bottom" id="everyWeek">
-                                        <label for="everyWeek">Co tydzień</label>
+                                        <label class="label-normal-font" for="everyWeek">Co tydzień</label>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +410,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="myModalLabelstudy" class="modal-title">Dodawanie badania</h4>
             </div>
             <div class="modal-body">
@@ -394,7 +482,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="editmyModalLabel1" class="modal-title">Edycja zajęć</h4>
             </div>
             <div class="modal-body">
@@ -410,8 +498,11 @@
                             <div class="col-xs-5 col-xs-offset-2">
                                 <div class="form-group">
                                     <label for="edit-resourceID">Terapeuta</label>
-                                    <input type="text" name="edit-resourceID" class="form-control" id="edit-resourceID"
-                                           readonly="readonly">
+                                    <!--<input type="text" name="edit-resourceID" class="form-control" id="edit-resourceID">-->
+                                    <div class="input-group">
+                                        <select name="multiselectedit-resourceID" id="edit-resourceID" size="2">
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -457,7 +548,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-danger">
                                         <input type="checkbox" name="editOverhours" id="editOverhours"/>
-                                        <label for="editOverhours">Nadgodziny</label>
+                                        <label class="label-normal-font" for="editOverhours">Nadgodziny</label>
                                     </div>
                                 </div>
                             </div>
@@ -485,12 +576,12 @@
 
 
 <!--****************************************** modal window for preview event start**********************************-->
-<div id="previewEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="previewmyModalLabel1"
+<div id="previewEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="previewmyModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="previewmyModalLabel1" class="modal-title">Podgląd zajęć</h4>
             </div>
             <div class="modal-body">
@@ -498,18 +589,38 @@
 
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-xs-5">
+                            <div class="col-xs-6">
                                 <div class="form-group">
+
                                     <label for="preview-title">Imię i nazwisko dziecka</label>
-                                    <input type="text" name="preview-title" class="form-control" id="preview-title"
-                                           readonly="readonly">
+                                    <div class="input-group">
+                                            <input type="text" name="preview-title" class="form-control" id="preview-title"
+                                                   readonly="readonly">
+                                            <span class="input-group-btn">
+                                            <button class="btn btn-inverse btn-white" type="button" rel="popover" id="preview-getPhoneNumberButton">
+                                                <span class="ace-icon fa fa-phone bigger-110"></span>
+                                            </button>
+                                                <button class="btn btn-inverse btn-white" type="button" rel="popover" id="preview-getNextResurceButton">
+                                                    <span class="ace-icon fa fa-share bigger-110"></span>
+                                                </button>
+                                            </span>
+                                    </div>
                                 </div>
+
+
                             </div>
-                            <div class="col-xs-5 col-xs-offset-2">
+                            <div class="col-xs-5 col-xs-offset-1">
                                 <div class="form-group">
                                     <label for="preview-resourceID">Terapeuta</label>
-                                    <input type="text" name="preview-resourceID" class="form-control" id="preview-resourceID"
-                                           readonly="readonly">
+
+                                    <div class="input-group">
+                                        <input type="text" name="preview-resourceID" class="form-control"
+                                               id="preview-resourceID"
+                                               readonly="readonly">
+                                            <span class="input-group-btn">
+
+                                            </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -544,7 +655,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-danger">
                                         <input type="radio" name="previewOverhours" id="previewOverhours" disabled="disabled"/>
-                                        <label for="previewOverhours">Nadgodziny</label>
+                                        <label class="label-normal-font" for="previewOverhours">Nadgodziny</label>
                                     </div>
                                 </div>
                             </div>
@@ -575,6 +686,7 @@
                     <button type="submit" class="btn btn-warning" id="cancelSubmitButton">Odwołaj</button>
                     <button type="submit" class="btn btn-warning" id="cancelCancelSubmitButton">Anuluj odwołanie</button>
                 </div>
+                <button type="submit" class="btn btn-primary" id="AdditionalEventSubmitButton">Zaj. Dodatkowe</button>
                 <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Zamknij</button>
                 <button type="submit" class="btn btn-primary" id="edit-submitButton">Modyfikuj</button>
                 <button type="submit" class="btn btn-danger" id="delete-submitButton">Usuń</button>
@@ -583,13 +695,14 @@
     </div>
 </div>
 <!--**************************************** modal window for preview event end**************************************-->
+
 <!--****************************************** modal window for cancel event start**********************************-->
-<div id="cancelEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cancelmyModalLabel1"
+<div id="cancelEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="cancelmyModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="cancelmyModalLabel1" class="modal-title">Odwołanie zajęć</h4>
             </div>
             <div class="modal-body">
@@ -600,12 +713,12 @@
                                 <div class="funkyradio-success">
                                     <input type="radio" name="cancelOptions" id="cancelChildEvent" value="cancelSingle"
                                            checked="checked">
-                                    <label for="cancelChildEvent"> Odwołaj tylko te zajęcia</label>
+                                    <label class="label-normal-font" for="cancelChildEvent"> Odwołaj tylko te zajęcia</label>
                                 </div>
                                 <div class="funkyradio-success">
                                     <input type="radio" name="cancelOptions" id="cancelEventsFromDay"
                                            value="cancelAllFromDay">
-                                    <label for="cancelEventsFromDay"> Odwołaj wszystkie zajęcia z tego dnia (dziecko
+                                    <label class="label-normal-font" for="cancelEventsFromDay"> Odwołaj wszystkie zajęcia z tego dnia (dziecko
                                         nieobecne cały dzień)</label>
                                 </div>
                             </div>
@@ -630,16 +743,15 @@
     </div>
 </div>
 <!--**************************************** modal window for cancel event end**************************************-->
+
 <!--************************************* modal window for add break start*******************************************-->
 <!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
-
-
 <div id="createBreakModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelBreak"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="myModalLabelBreak" class="modal-title">Dodawanie Przerwy</h4>
             </div>
             <div class="modal-body">
@@ -670,7 +782,7 @@
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <label for="breakStartTime">Początek zajęć</label>
+                                    <label for="breakStartTime">Początek</label>
                                     <div class="input-group date" id="breakStartTime-div">
                                         <input type="text" class="form-control" id="breakStartTime" readonly>
                                             <span class="input-group-addon">
@@ -683,7 +795,7 @@
                             </div>
                             <div class="col-xs-3">
                                 <div class="form-group">
-                                    <label for="breakEndTime">Koniec zajęć</label>
+                                    <label for="breakEndTime">Koniec</label>
                                     <!--<input type="text" name="edit-end-time" class="form-control" id="edit-end-time">-->
                                     <div class="input-group date" id="breakEndTime-div">
                                         <input type="text" class="form-control" id="breakEndTime" readonly>
@@ -699,7 +811,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-default">
                                         <input type="checkbox" name="breakRepeats" id="breakRepeats" value="1"/>
-                                        <label for="breakRepeats">Powtarzanie</label>
+                                        <label class="label-normal-font" for="breakRepeats">Powtarzanie</label>
                                     </div>
                                 </div>
                             </div>
@@ -710,7 +822,7 @@
                                   <div class="funkyradio">
                                     <div class="funkyradio-default">
                                         <input type="radio" value="1" name="breakRepeatFreq" align="bottom" id="breakEveryDay">
-                                        <label for="breakEveryDay">Codziennie</label>
+                                        <label class="label-normal-font" for="breakEveryDay">Codziennie</label>
                                     </div>
                                 </div>
                             </div>
@@ -718,7 +830,7 @@
                                 <div class="funkyradio">
                                     <div class="funkyradio-default">
                                         <input type="radio" value="7" name="breakRepeatFreq" align="bottom" id="breakEveryWeek">
-                                        <label for="breakEveryWeek">Co tydzień</label>
+                                        <label class="label-normal-font" for="breakEveryWeek">Co tydzień</label>
                                     </div>
                                 </div>
                             </div>
@@ -740,13 +852,12 @@ end
 -->
 <!--************************************* modal window for add leave start*******************************************-->
 <!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
-
 <div id="createLeaveModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelBreak"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="myModalLabelLeave" class="modal-title">Dodawanie nieobecności terapeuty</h4>
             </div>
             <div class="modal-body">
@@ -799,7 +910,6 @@ end
                         </div>
                         </div>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
@@ -819,7 +929,7 @@ end
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="myModalLabelDeleteSingle" class="modal-title">Usuwanie zajęć</h4>
             </div>
             <div class="modal-body">
@@ -830,12 +940,12 @@ end
                                 <div class="funkyradio-success">
                                     <input type="radio" name="optionsRadio" id="deleteChildEvent" value="deleteSingle"
                                            checked="checked">
-                                    <label for="deleteChildEvent"> Usuń tylko te zajęcia</label>
+                                    <label class="label-normal-font" for="deleteChildEvent"> Usuń tylko te zajęcia</label>
                                 </div>
                                 <div class="funkyradio-success">
                                     <input type="radio" name="optionsRadio" id="deleteEventsFromDay"
                                            value="DeleteAllFromDay">
-                                    <label for="deleteEventsFromDay"> Usuń wszystkie zajęcia z tego dnia (dziecko
+                                    <label class="label-normal-font" for="deleteEventsFromDay"> Usuń wszystkie zajęcia z tego dnia (dziecko
                                         nieobecne cały dzień)</label>
                                 </div>
                             </div>
@@ -859,7 +969,7 @@ end
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="myModalLabelDelRepeate" class="modal-title">Usuwanie zajęć</h4>
             </div>
             <div class="modal-body">
@@ -871,18 +981,18 @@ end
                                 <div class="funkyradio-success">
                                     <input type="radio" name="optionsRadioRepeate" id="deleteChildEventRepeate"
                                            value="deleteSingleRepeate" checked="checked"/>
-                                    <label for="deleteChildEventRepeate"> Usuń tylko te zajęcia</label>
+                                    <label class="label-normal-font" for="deleteChildEventRepeate"> Usuń tylko te zajęcia</label>
                                 </div>
                                 <div class="funkyradio-success">
                                     <input type="radio" name="optionsRadioRepeate" id="deleteEventsFromDayRepeate"
                                            value="DeleteAllFromDayRepeate"/>
-                                    <label for="deleteEventsFromDayRepeate"> Usuń wszystkie zajęcia z tego dnia (dziecko
+                                    <label class="label-normal-font" for="deleteEventsFromDayRepeate"> Usuń wszystkie zajęcia z tego dnia (dziecko
                                         nieobecne cały dzień)</label>
                                 </div>
                                 <div class="funkyradio-success">
                                     <input type="radio" name="optionsRadioRepeate" id="deleteAllRepeate"
                                            value="DeleteAllRepeate"/>
-                                    <label for="deleteAllRepeate"> Usuń wszystkie zajęcia w tym dniu do końca
+                                    <label class="label-normal-font" for="deleteAllRepeate"> Usuń wszystkie zajęcia w tym dniu do końca
                                         roku</label>
                                 </div>
                             </div>
@@ -907,7 +1017,7 @@ end
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="myModalLabelDelBreak" class="modal-title">Usuwanie przerwy</h4>
             </div>
             <div class="modal-body">
@@ -919,13 +1029,13 @@ end
                                 <div class="funkyradio-success">
                                     <input type="radio" name="deleteBreakOption" id="deleteBreakSingle"
                                            value="deleteBreakSingle"/>
-                                    <label for="deleteBreakSingle"> Usuń tylko tą przerwę</label>
+                                    <label class="label-normal-font" for="deleteBreakSingle"> Usuń tylko tą przerwę</label>
                                 </div>
 
                                 <div class="funkyradio-success" id="divAllBreak">
                                     <input type="radio" name="deleteBreakOption" id="deleteAllBreak"
                                            value="deleteAllBreak"/>
-                                    <label for="deleteAllBreak"> Usuń wszystkie zajęcia w tym dniu do końca
+                                    <label class="label-normal-font" for="deleteAllBreak"> Usuń wszystkie zajęcia w tym dniu do końca
                                         roku</label>
                                 </div>
                             </div>
@@ -945,12 +1055,12 @@ end
 
 
 <!--****************************************** modal window for preview break start**********************************-->
-<div id="previewBreakModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="previewBreakModalLabel1"
+<div id="previewBreakModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="previewBreakModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="previewBreakModalLabel1" class="modal-title">Przerwa</h4>
             </div>
             <div class="modal-body">
@@ -1009,13 +1119,14 @@ end
     </div>
 </div>
 <!--**************************************** modal window for preview break end**************************************-->
+
 <!-- *********************************************modal window for editing event end*********************************-->
-<div id="messageModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messagemyModalLabel1"
+<div id="messageModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="messagemyModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
                 <h4 id="messagemyModalLabel1" class="modal-title">Wysyłanie wiadomości</h4>
             </div>
             <div class="modal-body">
@@ -1025,8 +1136,17 @@ end
                         <div class="row">
                             <div class="col-xs-5">
                                 <div class="form-group">
-                                    <label for="author">Autor</label>
-                                    <input type="text" name="author" class="form-control" id="author">
+                                    <label for="author">Nadawca</label>
+                                    <input type="text" name="author" class="form-control" id="author" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="recipient">Odbiorca</label>
+                                        <div class="input-group">
+                                            <select name="multiselectrecipient" id="recipient">
+                                            </select>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -1034,7 +1154,6 @@ end
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label for="messageContent">Treść wiadomości</label>
-
                                     <textarea class="form-control" name="messageContent" id="messageContent"
                                               rows="3"></textarea>
                                 </div>
@@ -1053,13 +1172,113 @@ end
 </div>
 <!--**************************************** modal window for preview event end**************************************-->
 
-<!--****************************************** modal window for messages start**********************************-->
-<div id="messagesEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="messagesmyModalLabel1"
+<!--**************************************** modal window for login user start**************************************-->
+<div id="addUserModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!--<div class="modal-body">-->
+                <!--<form id="addUserModalForm">-->
+                    <!--<div class="container-fluid">-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-5">-->
+                                <!--<div class="form-group">-->
+                                    <!--<label for="username">Nazwa użytkownika</label>-->
+                                    <!--<input type="text" name="username" class="form-control" id="username" maxlength="13">-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+            <div class="login-container">
+                <div class="center">
+                    <h1>
+                        <img src="images/OREW_logo.png">
+                        <span class="black">Plan WWR</span>
+                    </h1>
+                </div>
+                <div class="space-6"></div>
+                <div class="position-relative">
+                    <div id="login-box" class="login-box visible widget-box no-border">
+                        <div class="widget-body">
+                            <div class="widget-main">
+                                <h5 class="header blue lighter bigger">
+                                   Podaj nazwę użytkownika
+                                </h5>
+                                <div class="space-6"></div>
+                                <form>
+                                    <fieldset>
+                                        <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" id="username" autocomplete="off" maxlength="13"/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+                                        </label>
+                                       <div class="space"></div>
+                                        <div class="clearfix">
+                                            <!--<label class="inline">-->
+                                                <!--<input type="checkbox" class="ace" />-->
+                                                <!--<span class="lbl"> Zapamiętaj mnie</span>-->
+                                            <!--</label>-->
+                                            <button type="button" class="width-35 pull-right btn btn-sm btn-primary"
+                                                    disabled="disabled" id="loginSubmitButton" >
+                                                <i class="ace-icon fa fa-key"></i>
+                                                <span class="bigger-110">Zaloguj</span>
+                                            </button>
+                                        </div>
+                                        <div class="space-4"></div>
+                                    </fieldset>
+                                </form>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**************************************** modal window for login user end**************************************-->
+
+<!--**************************************** modal window for logout user start**************************************-->
+<div id="logoutReloginUserModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="logoutReloginUserModal"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+
+                <h4 id="messagemyModalLabel1" class="modal-title">Panel użytkownika</h4>
+            </div>
+            <div class="modal-body">
+                <form id="addUserModalForm">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="username">Aktualny użytkownik</label>
+                                    <input type="text" name="actualUsername" class="form-control" id="actualUsername" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="logoutSubmitButton">Wyloguj</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--**************************************** modal window for logout user end**************************************-->
+
+<!--****************************************** modal window for messages start**********************************-->
+<div id="messagesEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="messagesmyModalLabel1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+
                 <h4 id="messagesmyModalLabel1" class="modal-title">Lista wiadomości</h4>
             </div>
             <div class="modal-body">
@@ -1097,37 +1316,34 @@ end
         </div>
     </div>
 </div>
-<div id="optionsEventModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="optionsmyModalLabel1"
+<div id="optionsModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="optionsmyModalLabel1"
      aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header modal-header-warning">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
                 <h4 id="optionsmyModalLabel1" class="modal-title">Opcje</h4>
             </div>
             <div class="modal-body">
                 <form id="optionsForm">
                     <div class="container-fluid">
-                        <div class="span11">
-                            <div class="funkyradio">
-                                <div class="funkyradio-success">
-                                    <input type="checkbox" name="editCalendar" id="editCalendar" checked="checked">
-                                    <label for="editCalendar">Edycja kalendarza (pozwala na przeciąganie palcem lub myszką zajęć)</label>
-                                </div>
-
-                            </div>
-
+                        <div class="row">
+                            <span>
+                                <label class="pull-left inline">
+                                    Rozszerz widok:
+                                        <input id="id-button-extend" type="checkbox" checked="" class="ace ace-switch ace-switch-5" />
+                                        <span class="lbl middle"></span>
+                                </label>
+                            </span>
                         </div>
-                        <div class="span11">
-                            <div class="funkyradio">
-                                <div class="funkyradio-success">
-                                    <input type="checkbox" name="bigScreenCalendar" id="bigScreenCalendar">
-                                    <label for="bigScreenCalendar">Tryb dużego monitora</label>
-                                </div>
-
-                            </div>
-
-                        </div>
+                        <!--<div class="row">-->
+                            <!--<span>-->
+                                <!--<label class="pull-left inline">-->
+                                    <!--Pełny ekran:-->
+                                        <!--<input id="id-button-fullscreen" type="checkbox" checked="" class="ace ace-switch ace-switch-5" />-->
+                                        <!--<span class="lbl middle"></span>-->
+                                <!--</label>-->
+                            <!--</span>-->
+                        <!--</div>-->
                     </div>
                 </form>
             </div>
@@ -1139,5 +1355,109 @@ end
     </div>
 </div>
 <!--**************************************** modal window for messages end**************************************-->
+
+<!--*********************************modal window for adding new additional event start*********************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+<div id="createAdditionalEventModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myAdditionalModalLabelEvent"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <h4 id="myAdditionalModalLabelEvent" class="modal-title">Dodawanie dodatkowych zajęć</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="additional_title">Imię i nazwisko dziecka</label>
+                                    <input type="text" name="title" class="form-control" id="additional_title" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5 col-xs-offset-2">
+                                <div class="form-group">
+                                    <label for="additional_resourceID">Terapeuta</label>
+                                    <input type="text" name="additional_resourceID" class="form-control" id="additional_resourceID"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="eventType">Typ zajęć</label>
+                                    <div class="input-group">
+                                        <select name="multiselect-eventType" id="eventType" size="2">
+                                            <option value="1" selected="selected">Zajęcia</option>
+                                            <option value="2">Badanie</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="additional_event-date">Data</label>
+                                    <input type="text" name="additional_event-date" class="form-control" id="additional_event-date"
+                                           readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="additional_start-time">Początek zajęć</label>
+                                    <div class="input-group date" id="additional_start-time-div">
+                                        <input type="text" class="form-control" id="additional_start-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label for="additional_end-time">Koniec zajęć</label>
+                                    <!--<input type="text" name="edit-end-time" class="form-control" id="edit-end-time">-->
+                                    <div class="input-group date" id="additional_end-time-div">
+                                        <input type="text" class="form-control" id="additional_end-time" readonly>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="funkyradio">
+                                    <div class="funkyradio-danger">
+                                        <input type="checkbox" name="overhours" id="additional_overhours" value="5"/>
+                                        <label class="label-normal-font" for="additional_overhours">Nadgodziny</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="form-group">
+                                    <label for="additional-eventDescription">Notatki</label>
+                                    <textarea class="form-control" name="additional-eventDescription" id="additional-eventDescription"
+                                              rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true">Anuluj</button>
+                        <button type="submit" class="btn btn-success" id="additional_submitButton">Dodaj</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ************************************modal window for adding new  additional event end***************************************-->
+
 </body>
 </html>

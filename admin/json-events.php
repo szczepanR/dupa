@@ -15,7 +15,7 @@ $firephp = FirePHP::getInstance(true);
 $actualDate = $_POST['start'];
 $firephp->log($actualDate);
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    //old working for 4 weeks ahead
     //$stmt = $dbh->prepare("SELECT e.event_id, e.parent_id, e.title, e.start, e.end, e.resourceID, e.repeat_freq, e.description, c.color, c.category_id FROM events e LEFT JOIN category c ON e.category_id = c.category_id WHERE e.start < (NOW()+INTERVAL 4 WEEK)");
 

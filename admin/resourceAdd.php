@@ -34,6 +34,7 @@ if ($type=='checkIfExist') {
 if ($type == 'addResource') {
     $name = $_POST['name'];
     $resourceSort = $_POST['resourceSort'];
+    $speciality = $_POST['speciality'];
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -41,11 +42,12 @@ if ($type == 'addResource') {
         $last_id = $dbh->lastInsertId();
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("INSERT INTO resources (resourceid,name,workingDays,sortID) VALUES (:lastID,:name,'0,1,2,3,4,5,6',:sortID)");
+        $stmt = $dbh->prepare("INSERT INTO resources (resourceid,name,workingDays,sortID,speciality) VALUES (:lastID,:name,'0,1,2,3,4,5,6',:sortID,:speciality)");
 
         $stmt->bindParam(':lastID', $last_id);
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':sortID', $resourceSort);
+        $stmt->bindParam(':speciality', $speciality);
 
 
         $stmt->execute();
@@ -65,6 +67,7 @@ if ($type == 'addResource') {
 if ($type == 'editResource') {
     $resourceid = $_POST['resourceid'];
     $name = $_POST['name'];
+    $speciality = $_POST['speciality'];
     $sortID = $_POST['sortID'];
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -73,10 +76,11 @@ if ($type == 'editResource') {
 
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("UPDATE resources SET name=:name, sortID=:sortID  WHERE resourceid=:resourceid");
+        $stmt = $dbh->prepare("UPDATE resources SET name=:name, speciality=:speciality, sortID=:sortID  WHERE resourceid=:resourceid");
 
         $stmt->bindParam(':resourceid', $resourceid);
         $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':speciality', $speciality);
         $stmt->bindParam(':sortID', $sortID);
 
 

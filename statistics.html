@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf8' name="viewport" ccontent="width=device-width, user-scalable=no"/>
+
+    <title>Statystyki WWR</title>
+    <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
+    <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet"/>-->
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link href="css/fullcalendar.css" rel="stylesheet"/>
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-multiselect.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/toastr.min.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+    <link href="css/fullcalendar.print.css" rel="stylesheet" media="print">
+    <link href="assets/css/daterangepicker.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mobile.custom.min.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src='js/bootstrap-dialog.js'></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-pl-PL.min.js"></script>
+    <script src="assets/js/bootstrap-multiselect.min.js"></script>
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="assets/js/bootstrap-multiselect.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+    <script src="js/ion.sound.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="js/jquery.ui.touch.js"></script>
+    <script src="js/jquery.ui.touch-all-events.js"></script>
+    <script src="assets/js/daterangepicker.min.js"></script>
+    <script src="js/statistics-wwr.js"></script>
+    <!-- ace scripts -->
+    <script src="assets/js/ace-elements.min.js"></script>
+    <script src="assets/js/ace.min.js"></script>
+    <!-- ace settings handler -->
+    <script src="assets/js/ace-extra.min.js"></script>
+
+</head>
+<body class="skin-3">
+<div id="navbar" class="navbar navbar-default          ace-save-state">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="index.html" class="navbar-brand">
+                <small>
+                    Statystyki WWR
+                </small>
+            </a>
+
+        </div>
+        <form class="navbar-form navbar-left">
+            <div class="form-group">
+                <form class="navbar-form navbar-left">
+                   <span class="input-icon input-icon-left">
+					<input type="text" id="daterange" readonly="readonly"/>
+					<i class="ace-icon fa fa-calendar"></i>
+                   </span>
+                </form>
+            </div>
+        </form>
+
+    </div><!-- /.navbar-container -->
+</div>
+<div class="space-6"></div>
+
+    <div class="col-xs-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a data-toggle="tab" href="#kids-statistics">
+                        <i class="green ace-icon fa fa-user bigger-120"></i>
+                        Statystyka dziecka
+                    </a>
+                </li>
+                <!--<li>-->
+                    <!--<a data-toggle="tab" href="#grouped-statistics">-->
+                        <!--<i class="yellow ace-icon fa fa-users bigger-120"></i>-->
+                        <!--Statystyki zbiorcze-->
+                    <!--</a>-->
+                <!--</li>-->
+            </ul>
+
+            <div class="tab-content tab-content-white-bg">
+                <div id="kids-statistics" class="tab-pane fade in active">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                            <div class="col-xs-2">
+                                <div class="widget-box">
+                                    <div class="widget-header widget-header-small">
+                                        <h5 class="widget-title">Wybierz dziecko</h5>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <form>
+                                                <div class="input-group">
+                                                    <select name="multiselectedit-resourceID" id="selectKid" size="2">
+                                                    </select>
+                                                </div>
+                                                <hr>
+                                                <button type="button" class="btn btn-info btn-sm" id="show-button" >
+                                                    Wyświetl
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="widget-box">
+                                    <div class="widget-header widget-header-flat widget-header-small">
+                                        <h5 class="widget-title">Zajęcia</h5>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                                <div class="infobox infobox-blue">
+                                                    <div class="infobox-icon">
+                                                        <i class="ace-icon fa fa-book"></i>
+                                                    </div>
+                                                    <div class="infobox-data">
+                                                        <span class="infobox-data-number" id="normal-event">0</span>
+                                                        <div class="infobox-content">Zwykłe zajęcia</div>
+                                                    </div>
+                                                </div>
+                                            <div class="infobox infobox-blue">
+                                                <div class="infobox-icon">
+                                                    <i class="ace-icon fa fa-flask"></i>
+                                                </div>
+                                                <div class="infobox-data">
+                                                    <span class="infobox-data-number" id="study-event">0</span>
+                                                    <div class="infobox-content">Badanie</div>
+                                                </div>
+                                            </div>
+                                            <div class="infobox infobox-red">
+                                                <div class="infobox-icon">
+                                                    <i class="ace-icon fa fa-book"></i>
+                                                </div>
+                                                <div class="infobox-data">
+                                                    <span class="infobox-data-number" id="cancel-event">0</span>
+                                                    <div class="infobox-content">Odwołane</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="widget-box">
+                                    <div class="widget-header widget-header-flat widget-header-small">
+                                        <h5 class="widget-title">Specjaliści</h5>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <table id="statisticTable" class="table">
+                                              <thead>
+
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                        </div>
+                    </div>
+                </div><!-- /kid-statistics -->
+
+
+                <div id="grouped-statistics" class="tab-pane fade">
+                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+                </div>
+
+            </div><!-- /.tab content -->
+        </div>
+    </div><!-- /.col -->
+</body>
+</html>

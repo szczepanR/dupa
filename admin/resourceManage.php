@@ -17,7 +17,7 @@ require_once '../config/db-config.php';
 //below query required to diplay polish signs on page
     $dbh->query('SET NAMES utf8');
 
-    $stmt = $dbh->prepare("SELECT resourceid, name, workingDays, sortID FROM resources");
+    $stmt = $dbh->prepare("SELECT resourceid, name, speciality, workingDays, sortID FROM resources");
     $stmt->execute();
 
     $resources = array();
@@ -26,6 +26,7 @@ require_once '../config/db-config.php';
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $resourcesArray['resourceid'] = $row['resourceid'];
             $resourcesArray['name'] = $row['name'];
+            $resourcesArray['speciality'] = $row['speciality'];
             $resourcesArray['workingDays'] = explode(",",$row['workingDays']);
             $resourcesArray['sortID'] = $row['sortID'];
             $resources[] = $resourcesArray;

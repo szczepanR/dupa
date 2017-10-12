@@ -8,7 +8,7 @@
 require_once '../config/db-config.php';
 
 $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
-$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 //below query required to diplay polish signs on page
 $dbh->query('SET NAMES utf8');

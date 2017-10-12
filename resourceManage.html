@@ -146,6 +146,7 @@
             <tr>
                 <th data-field="resourceid" data-halign="center" data-align="center">ID</th>
                 <th data-field="name" data-halign="center" data-align="center">Imię i Nazwisko</th>
+                <th data-field="speciality" data-halign="center" data-align="center">Specjalizacja</th>
                 <th data-field="workingDays" data-halign="center" data-align="center" >Dni</th>
                 <th data-field="action" data-halign="center" data-align="center">Akcja</th>
             </tr>
@@ -182,6 +183,22 @@
                                     <label class="control-label" for="resourceSort">Kolejność</label>
                                     <input type="number" name="resourceSort" class="form-control" id="resourceSort" autocomplete="off" min="0" max="20" value="0">
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label for="speciality">Specjalizacja</label>
+                                    <select class="form-control" id="speciality">
+                                        <option>Psycholog</option>
+                                        <option>Logopeda</option>
+                                        <option>Fizjoterapeuta</option>
+                                        <option>Pedagog, Terapeuta SI</option>
+                                        <option>Psycholog, Terapeuta SI</option>
+                                        <option>Pedagog</option>
+                                        <option>Tyflopedagog</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -232,6 +249,24 @@
                                     <label class="control-label" for="editSort">Kolejność</label>
                                     <input type="number" name="editSort" class="form-control" id="editSort" autocomplete="off">
 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <!--<label class="control-label" for="groupName">Grupa</label>-->
+                                    <!--<input type="text" name="groupName" class="form-control" id="groupName" autocomplete="off">-->
+                                    <label for="editSpeciality">Specjalizacja</label>
+                                    <select class="form-control" id="editSpeciality">
+                                        <option>Psycholog</option>
+                                        <option>Logopeda</option>
+                                        <option>Fizjoterapeuta</option>
+                                        <option>Pedagog, Terapeuta SI</option>
+                                        <option>Psycholog, Terapeuta SI</option>
+                                        <option>Pedagog</option>
+                                        <option>Tyflopedagog</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

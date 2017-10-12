@@ -74,6 +74,10 @@ $(document).ready(function() {
                field: 'name',
                title: 'Imię i nazwisko',
                sortable: true
+           },{
+               field: 'speciality',
+               title: 'Specializacja',
+               sortable: true
            }, {
                field: 'workingDays',
                title: 'Days',
@@ -117,6 +121,7 @@ $(document).ready(function() {
             e.preventDefault();
             var name = $('#name').val();
             var resourceSort = $('#resourceSort').val();
+            var speciality = $('#speciality').val();
             var test = checkIfResourceExist(name);
 
             $('#name').keyup(function () {
@@ -135,7 +140,7 @@ $(document).ready(function() {
                     type: "POST",
                     datatype: "json",
                     url: "admin/resourceAdd.php",
-                    data: 'type=addResource' + '&name=' + name + '&resourceSort=' +resourceSort,
+                    data: 'type=addResource' + '&name=' + name + '&resourceSort=' +resourceSort + '&speciality=' + speciality,
                     success: function () {
                         $('#createResourceModal').modal('hide');
                         $table.bootstrapTable('refresh');
@@ -179,13 +184,14 @@ window.operateEvents = {
         var old_sortID =  $('#editName').val(row.name);
         $('#editResourceModal').modal('show');
         $('#editName').val(row.name);
+        $('#editSpeciality').val(row.speciality);
         $('#editSort').val(row.sortID);
 
-        //submit button disbaled if no change in name input
-        $('#editResourceSubmitButton').prop('disabled', true);
-        $('input').change(function () {
-            $('#editResourceSubmitButton').prop('disabled', this.value == '' ? true : false);
-        });
+        ////submit button disbaled if no change in name input
+        //$('#editResourceSubmitButton').prop('disabled', true);
+        //$('input').change(function () {
+        //    $('#editResourceSubmitButton').prop('disabled', this.value == '' ? true : false);
+        //});
 
         $('#editResourceSubmitButton').off('click');
         //click submit button to edit resource
@@ -193,6 +199,7 @@ window.operateEvents = {
             e.preventDefault();
             var name = $('#editName').val();
             var sortID = $('#editSort').val();
+            var speciality = $('#editSpeciality').val();
             var test = checkIfResourceExist(name);
             //if resource exists , warning is shown
             if (test == 'exists' && old_sortID == sortID) {
@@ -206,7 +213,7 @@ window.operateEvents = {
                     type: "POST",
                     datatype: "json",
                     url: "admin/resourceAdd.php",
-                    data: 'type=editResource' + '&name=' + name + '&resourceid=' + row.resourceid + '&sortID=' + sortID,
+                    data: 'type=editResource' + '&name=' + name + '&speciality=' + speciality + '&resourceid=' + row.resourceid + '&sortID=' + sortID,
                     success: function () {
                         $('#editResourceModal').modal('hide');
                         $('#resourceTable').bootstrapTable('refresh');

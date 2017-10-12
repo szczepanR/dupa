@@ -10,7 +10,7 @@ require_once('../FirePHPCore/FirePHP.class.php');
 $firephp = FirePHP::getInstance(true);
 require_once '../config/db-config.php';
 
-
+$recipient= $_GET['recipient'];
 //list all messages
 $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -18,7 +18,8 @@ $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 //below query required to diplay polish signs on page
 $dbh->query('SET NAMES utf8');
 
-$stmt = $dbh->prepare("SELECT * FROM messages");
+$stmt = $dbh->prepare("SELECT * FROM messages WHERE (recipient = :recipient OR recipient='wszyscy') AND timedate >= Date_Add(now(), INTERVAL -7 DAY)");
+$stmt->bindParam(':recipient', $recipient);
 $stmt->execute();
 
 $resources = array();
@@ -27,6 +28,8 @@ if ($stmt->rowCount() != 0) {
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         $messagesArray['messageid'] = $row['messageid'];
         $messagesArray['timedate'] = $row['timedate'];
+        $messagesArray['sender'] = $row['sender'];
+        $messagesArray['recipient'] = $row['recipient'];
         $messagesArray['message'] = $row['message'];
         $messages[] = $messagesArray;
     }
