@@ -1248,7 +1248,8 @@ $(document).ready(function() {
 
                     //$('#preview-getNextResurceButton').off('click');
                    // $("#preview-getNextResurceButton").click(function (){
-                      var popovertext = ''
+                      var popovertext = '';
+                      var popovertext2 = '';
                         var events = $('#calendar').fullCalendar('clientEvents', function (event) {
                             //get list of events for displayed day
                             if (event.title == title && moment(event.start).format('YYYY-MM-DD') == eventdate && moment(event.start).format('HH:mm') > starttime)  {
@@ -1261,7 +1262,18 @@ $(document).ready(function() {
 
                         }else{
                             if (events[0].category_id==6){
-                                popovertext = 'Następne zajęcia z: ' + getResourceNameLocal(resourcesArray, events[0].resources)+" odwołane!!!";
+                                popovertext = 'Następne zajęcia z: ' + getResourceNameLocal(resourcesArray, events[0].resources)+"<font color='red'> odwołane!!!</font>";
+                                for(i = 1; i < events.length; i++)
+                                {
+                                    console.log(events[i].category_id);
+
+                                    if(events[i].category_id==1|| events[i].category_id==2){
+                                        popovertext2 = 'Następne zajęcia z: ' + getResourceNameLocal(resourcesArray, events[i].resources);
+                                        break;
+                                    }
+
+                                };
+
 
                             }else{
                                 popovertext = 'Następne zajęcia z: ' + getResourceNameLocal(resourcesArray, events[0].resources);
@@ -1276,7 +1288,8 @@ $(document).ready(function() {
                         $('#preview-getNextResurceButton').popover({
                             placement: 'bottom',
                             container:'body',
-                            content: popovertext,
+                            html:true,
+                            content: popovertext+"<br> "+popovertext2,
                         });
 
 

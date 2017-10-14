@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="filezilla" />
+  <component name="PublishConfigData" serverName="scheduler" uploadOnCheckin="d8f5a759-c8bc-4226-ad35-1caaef9eeba7">
+    <option name="myUploadOnCheckinName" value="scheduler" />
+  </component>
 </project>

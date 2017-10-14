@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d8f5a759-c8bc-4226-ad35-1caaef9eeba7" name="scheduler" url="http://localhost">
+        <fileTransfer mountedRoot="$USER_HOME$/Dokumenty/scheduler_repo" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
