@@ -136,7 +136,7 @@ $(document).ready(function() {
     }
 
 
-})
+});
 
 //has to be outside document.ready
 window.operateEvents = {
@@ -189,7 +189,7 @@ window.operateEvents = {
         }
 
 
-        })
+        });
 
         //need add click support for cancel edit to clean formatting to default
         $('#editCanceltButton').on('click', function (e) {

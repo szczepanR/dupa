@@ -164,10 +164,8 @@ $(document).ready(function() {
             '<span class="glyphicon glyphicon-time" aria-hidden="true" ></span>',
             '</button>',
         ].join('');
-    };
-
-
-})
+    }
+});
 
 //has to be outside document.ready
 window.operateEvents = {
@@ -232,7 +230,7 @@ window.operateEvents = {
      ******************************************************************************************************************/
     'click #removeResourceButton': function (e, value, row, index) {
 
-        var eventCount = checkEventsResource(row.resourceid)
+        var eventCount = checkEventsResource(row.resourceid);
         if (eventCount != 0) {
             $('#resourceDeleteExistsWarning').removeClass('hidden');
 
@@ -304,7 +302,7 @@ window.operateEvents = {
         //
         $("label[for='workingDayLabel']").html("<strong>" + row.name + "</strong>");
         $('#workingDaysModal').modal('show');
-        $('#workingDaysSubmitButton').off('click')
+        $('#workingDaysSubmitButton').off('click');
         //now when click submit on form
         $('#workingDaysSubmitButton').on('click', function (e) {
             e.preventDefault();
@@ -312,7 +310,7 @@ window.operateEvents = {
             $('#workingDaysModal input:checked').each(function() {
                 actualDays.push(this.value);
             });
-            console.log(actualDays)
+            console.log(actualDays);
 
             $.ajax({
                 cache: false,

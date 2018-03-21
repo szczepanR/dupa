@@ -23,26 +23,23 @@
 
 	function cancelTap() {
 		tapValid = false;
-	};
-	
-	function cancelHold() {
+    }
+    function cancelHold() {
 		if (rightClickPending) {
 			window.clearTimeout(holdTimeout);
 			rightClickPending = false;
 			rightClickEvent = null;
 		}
-	};
-
-	function startHold(event) {
+    }
+    function startHold(event) {
 		if (rightClickPending)
 			return;
 
 		rightClickPending = true; // We could be performing a right click
 		rightClickEvent = (event.changedTouches)[0];
 		holdTimeout = window.setTimeout("doRightClick();", 800);
-	};
-
-	function doRightClick() {
+    }
+    function doRightClick() {
 		rightClickPending = false;
 
 		// We need to mouse up (as we were down)
@@ -67,9 +64,8 @@
 		// Note: I don't mouse up the right click here however feel free to add if required
 		cancelMouseUp = true;
 		rightClickEvent = null; // Release memory
-	};
-
-	// mouse over event then mouse down
+    }
+    // mouse over event then mouse down
 	function iPadTouchStart(event) {
 		var touches = event.changedTouches,
 			first = touches[0],
@@ -124,9 +120,8 @@
 				startHold(event);
 			}
 		}
-	};
-
-	function iPadTouchHandler(event) {
+    }
+    function iPadTouchHandler(event) {
 		var type = "",
 			button = 0; /*left*/
 
@@ -180,9 +175,8 @@
 
 			first.target.dispatchEvent(simulatedEvent);
 		}
-	};
-	
-	$.extend($.support, {
+    }
+    $.extend($.support, {
 		touch: "ontouchend" in document
 	});
 

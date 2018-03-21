@@ -80,5 +80,38 @@ if ($type == 'eventsTypes') {
 
 
 }
+/*********************
+ * grouped statistics
+ ********************/
+if ($type == 'statisticGroupedTable'){
+    $startPeriod = $_GET['startPeriod'];
+    $endPeriod = $_GET['endPeriod'];
 
+    $dbh->query('SET NAMES utf8');
+
+    $stmt = $dbh->prepare("SELECT child_id, firstname, lastname, city, street, birthday, phone, email, teraphy_start, teraphy_end FROM child 
+                                      WHERE teraphy_start>=:startPeriod AND teraphy_start<=:endPeriod OR teraphy_end>=:startPeriod AND teraphy_end<=:endPeriod");
+    $stmt->bindParam(':startPeriod', $startPeriod);
+    $stmt->bindParam(':endPeriod', $endPeriod);
+    $stmt->execute();
+
+    $kids = array();
+    if ($stmt->rowCount() != 0) {
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $kidsArray['child_id'] = $row['child_id'];
+            $kidsArray['firstname'] = $row['firstname'];
+            $kidsArray['lastname'] = $row['lastname'];
+            $kidsArray['city'] = $row['city'];
+            $kidsArray['street'] = $row['street'];
+            $kidsArray['birthday'] = $row['birthday'];
+            $kidsArray['phone'] = $row['phone'];
+            $kidsArray['email'] = $row['email'];
+            $kidsArray['teraphy_start'] = $row['teraphy_start'];
+            $kidsArray['teraphy_end'] = $row['teraphy_end'];
+            $kids[] = $kidsArray;
+        }
+    }
+    echo json_encode($kids);
+}
 ?>

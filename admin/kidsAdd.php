@@ -40,15 +40,15 @@ if ($type == 'addKid') {
     $birthday = $_POST['birthday'];
     $teraphyStart = $_POST['teraphyStart'];
     $teraphyEnd = $_POST['teraphyEnd'];
-    
+    $opinionNumber = $_POST['opinionNumber'];
     $dbh = new PDO("mysql:host=$mysql_hostname;dbname=$mysql_dbname", $mysql_username, $mysql_password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     try {
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
-        $stmt = $dbh->prepare("INSERT INTO child (firstname, lastname, city, street, phone, email, birthday, teraphy_start, teraphy_end)VALUES (:firstname, :lastname,
-                                            :city, :street, :phone, :email, :birthday, :teraphyStart, :teraphyEnd)");
+        $stmt = $dbh->prepare("INSERT INTO child (firstname, lastname, city, street, phone, email, birthday, teraphy_start, teraphy_end, opinion_number)VALUES (:firstname, :lastname,
+                                            :city, :street, :phone, :email, :birthday, :teraphyStart, :teraphyEnd, :opinionNumber)");
         $stmt->bindParam(':firstname', $firstName);
         $stmt->bindParam(':lastname', $lastName);
         $stmt->bindParam(':city', $city);
@@ -58,7 +58,7 @@ if ($type == 'addKid') {
         $stmt->bindParam(':birthday', $birthday);
         $stmt->bindParam(':teraphyStart', $teraphyStart);
         $stmt->bindParam(':teraphyEnd', $teraphyEnd);
-
+        $stmt->bindParam(':opinionNumber', $opinionNumber);
         $stmt->execute();
         $dbh->commit();
     } catch (Exception $e) {
@@ -84,6 +84,7 @@ if ($type == 'editkid') {
     $birthday = $_POST['birthday'];
     $teraphyStart = $_POST['teraphyStart'];
     $teraphyEnd = $_POST['teraphyEnd'];
+    $opinionNumber = $_POST['opinionNumber'];
     $newname = $firstname . ' ' . $lastname;
     $oldname = $oldfirstname . ' ' . $oldlastname;
     $firephp->log($teraphyStart);
@@ -95,7 +96,7 @@ if ($type == 'editkid') {
         $dbh->beginTransaction();
         $dbh->query('SET NAMES utf8');
         $stmt = $dbh->prepare("UPDATE child SET firstname=:firstname, lastname=:lastname, city=:city, street=:street, phone=:phone, email=:email,
-                                birthday=:birthday, teraphy_start=:teraphyStart, teraphy_end=:teraphyEnd WHERE child_ID=:ID");
+                                birthday=:birthday, teraphy_start=:teraphyStart, teraphy_end=:teraphyEnd, opinion_number=:opinionNumber WHERE child_ID=:ID");
 
         $stmt->bindParam(':ID', $kidID);
         $stmt->bindParam(':firstname', $firstname);
@@ -107,7 +108,7 @@ if ($type == 'editkid') {
         $stmt->bindParam(':birthday', $birthday);
         $stmt->bindParam(':teraphyStart', $teraphyStart);
         $stmt->bindParam(':teraphyEnd', $teraphyEnd);
-
+        $stmt->bindParam(':opinionNumber', $opinionNumber);
         $stmt->execute();
         $dbh->commit();
 

@@ -17,7 +17,7 @@ require_once '../config/db-config.php';
 //below query required to diplay polish signs on page
     $dbh->query('SET NAMES utf8');
 
-    $stmt = $dbh->prepare("SELECT child_id, firstname, lastname, city, street, birthday, phone, email, teraphy_start, teraphy_end FROM child");
+    $stmt = $dbh->prepare("SELECT child_id, firstname, lastname, city, street, birthday, phone, email, teraphy_start, teraphy_end, opinion_number FROM child");
     $stmt->execute();
 
     $kids = array();
@@ -34,6 +34,7 @@ require_once '../config/db-config.php';
             $kidsArray['email'] = $row['email'];
             $kidsArray['teraphy_start'] = $row['teraphy_start'];
             $kidsArray['teraphy_end'] = $row['teraphy_end'];
+            $kidsArray['opinion_number'] = $row['opinion_number'];
             $kids[] = $kidsArray;
         }
     }

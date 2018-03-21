@@ -86,12 +86,12 @@
                         Statystyka dziecka
                     </a>
                 </li>
-                <!--<li>-->
-                    <!--<a data-toggle="tab" href="#grouped-statistics">-->
-                        <!--<i class="yellow ace-icon fa fa-users bigger-120"></i>-->
-                        <!--Statystyki zbiorcze-->
-                    <!--</a>-->
-                <!--</li>-->
+                <li>
+                    <a data-toggle="tab" href="#grouped-statistics">
+                        <i class="yellow ace-icon fa fa-users bigger-120"></i>
+                        Statystyki zbiorcze
+                    </a>
+                </li>
             </ul>
 
             <div class="tab-content tab-content-white-bg">
@@ -101,7 +101,7 @@
                             <div class="row">
                             <div class="col-xs-2">
                                 <div class="widget-box">
-                                    <div class="widget-header widget-header-small">
+                                    <div class="widget-header widget-header-flat widget-header-small">
                                         <h5 class="widget-title">Wybierz dziecko</h5>
                                     </div>
                                     <div class="widget-body">
@@ -179,9 +179,104 @@
                     </div>
                 </div><!-- /kid-statistics -->
 
-
                 <div id="grouped-statistics" class="tab-pane fade">
-                    <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                            <div class="col-xs-3">
+                                <div class="widget-box">
+                                    <div class="widget-header widget-header-flat widget-header-small">
+                                        <h5 class="widget-title">Statystyka terapii</h5>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <div class="infobox infobox-blue">
+                                                <div class="infobox-icon">
+                                                    <i class="ace-icon fa fa-user"></i>
+                                                </div>
+                                                <div class="infobox-data">
+                                                    <span class="infobox-data-number" id="in-teraphy">0</span>
+                                                    <div class="infobox-content">Dzieci w terapii</div>
+                                                </div>
+                                            </div>
+                                            <div class="infobox infobox-blue">
+                                                <div class="infobox-icon">
+                                                    <i class="ace-icon fa fa-user-times"></i>
+                                                </div>
+                                                <div class="infobox-data">
+                                                    <span class="infobox-data-number" id="finish-teraphy">0</span>
+                                                    <div class="infobox-content">Terapia zakończona</div>
+                                                </div>
+                                            </div>
+                                            <div class="infobox infobox-red">
+                                                <div class="infobox-icon">
+                                                    <i class="ace-icon fa fa-question"></i>
+                                                </div>
+                                                <div class="infobox-data">
+                                                    <span class="infobox-data-number" id="no-data-teraphy">0</span>
+                                                    <div class="infobox-content">Brak danych</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="col-xs-7">
+                                    <div class="widget-box">
+                                            <div class="widget-header widget-header-flat widget-header-small">
+                                                <h5 class="widget-title">Lista dzieci</h5>
+                                            </div>
+                                            <div class="widget-body">
+                                                <div class="widget-main">
+                                                    <div class="row" id="statisticRange">
+                                                        <!--<div class="col-xs-4">-->
+                                                            <!--<div class="funkyradio">-->
+                                                                <!--<div class="funkyradio-primary">-->
+                                                                    <!--<input type="radio" value="inTeraphy" name="statisticRangeRadio" align="bottom" id="inTeraphy">-->
+                                                                    <!--<label class="label-normal-font" for="inTeraphy">Tylko dzieci w terapii</label>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="col-xs-4">-->
+                                                            <!--<div class="funkyradio">-->
+                                                                <!--<div class="funkyradio-primary">-->
+                                                                    <!--<input type="radio" value="outTeraphy" name="statisticRangeRadio" align="bottom" id="outTeraphy">-->
+                                                                    <!--<label class="label-normal-font" for="outTeraphy">Tylko dzieci z ukończoną terapią</label>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="col-xs-4">-->
+                                                            <!--<div class="funkyradio">-->
+                                                                <!--<div class="funkyradio-primary">-->
+                                                                    <!--<input type="radio" value="inOutTeraphy" name="statisticRangeRadio" align="bottom" id="inOutTeraphy" checked="checked">-->
+                                                                    <!--<label class="label-normal-font" for="inOutTeraphy">Dzieci w terapii i z ukończoną terapią</label>-->
+                                                                <!--</div>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                        <div class="col-xs-4">
+                                                            <div class="input-group">
+                                                                <select name="multiselect-resourceID" id="selectStatistic" size="2">
+                                                                    <option value="allKids" selected="selected">Wszystkie dzieci</option>
+                                                                    <option value="inTeraphy">Tylko terapie rozpoczęte</option>
+                                                                    <option value="outTeraphy">Tylko terapie zakończone</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                    <table id="statisticGroupedTable" class="table">
+                                                        <thead>
+
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
 
             </div><!-- /.tab content -->

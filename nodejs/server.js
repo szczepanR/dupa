@@ -56,7 +56,7 @@ ios.sockets.on('connection', function(socket){
     for(var i=0; i<users.length; i++) {
         console.log("I am in users array connection function:"+users[i].userName);
     }
-    console.log("=============================")
+    console.log("=============================");
         socket.on('adduser', function (user) {
         socket.user = user;
         var oneUser={
@@ -152,8 +152,8 @@ ios.sockets.on('connection', function(socket){
     });
     function updateClients() {
         ios.sockets.emit('update', users);
-        console.log("=============================")
-        console.log("actual list of users:")
+        console.log("=============================");
+        console.log("actual list of users:");
         for(var i=0; i<users.length; i++) {
             console.log("I am in users array:"+users[i].userName )
         }

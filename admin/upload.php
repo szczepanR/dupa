@@ -21,6 +21,7 @@ if(!empty($_FILES)){
         $targetDir = "/srv/upload/";
         $fileName = date("Y-m-d H:i:s").'_'.$_FILES['input-file']['name'];
         $child_id = $_POST['id'];
+        $uploaded_by = $_POST['username'];
         $targetFile = $targetDir . $fileName;
         $firephp->log($targetFile, 'targetFile');
         $firephp->log($targetDir, 'targetDir');
@@ -30,7 +31,7 @@ if(!empty($_FILES)){
 
         if (move_uploaded_file($_FILES['input-file']['tmp_name'], $targetFile)) {
             //insert file information into db table
-            $stmt = $dbh->prepare("INSERT INTO documents (child_id, file_name, uploaded) VALUES('" . $child_id . "','" . $fileName . "','" . date("Y-m-d H:i:s") . "')");
+            $stmt = $dbh->prepare("INSERT INTO documents (child_id, file_name, uploaded_by, uploaded) VALUES('" . $child_id . "','" . $fileName . "','" . $uploaded_by . "','" . date("Y-m-d H:i:s") . "')");
             $stmt->execute();
             echo json_encode('file uploaded');
         }

@@ -17,7 +17,7 @@ $child_id = $_GET['child_id'];
 //below query required to diplay polish signs on page
     $dbh->query('SET NAMES utf8');
 
-    $stmt = $dbh->prepare("SELECT document_id, child_id, file_name, uploaded FROM documents WHERE child_id = :child_id");
+    $stmt = $dbh->prepare("SELECT document_id, child_id, file_name, uploaded_by, uploaded FROM documents WHERE child_id = :child_id");
 $stmt->bindParam(':child_id', $child_id);
     $stmt->execute();
 
@@ -28,6 +28,7 @@ $stmt->bindParam(':child_id', $child_id);
             $kidsArray['document_id'] = $row['document_id'];
             $kidsArray['child_id'] = $row['child_id'];
             $kidsArray['file_name'] = $row['file_name'];
+            $kidsArray['uploaded_by'] = $row['uploaded_by'];
             $kidsArray['uploaded'] = $row['uploaded'];
             $kids[] = $kidsArray;
         }

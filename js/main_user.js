@@ -98,7 +98,7 @@ $(document).ready(function(){
                             toastr["info"](change[i].message);
                         }
 
-                    };
+                    }
                     $('#calendar').fullCalendar('refetchEvents');
                 }
                 ion.sound.destroy("Facebook");
@@ -291,7 +291,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function (data) {
                 //we need to remove values from dropdown
-                $("#selectResource").empty()
+                $("#selectResource").empty();
 
                 $.each(data, function (i, resource) {
 
@@ -352,7 +352,7 @@ $(document).ready(function(){
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut",
         "tapToDismiss": true
-    }
+    };
     //configure multiselect plugin for view dropdown
     $('#selectView').multiselect({
 
@@ -383,7 +383,7 @@ $(document).ready(function(){
     $('#exportButton').on('click', function () {
        // $('#calendar').fullCalendar('destroy');
         location.reload();
-})
+});
 
     //timepicker in modals for setting start and end of events
     $('.date').datetimepicker({
@@ -454,7 +454,7 @@ function getRadioVal(form, name) {
     var y = date.getFullYear();
 
     //detect mobile device
-    var isWebkit = 'WebkitAppearance' in document.documentElement.style
+    var isWebkit = 'WebkitAppearance' in document.documentElement.style;
 
     loadResources();
 
@@ -551,7 +551,7 @@ function getRadioVal(form, name) {
 
 
         //click date to go to the specific date, we use datepicker  and here specify initial values
-        $('#customDateButton').off('click')
+        $('#customDateButton').off('click');
         $('#customDateButton').on('click', function (e) {
 
             var customDate = 0;
@@ -568,7 +568,7 @@ function getRadioVal(form, name) {
             $('#customDateButton').datepicker('show');
             $("#customDateButton").on("changeDate", function (event) {
 
-                customDate = $("#customDateButton").datepicker('getFormattedDate')
+                customDate = $("#customDateButton").datepicker('getFormattedDate');
                // console.log(customDate);
                 $('#calendar').fullCalendar('gotoDate', customDate);
                 checkResources()
@@ -601,13 +601,13 @@ function getRadioVal(form, name) {
 
             }*/
             var date = $('#calendar').fullCalendar('getDate');
-            loadResources2(date)
+            loadResources2(date);
             $('#calendar').fullCalendar('refetchEvents');
 
         });
 
         //click print button
-        $('#printButton').off('click')
+        $('#printButton').off('click');
         $('#printButton').on('click', function () {
             if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
             {
@@ -726,7 +726,7 @@ else {
 
 
                         //fix for looping when add second third etc.. event
-                        $('#submitButton').off('click')
+                        $('#submitButton').off('click');
                         //now when click submit on form
                         $('#submitButton').on('click', function (e) {
                             //we need title to print it on notification
@@ -738,7 +738,7 @@ else {
 
                             //compare dates to check if range is corrcet
                             if (!(moment(starttime2, 'HH:mm').isBefore(moment(endtime2, 'HH:mm')))) {
-                                alert("nie no bez jaj, ustaw poprawnie czas rozpoczecia i zakoczenia zajeć")
+                                alert("nie no bez jaj, ustaw poprawnie czas rozpoczecia i zakoczenia zajeć");
                                 $('#submitButton').prop('disabled', true);
                             }
                             //if dates are correct do this
@@ -803,7 +803,7 @@ else {
 
 
                         //fix for looping when add second third etc.. event
-                        $('#study-submitButton').off('click')
+                        $('#study-submitButton').off('click');
 
                         //now when click submit on form
                         $('#study-submitButton').on('click', function (e) {
@@ -877,7 +877,7 @@ else {
                         };
 
                         //fix for looping when add second third etc.. event
-                        $('#break-submitButton').off('click')
+                        $('#break-submitButton').off('click');
 
                         //now when click submit on form
                         $('#break-submitButton').on('click', function (e) {
@@ -931,7 +931,7 @@ else {
                         $('#createLeaveModal').modal('show');
 
                         //fix for looping when add second third etc.. event
-                        $('#leaveSubmitButton').off('click')
+                        $('#leaveSubmitButton').off('click');
                         //now when click submit on form
                         $('#leaveSubmitButton').on('click', function (e) {
 
@@ -964,7 +964,7 @@ else {
                     {
                     label: 'Anuluj',
                     action: function (dialogItself) {
-                        dialogItself.close()
+                        dialogItself.close();
                         $('#calendar').fullCalendar('unselect');
 
                     }
@@ -972,7 +972,7 @@ else {
             ]
     });
         //added cancel class to the "cancel buutons in any modals to unselect uncreated event"
-        $('.cancel').off('click')
+        $('.cancel').off('click');
         //now when click cancel on form
         $('.cancel').on('click', function (e) {
 
@@ -1186,7 +1186,7 @@ else {
                             error: function (e) {
                                 alert('Wystąpił następujący błąd przy dodawaniu opisu' + e.responseText);
                             }
-                        })
+                        });
 
                         $('#preview-description').prop("readonly", true);
                         document.getElementById('previewDescriptionButtons').style.display = 'none';
@@ -1447,7 +1447,7 @@ else {
                             else {
                                 category_id = 1;
                             }
-                            var editDescription = ''
+                            var editDescription = '';
                             $.ajax({
                                 cache: false,
                                 type: "POST",
@@ -1643,7 +1643,7 @@ else {
                             $('#cancelEventModal').modal('hide');
                         });
 
-                    })
+                    });
                     //we can revert cancel event by clicking cancel cancel button
                     //click cancel event action
                     $('#cancelCancelSubmitButton').off('click');
@@ -1669,7 +1669,7 @@ else {
                                 alert('Wystąpił następujący błąd przy anulowaniu odwołania zajęć' + e.responseText);
                             }
 
-                        })
+                        });
                         $('#previewEventModal').modal('hide');
                     });
 
@@ -1710,8 +1710,8 @@ else {
 
             $('#edit-confirm-submitButton').off('click');
             $('#edit-confirm-submitButton').on('click', function() {
-                var editStartTime = $('#editEventModal #edit-start-time').val()
-                var editEndTime = $('#editEventModal #edit-end-time').val()
+                var editStartTime = $('#editEventModal #edit-start-time').val();
+                var editEndTime = $('#editEventModal #edit-end-time').val();
                 $('#editEventModal').modal('hide');
 
                 //check if overhours checkededitOverhours
@@ -1865,8 +1865,8 @@ else {
             $('#editEventModal').modal('show');
             $('#edit-confirm-submitButton').off('click');
             $('#edit-confirm-submitButton').on('click', function() {
-                var editStartTime = $('#editEventModal #edit-start-time').val()
-                var editEndTime = $('#editEventModal #edit-end-time').val()
+                var editStartTime = $('#editEventModal #edit-start-time').val();
+                var editEndTime = $('#editEventModal #edit-end-time').val();
                 $('#editEventModal').modal('hide');
                 //check if overhours checkededitOverhours
                 if (document.getElementById('editOverhours').checked == true) {
@@ -2015,7 +2015,7 @@ else {
             element.on('taphold', function(e){
 
                 //get day viewed
-                var currentViewDate = $('#calendar').fullCalendar('getDate')
+                var currentViewDate = $('#calendar').fullCalendar('getDate');
                 var events = $('#calendar').fullCalendar('clientEvents', function (event) {
                     //get list of events for displayed day
                     if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
@@ -2129,7 +2129,7 @@ else {
             if (longpress) {
 
                 //get day viewed
-                var currentViewDate = $('#calendar').fullCalendar('getDate')
+                var currentViewDate = $('#calendar').fullCalendar('getDate');
                 var events = $('#calendar').fullCalendar('clientEvents', function (event) {
                     //get list of events for displayed day
                     if (moment(event.start).format('YYYY-MM-DD') == currentViewDate.format('YYYY-MM-DD')) {
@@ -2205,7 +2205,7 @@ else {
      * show option window
      *
      *****************************************************************************************************************/
-    $('#optionsButton').off('click')
+    $('#optionsButton').off('click');
     $('#optionsButton').on('click', function () {
 
         $('#submitOptionButton').prop('disabled', true);
@@ -2222,7 +2222,7 @@ else {
      * second located in callback eventRender
      *
      *****************************************************************************************************************/
-    $('#submitOptionButton').off('click')
+    $('#submitOptionButton').off('click');
     $('#submitOptionButton').on('click', function (e) {
         e.preventDefault();
 
@@ -2255,7 +2255,7 @@ else {
             });
 
             $('#bigScreenCalendar').removeAttr('checked');
-        };
+        }
     });
 
 

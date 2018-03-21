@@ -89,7 +89,7 @@ $(document).ready(function() {
     $('#exportButton').on('click', function () {
        // $('#calendar-user').fullCalendar('destroy');
         location.reload();
-})
+});
 
     //timepicker in modals for setting start and end of events
     $('.date').datetimepicker({
@@ -128,7 +128,7 @@ $(document).ready(function() {
 
 
 
-    $('#selectKids-button').off('click')
+    $('#selectKids-button').off('click');
     $('#selectKids-button').on('click', function () {
         var selectKid = $('#selectKids option:selected').val();
         //console.log(selectKid)
@@ -154,7 +154,7 @@ function getRadioVal(form, name) {
         }
     }
     return val; // return value of checked radio or undefined if none checked
-}
+};
 
 /**********************for checking value checkboxes end**************************/
 
@@ -168,7 +168,7 @@ setTimeout(function () {
     var m = date.getMonth();
     var y = date.getFullYear();
     //detect mobile device
-    var isWebkit = 'WebkitAppearance' in document.documentElement.style
+    var isWebkit = 'WebkitAppearance' in document.documentElement.style;
 
     function RenderCalendar(selectKid) {
         element.fullCalendar({
@@ -232,7 +232,7 @@ setTimeout(function () {
 
 
                 //click date to go to the specific date, we use datepicker  and here specify initial values
-                $('#customDateButton').off('click')
+                $('#customDateButton').off('click');
                 $('#customDateButton').on('click', function (e) {
 
                     var customDate = 0;
@@ -249,7 +249,7 @@ setTimeout(function () {
                     $('#customDateButton').datepicker('show');
                     $("#customDateButton").on("changeDate", function (event) {
 
-                        customDate = $("#customDateButton").datepicker('getFormattedDate')
+                        customDate = $("#customDateButton").datepicker('getFormattedDate');
                         console.log(customDate);
                         $('#calendar-user').fullCalendar('gotoDate', customDate);
 
@@ -267,7 +267,7 @@ setTimeout(function () {
                     if (viewOption == 'viewStd') {
 
                         //change row height for standard view
-                        element.find('.fc-slats td').css({"height": "2.5em"})
+                        element.find('.fc-slats td').css({"height": "2.5em"});
                         //this allows to set new values
                         $(window).resize();
 
@@ -275,7 +275,7 @@ setTimeout(function () {
                     else {
 
                         //change row height for extended view
-                        element.find('.fc-slats td').css({"height": "6.5em"})
+                        element.find('.fc-slats td').css({"height": "6.5em"});
                         //need this to see new row height
                         $(window).resize();
 
@@ -285,7 +285,7 @@ setTimeout(function () {
 
 
                 //click print button
-                $('#printButton').off('click')
+                $('#printButton').off('click');
                 $('#printButton').on('click', function () {
 
                     if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))
@@ -305,7 +305,7 @@ setTimeout(function () {
                         $('#calendar-user').fullCalendar('option', 'height', 'auto');
                         //need to decrese row height to squize time from 8 to 17 on a4 paper
                         element.find('.fc-slats td').css({"height": "2.3em"});
-                        $('#calendar-user').find('.fc-toolbar > div > h2').append(' dla ' + $('#selectKids option:selected').val());
+                        $('#calendar-user').find('.fc-toolbar > div > h2').append(' dla,0 ' + $('#selectKids option:selected').val());
                         //allows to see new values
                         $(window).resize();
                         //need to put print window into function otherwise view cannot change so quick, set timeout provide some delay
@@ -432,7 +432,7 @@ setTimeout(function () {
 
 
                             //fix for looping when add second third etc.. event
-                            $('#submitButton').off('click')
+                            $('#submitButton').off('click');
                             //now when click submit on form
                             $('#submitButton').on('click', function (e) {
 
@@ -444,7 +444,7 @@ setTimeout(function () {
 
                                 //compare dates to check if range is corrcet
                                 if (!(moment(starttime2, 'HH:mm').isBefore(moment(endtime2, 'HH:mm')))) {
-                                    alert("nie no bez jaj, ustaw poprawnie czas rozpoczecia i zakoczenia zajeć")
+                                    alert("nie no bez jaj, ustaw poprawnie czas rozpoczecia i zakoczenia zajeć");
                                     $('#submitButton').prop('disabled', true);
                                 }
                                 else {
@@ -499,7 +499,7 @@ setTimeout(function () {
                             $('#createStudyModal').modal('show');
 
                             //fix for looping when add second third etc.. event
-                            $('#study-submitButton').off('click')
+                            $('#study-submitButton').off('click');
 
                             //now when click submit on form
                             $('#study-submitButton').on('click', function (e) {
@@ -553,7 +553,7 @@ setTimeout(function () {
                             $('#createBreakModal').modal('show');
 
                             //fix for looping when add second third etc.. event
-                            $('#break-submitButton').off('click')
+                            $('#break-submitButton').off('click');
 
                             //now when click submit on form
                             $('#break-submitButton').on('click', function (e) {
@@ -583,7 +583,7 @@ setTimeout(function () {
                     }, {
                         label: 'Anuluj',
                         action: function (dialogItself) {
-                            dialogItself.close()
+                            dialogItself.close();
                             $('#calendar-user').fullCalendar('unselect');
 
                         }
@@ -593,7 +593,7 @@ setTimeout(function () {
                 });
 
                 //added cancel class to the "cancel buutons in any modals to unselect uncreated event"
-                $('.cancel').off('click')
+                $('.cancel').off('click');
                 //now when click cancel on form
                 $('.cancel').on('click', function (e) {
 
@@ -767,7 +767,7 @@ setTimeout(function () {
                             error: function (e) {
                                 alert('Wystąpił następujący błąd przy dodawaniu opisu' + e.responseText);
                             }
-                        })
+                        });
 
                         $('#preview-description').prop("readonly", true);
                         document.getElementById('previewDescriptionButtons').style.display = 'none';
@@ -784,8 +784,6 @@ setTimeout(function () {
                         $('#delete-submitButton').prop('disabled', false);
 
                     });
-                    ;
-
                     /*****************************************description processing end*************************************************/
                         //fix for looping when add second third etc.. event
                     $('#delete-submitButton').off('click');
@@ -1117,8 +1115,8 @@ setTimeout(function () {
 
                 $('#edit-confirm-submitButton').off('click');
                 $('#edit-confirm-submitButton').on('click', function () {
-                    var editStartTime = $('#editEventModal #edit-start-time').val()
-                    var editEndTime = $('#editEventModal #edit-end-time').val()
+                    var editStartTime = $('#editEventModal #edit-start-time').val();
+                    var editEndTime = $('#editEventModal #edit-end-time').val();
                     $('#editEventModal').modal('hide');
                     //just before sending the form we switching resource name to resource ID
                     $('#editEventModal #edit-resourceID').val(resourceID);
@@ -1256,8 +1254,8 @@ setTimeout(function () {
                 $('#editEventModal').modal('show');
                 $('#edit-confirm-submitButton').off('click');
                 $('#edit-confirm-submitButton').on('click', function () {
-                    var editStartTime = $('#editEventModal #edit-start-time').val()
-                    var editEndTime = $('#editEventModal #edit-end-time').val()
+                    var editStartTime = $('#editEventModal #edit-start-time').val();
+                    var editEndTime = $('#editEventModal #edit-end-time').val();
                     $('#editEventModal').modal('hide');
                     //just before sending the form we switching resource name to resource ID
                     $('#editEventModal #edit-resourceID').val(resourceID);
@@ -1493,7 +1491,7 @@ setTimeout(function () {
     /**********************************************autocomplete for title end******************************************/
 
     /**********************************************about window start******************************************/
-    $('#aboutButton').off('click')
+    $('#aboutButton').off('click');
     $('#aboutButton').on('click', function () {
         BootstrapDialog.alert({
             title: 'O programie',

@@ -144,8 +144,8 @@
       for ( idx = 0; idx < namespace_list.length; idx++ ) {
         namespace_key = namespace_list[idx];
 
-        if ( ! namespace_key ) { continue NSPACE_00; }
-        if ( seen_map.hasOwnProperty(namespace_key) ) { continue NSPACE_00; }
+        if ( ! namespace_key ) { continue; }
+        if ( seen_map.hasOwnProperty(namespace_key) ) { continue; }
 
         seen_map[namespace_key] = true;
 
@@ -265,7 +265,7 @@
       for ( idx = 0; idx < namespace_list.length; idx++ ) {
         namespace_key = namespace_list[idx];
 
-        if ( ! namespace_key ) { continue NSPACE_01; }
+        if ( ! namespace_key ) { continue; }
 
         ue_namespace_code = '.__ue' + namespace_key;
         $bound.unbind( 'mousedown'  + ue_namespace_code );

@@ -25,7 +25,6 @@ if ($type == 'delete-all-events'){
 
     $stmt->execute();
     $stmt2->execute();
-    $dbh->commit();
     if($stmt && $stmt2)
         echo json_encode(array('status'=>'success'));
         else

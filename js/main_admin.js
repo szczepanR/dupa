@@ -64,7 +64,7 @@ function getResourceNameLocal(resourceArray, resourceID){
         }
 }
 //calendar stuff
-//calendar stuff
+//calendar stuffvxcvxcvxcv
 $(document).ready(function() {
 
     //store resources list to local array to avoid send query to database every time
@@ -75,7 +75,7 @@ $(document).ready(function() {
      *
      ****************************************************************************************************************/
     //var user = login();
-    var serverIP = '192.168.0.33';
+    var serverIP = '192.168.1.33';
     var serverPort = '3000';
     var socket = io.connect('http://' + serverIP + ':' + serverPort);
     var disconnectTime = 0;
@@ -699,7 +699,8 @@ $(document).ready(function() {
     var y = date.getFullYear();
 
     //detect mobile device
-    var isWebkit = 'WebkitAppearance' in document.documentElement.style
+    var isWebkit = 'WebkitAppearance' in document.documentElement.style;
+
 
     loadResources();
 
@@ -2595,6 +2596,7 @@ $(document).ready(function() {
             $(".fc-view-container").css('width', 'auto');
             $(".fc-view-container .fc-view").css('overflow-x', 'scroll');
             $(".fc-view-container .fc-view > table").css('width', '125%');
+            $(".fc-ltr .fc-axis").css('position:relative');
             //allows to see new values
             $(window).resize();
         }
