@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf8'/>
+
+    <title>Strona zarządzania dziećmi</title>
+    <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
+    <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet"/>-->
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-multiselect.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+    <link href="css/toastr.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="/css/fileinput.css" />
+    <!-- text fonts -->
+    <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
+    <!-- ace styles -->
+    <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="assets/css/ace-skins.min.css" />
+    <link href="css/custom.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src='js/bootstrap-dialog.js'></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-pl-PL.min.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker-pl.min.js"></script>
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="assets/js/bootstrap-multiselect.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="js/toastr.min.js"></script>
+
+    <!-- ace scripts -->
+    <script src="assets/js/jquery.maskedinput.min.js"></script>
+    <script src="assets/js/ace-elements.min.js"></script>
+    <script src="assets/js/ace.min.js"></script>
+    <!-- ace settings handler -->
+    <script src="assets/js/ace-extra.min.js"></script>
+    <script src="js/fileinput.js"></script>
+    <script src="js/locales/pl.js"></script>
+    <script src="js/cookies.js"></script>
+    <script src="js/main_kidManage.js"></script>
+    <style>
+
+        </style>
+
+</head>
+<body class="skin-3">
+<!--<nav class="navbar navbar-default navbar-fixed-top">-->
+    <!--<div class="container-fluid">-->
+        <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
+        <!--<div class="navbar-header">-->
+            <!--<a class="navbar-brand" href="#">-->
+                <!--<img alt="Brand" src="images/OREW_logo.png" class="img-rounded">-->
+            <!--</a>-->
+
+        <!--</div>-->
+        <!--<div class="navbar-form navbar-left">-->
+            <!--<button type="button" class="btn btn-success" id="addChildButton">-->
+                <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Dodaj dziecko-->
+            <!--</button>-->
+
+        <!--</div>-->
+        <!--<div class="navbar-form navbar-right">-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                   <!--Panel zarządzania <span class="caret"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu active">-->
+
+                    <!--<li  class="active"><a href="#">Zarządzanie dziećmi</a></li>-->
+
+                    <!--<li role="separator" class="divider"></li>-->
+                    <!--<li><a href="/resourceManage.html">Zarządzanie nauczycielami</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="btn-group" role="group">-->
+                <!--<a href="/admin.html" role="button" class="btn btn-default">K. ogólny</a>-->
+                <!--<a href="/plansForKids-user.html" role="button" class="btn btn-default">K. dziecka</a>-->
+            <!--</div>-->
+            <!--<button type="button" class="btn btn-default" id="optionButton">-->
+                <!--<span class="glyphicon glyphicon-cog" aria-hidden="true" ></span>-->
+            <!--</button>-->
+            <!--<button type="button" class="btn btn-default" id="aboutButton">-->
+                <!--<span class="glyphicon glyphicon-info-sign" aria-hidden="true" ></span>-->
+            <!--</button>-->
+
+        <!--</div>-->
+
+    <!--</div>-->
+<!--</nav>-->
+<div id="navbar" class="navbar navbar-default ace-save-state">
+    <div class="navbar-container ace-save-state" id="navbar-container">
+        <div class="navbar-header pull-left">
+            <a href="index.html" class="navbar-brand">
+                <small>
+                    Zarządzanie dziećmi WWR
+                </small>
+            </a>
+
+        </div>
+        <div class="navbar-buttons navbar-header pull-left" role="navigation">
+            <ul class="nav ace-nav">
+                <li class="blue dropdown-modal" id="addChildButton">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-plus"></i>
+                        Dodaj dziecko
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div><!-- /.navbar-container -->
+</div>
+<!-- page view-->
+<div class="space-6"></div>
+<div class="col-xs-12">
+<div class="row">
+    <div class="col-xs-6 col-sm-6 widget-container-col" id="widget-container-col-3">
+        <div class="widget-box">
+            <div class="widget-header widget-header-flat widget-header-small">
+                <h5 class="widget-title">Lista dzieci</h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+
+                        <div id="toolbar">
+                            <div class="form-inline" role="form">
+
+                            </div>
+                        </div>
+                        <table id="kidsTable"
+                               data-height="600"
+                               data-toolbar="#toolbar"
+                               data-show-refresh="false"
+                               data-show-toggle="false"
+                               data-search="true"
+                               data-radio="false"
+                               data-show-columns="false">
+                            <thead>
+                            <tr>
+                                <th data-field="child_id" data-halign="center" data-align="center">ID</th>
+                                <th data-field="firstname" data-halign="center" data-align="center">Imię</th>
+                                <th data-field="lastname" data-halign="center" data-align="center">Nazwisko</th>
+                            </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="col-xs-6 col-sm-6 widget-container-col" id="widget-container-child-details" style="display: none">
+        <div class="widget-box">
+            <div class="widget-header widget-header-flat widget-header-small">
+                <h5 class="widget-title" id="kidProfileWidget">Profil dziecka</h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div id="user-profile-2" class="user-profile">
+                        <div class="tabbable">
+                            <ul class="nav nav-tabs padding-18">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#home">
+                                        <i class="green ace-icon fa fa-user bigger-120"></i>
+                                        Profil dziecka
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a data-toggle="tab" href="#teraphy">
+                                        <i class="orange ace-icon fa fa-rss bigger-120"></i>
+                                        Terapia
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-toggle="tab" href="#docs">
+                                        <i class="pink ace-icon fa fa-book bigger-120"></i>
+                                        Dokumenty
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="tab-content no-border padding-24">
+                                <div id="home" class="tab-pane fade in active">
+                                    <div class="row">
+                                        <!--<div class="col-xs-12 col-sm-3 center">-->
+															<!--<span class="profile-picture">-->
+																<!--<img class="editable img-responsive" alt="Alex's Avatar" id="avatar2" src="assets/images/avatars/profile-pic.jpg" />-->
+															<!--</span>-->
+
+                                            <!--<div class="space space-4"></div>-->
+
+                                            <!--<a href="#" class="btn btn-sm btn-block btn-success">-->
+                                                <!--<i class="ace-icon fa fa-plus-circle bigger-120"></i>-->
+                                                <!--<span class="bigger-110">Add as a friend</span>-->
+                                            <!--</a>-->
+
+                                            <!--<a href="#" class="btn btn-sm btn-block btn-primary">-->
+                                                <!--<i class="ace-icon fa fa-envelope-o bigger-110"></i>-->
+                                                <!--<span class="bigger-110">Send a message</span>-->
+                                            <!--</a>-->
+                                        <!--</div>&lt;!&ndash; /.col &ndash;&gt;-->
+
+                                        <div class="col-xs-12 col-sm-9">
+                                            <h4 class="blue">
+                                                <span class="middle" id="child-profile-name"></span>
+                                            </h4>
+
+                                            <div class="profile-user-info">
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Adres </div>
+
+                                                    <div class="profile-info-value">
+                                                        <i class="fa fa-map-marker light-orange bigger-110"></i>
+                                                        <span id="child-profile-address"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Data urodzenia </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span id="child-profile-birthday"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Telefon </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span id="child-profile-phone"></span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Adres email </div>
+
+                                                    <div class="profile-info-value">
+                                                        <span id="child-profile-email"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div><!-- /.col -->
+                                    </div><!-- /.row -->
+
+                                </div><!-- /#home -->
+
+                                <div id="teraphy" class="tab-pane fade in">
+                                    <div class="profile-user-info">
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Rozpoczęcie terapii </div>
+                                            <div class="profile-info-value">
+                                                <span id="child-profile-therapy-start"></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name">Zakończenie terapii </div>
+                                            <div class="profile-info-value">
+                                                <span id="child-profile-therapy-end"></span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="space-12"></div>
+
+                                    <div class="center">
+                                        <button type="button" class="btn btn-sm btn-primary btn-white btn-round">
+                                            <i class="ace-icon fa fa-eye bigger-150 middle orange2"></i>
+                                            <span class="bigger-110">Przejdź do satystyk</span>
+
+                                            <i class="icon-on-right ace-icon fa fa-arrow-right"></i>
+                                        </button>
+                                    </div>
+                                </div><!-- /#feed -->
+
+                                <div id="docs" class="tab-pane fade in">
+                                    <h5 class="header smaller lighter grey">Dodaj nowy dokument</h5>
+                                    <p>
+                                        <input id="input-file" name="input-file" type="file" >
+                                        <input id="child-profile-id" name="child-profile-id" type="text" hidden="hidden">
+                                    </p>
+
+                                    <hr>
+                                    <h5 class="header smaller lighter grey">Lista dokumentów</h5>
+                                    <table id="documentsTable" class="table">
+                                        <thead>
+
+                                        </thead>
+                                    </table>
+                                </div><!-- /#friends -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<!--</div>-->
+
+<!--</div>-->
+
+<!-- page view-->
+
+<!--*********************************modal window for adding new child*********************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+<div id="createChildModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEvent1"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <h4 id="myModalLabelEvent1" class="modal-title">Dodawanie nowego dziecka</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createAppointmentForm">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="firstName">Imię dziecka</label>
+                                    <input type="text" name="firstName" class="form-control" id="firstName" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="lastName">Nazwisko dziecka</label>
+                                    <input type="text" name="lastName" class="form-control" id="lastName" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="IdCard">Pesel</label>
+                                    <input type="text" name="IdCard" class="form-control input-mask-id" id="IdCard" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="city">Miejscowość</label>
+                                    <input type="text" name="city" class="form-control" id="city" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="street">Ulica</label>
+                                    <input type="text" name="street" class="form-control" id="street" autocomplete="off">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="phone">Telefon</label>
+                                    <input type="text" name="phone" class="form-control input-mask-phone" id="phone" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="email">Email</label>
+                                    <input type="text" name="email" class="form-control" id="email" autocomplete="off">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <hr>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="birthday">Data urodzenia</label>
+                                    <input type="text" name="birthday" class="form-control input-mask-date" id="birthday" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="teraphy-start">Rozpoczęcie terapii</label>
+                                    <input type="text" name="teraphy-start" class="form-control input-mask-date" id="teraphy-start" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="teraphy-end">Zakończenie terapii</label>
+                                    <input type="text" name="teraphy-end" class="form-control input-mask-date" id="teraphy-end" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="opinion-number">Nr opinii</label>
+                                    <input type="text" name="opinion-number" class="form-control" id="opinion-number" autocomplete="off">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row hidden" id="kidExistsWarning">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                Dziecko o takich danych istnieje w bazie
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="cancelButton">Anuluj</button>
+                <button type="submit" class="btn btn-success" id="submitButton">Dodaj</button>
+            </div>
+        </div>
+    </div>
+  </div>
+<!--edit child modal-->
+<div id="editChildModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEventedit"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <h4 id="myModalLabelEventedit" class="modal-title">Edycja danych dziecka</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="editfirstName">Imię dziecka</label>
+                                    <input type="text" name="editfirstName" class="form-control" id="editfirstName" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="editlastName">Nazwisko dziecka</label>
+                                    <input type="text" name="editlastName" class="form-control" id="editlastName" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="editIdCard">Pesel</label>
+                                    <input type="text" name="editIdCard" class="form-control input-mask-id" id="editIdCard" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <hr>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="editcity">Miejscowość</label>
+                                    <input type="text" name="editcity" class="form-control" id="editcity" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="editstreet">Ulica</label>
+                                    <input type="text" name="editstreet" class="form-control" id="editstreet" autocomplete="off">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="editphone">Telefon</label>
+                                    <input type="text" name="editphone" class="form-control input-mask-phone" id="editphone" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="editemail">Email</label>
+                                    <input type="text" name="editemail" class="form-control" id="editemail" autocomplete="off">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <hr>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="editbirthday">Data urodzenia</label>
+                                    <input type="text" name="editbirthday" class="form-control input-mask-date" id="editbirthday" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="editteraphy-start">Rozpoczęcie terapii</label>
+                                    <input type="text" name="editteraphy-start" class="form-control input-mask-date" id="editteraphy-start" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="editteraphy-end">Zakończenie terapii</label>
+                                    <input type="text" name="editteraphy-end" class="form-control input-mask-date" id="editteraphy-end" autocomplete="off">
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <label class="control-label" for="editopinion-number">Nr opinii</label>
+                                    <input type="text" name="editopinion-number" class="form-control" id="editopinion-number" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="editCanceltButton">Anuluj</button>
+                <button type="submit" class="btn btn-success" id="editSubmitButton">Zmień</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

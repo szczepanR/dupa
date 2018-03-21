@@ -1,0 +1,8 @@
+<MWFConfig>
+  <FolderBrowserDialog>
+    <value name="Height" type="int">351</value>
+    <value name="X" type="int">795</value>
+    <value name="Width" type="int">330</value>
+    <value name="Y" type="int">377</value>
+  </FolderBrowserDialog>
+</MWFConfig>

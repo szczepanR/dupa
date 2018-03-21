@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf8'/>
+
+    <title>Strona statystyk zajęć OERW</title>
+    <link href="css/fullcalendar.css" rel="stylesheet"/>
+    <!--<link href="css/perfect-scrollbar.min.css" rel="stylesheet"/>-->
+    <link href="css/bootstrap-dialog.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/custom.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker3.css" rel="stylesheet">
+    <link href="css/bootstrap-editable.css" rel="stylesheet">
+    <link href="css/bootstrap-multiselect.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="css/bootstrap-table.css" rel="stylesheet">
+    <link href="css/select2.min.css" rel="stylesheet">
+    <link href="css/select2-bootstrap.css" rel="stylesheet">
+    <link href="css/daterangepicker.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/moment.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-datepicker.min.js"></script>
+    <script src="js/bootstrap-datepicker-pl.min.js"></script>
+    <script src="js/bootstrap-editable.min.js"></script>
+    <script src="js/bootstrap-multiselect.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+    <script src="js/bootstrap3-typeahead.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+    <script src="js/bootstrap-table-pl-PL.min.js"></script>
+    <script src="js/main_eventStatistic-oerw.js"></script>
+    <script src="js/select2.full.min.js"></script>
+    <script src="js/daterangepicker.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            padding-top: 60px;
+            font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
+            /*font-size: 14px;*/
+        }
+        #calendar {
+            width: 100%;
+            margin: 40px auto;
+            /*height: 400px;*/
+        }
+        #calendar .current_entry
+        {
+            border-color: #ff0000;
+            border-width: 4px;
+            z-index: 100 !important;
+        }
+
+        input[readonly] {
+            cursor: default;
+        }
+        .modal-header{
+            height:30px;
+            padding:4px;
+        }
+
+        .fc-slats td{
+            height: 2.5em;
+        }
+        h2{
+            font-size: 20px;
+        }
+        .w70 {
+            width: 70px !important;
+        }
+        .navbar-brand{
+
+            padding-right: 0px;
+            padding-left: 2px;
+            line-height:12px;
+            padding-top:20px;
+            padding-bottom:5px;
+            font-size: 14px;
+
+        }
+        .navbar-brand small {
+            display:block;
+            font-size:10px;
+        }
+        </style>
+
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+       <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                Statystyki zajęć
+                <small>OERW</small>
+            </a>
+
+        </div>
+           <div class="navbar-form navbar-left">
+
+                   <div class="input-group">
+                       <select id="selectKids" name="selectKids" style="width: 200px" >
+                       </select>
+                   </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                   <div class="inline-feedback">
+                       <input id="daterange" type="text" class="form-control" placeholder="wybierz zakres"/>
+                       <i class="form-control-feedback glyphicon glyphicon-calendar"></i>
+                   </div>
+               </div>
+
+                   <button id="selectKids-button" class="btn btn-primary" disabled="disabled">Wyświetl statystyki</button>
+
+           </div>
+        <div class="navbar-form navbar-right">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                   Panel zarządzania <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu active">
+
+                    <li><a href="#">Zarządzanie dziećmi</a></li>
+
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/resourceManage-oerw.html">Zarządzanie nauczycielami</a></li>
+                </ul>
+            </div>
+            <div class="btn-group" role="group">
+                <a href="/admin-oerw.html" role="button" class="btn btn-default ">K. ogólny</a>
+                <a href="/plansForKids-user-oerw.html" role="button" class="btn btn-default">K. dziecka</a>
+                <a href="/groupPlan-oerw.html" role="button" class="btn btn-default">K. grup</a>
+            </div>
+
+        </div>
+
+    </div>
+</nav>
+<!-- page view-->
+
+    <!--<div class="container">-->
+        <!--<div id="toolbar">-->
+            <!--<div class="form-inline" role="form">-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <!--<table id="kidsTable"-->
+              <!--data-height="560"-->
+              <!--data-toolbar="#toolbar"-->
+              <!--data-show-refresh="true"-->
+              <!--data-show-toggle="true"-->
+              <!--data-search="true"-->
+              <!--data-radio="true"-->
+              <!--data-show-columns="true">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th data-field="child_id" data-halign="center" data-align="center">ID</th>-->
+                <!--<th data-field="firstname" data-halign="center" data-align="center">Imię</th>-->
+                <!--<th data-field="lastname" data-halign="center" data-align="center">Nazwisko</th>-->
+                <!--<th data-field="groupName" data-halign="center" data-align="center">Grupa</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+        <!--</table>-->
+    <!--</div>-->
+<!-- page view-->
+
+<!--*********************************modal window for adding new child*********************************-->
+<!--TODO: form validation, datepicker for repeat options, at this moment there is a whole year-->
+<div id="createChildModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEvent"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelEvent" class="modal-title">Dodawanie nowego dziecka</h4>
+            </div>
+            <div class="modal-body">
+                <form id="createAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="firstName">Imię dziecka</label>
+                                    <input type="text" name="firstName" class="form-control" id="firstName" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="lastName">Nazwisko dziecka</label>
+                                    <input type="text" name="lastName" class="form-control" id="lastName" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <!--<label class="control-label" for="groupName">Grupa</label>-->
+                                    <!--<input type="text" name="groupName" class="form-control" id="groupName" autocomplete="off">-->
+                                    <label for="groupName">Grupa:</label>
+                                    <select class="form-control" id="groupName">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="kidExistsWarning">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                Dziecko o takich danych istnieje w bazie
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="cancelButton">Anuluj</button>
+                        <button type="submit" class="btn btn-success" id="submitButton">Dodaj</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!--edit child modal-->
+<div id="editChildModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabelEventedit"
+     aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header modal-header-warning">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+                <h4 id="myModalLabelEventedit" class="modal-title">Edycja dziecka</h4>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm" role="form">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="firstName">Imię dziecka</label>
+                                    <input type="text" name="firstName" class="form-control" id="editfirstName" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <label class="control-label" for="lastName">Nazwisko dziecka</label>
+                                    <input type="text" name="lastName" class="form-control" id="editlastName" autocomplete="off">
+
+                                </div>
+                            </div>
+                            <div class="col-xs-5">
+                                <div class="form-group">
+                                    <!--<label class="control-label" for="editGroupName">Grupa</label>-->
+                                    <!--<input type="text" name="editGroupName" class="form-control" id="editGroupName" autocomplete="off">-->
+                                    <label for="editgroupName">Grupa:</label>
+                                    <select class="form-control" id="editgroupName">
+                                        <option>A</option>
+                                        <option>B</option>
+                                        <option>C</option>
+                                        <option>D</option>
+                                        <option>E</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row hidden" id="kidExistsWarningEdit">
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                Dziecko o takich danych istnieje w bazie
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn cancel" data-dismiss="modal" aria-hidden="true" id="editCanceltButton">Anuluj</button>
+                        <button type="submit" class="btn btn-success" id="editSubmitButton">Zmień</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        <h3 class="panel-title" id="panelWithTable">Wybierz dziecko z listy</h3>
+    </div>
+    <div class="panel-body">
+
+        <div id="containerTable" class="container" style="display:none">
+        <div id="toolbar">
+        <div class="form-inline" role="form">
+
+        </div>
+        </div>
+        <table id="statisticTable"
+        data-height="560"
+        data-toolbar="#toolbar"
+        data-show-refresh="true"
+        data-show-toggle="true"
+        data-search="true"
+        data-radio="true"
+        data-show-columns="true"
+        class="table">
+        <thead>
+        <tr>
+        <!--<th data-field="child_id" data-halign="center" data-align="center">ID</th>-->
+        <th data-field="resourceName" data-halign="center" data-align="center">Terapeuta</th>
+        <th data-field="passedEvents" data-halign="center" data-align="center">Zajęcia nieodwołane</th>
+        <th data-field="cancelEvents" data-halign="center" data-align="center">Zajęcia odwołane</th>
+            <th data-field="totalEvents" data-halign="center" data-align="center" >Wszystkie zajęcia</th>
+        </tr>
+        </thead>
+        </table>
+        </div>
+
+    </div>
+    <div class="panel-footer" id="panelWithTableFooter" style="display:none"></div>
+</div>
+</body>
+</html>
