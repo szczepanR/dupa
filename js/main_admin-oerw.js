@@ -478,7 +478,7 @@ function getRadioVal(form, name) {
             lang: 'pl',
             defaultView: 'resourceDay',
             //defaultView:'agendaWeek',
-            editable: false,
+            editable: true,
             droppable: true,
             selectable: true,
             selectHelper: true,
@@ -2202,14 +2202,20 @@ else {
             
 
     eventRender: function (event, element) {
-         
 
+        if (( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+
+            $('#calendar').fullCalendar('getView').calendar.options.editable = false;
+        }
         //detect if we allow to drag&drop events
         if (document.getElementById('editCalendar').checked == true) {
+            var tableRows =  $("#selectResource :selected").length;
+            console.log(tableRows);
+            var tableWidth = 60*tableRows;
            
            $(".fc-view-container").css('width', 'auto');
             $(".fc-view-container .fc-view").css('overflow-x', 'scroll');
-            $(".fc-view-container .fc-view > table").css('width', '140%');
+            $(".fc-view-container .fc-view > table").css('width', tableWidth+'px');
             $(".fc-ltr .fc-axis").css('position:relative');
             
            
